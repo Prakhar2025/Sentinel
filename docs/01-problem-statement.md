@@ -10,7 +10,7 @@ Organized fraud rings operating across India's digital payment ecosystem recycle
 |------|------------------|
 | UPI fraud losses: **₹573 crore (FY23) → ₹1,087 crore (FY24)**, nearly doubled in one year | PwC India, *Combating Payments Fraud* |
 | UPI processed **~22,000 crore transactions in CY2025**; ~7,500 TPS sustained, 10,000+ TPS peaks | PIB / NPCI |
-| RBI proposed a **1-hour cooling period for first-time high-risk payments** (Oct 2025), a direct regulatory response to first-payment fraud | RBI draft framework, widely reported |
+| RBI proposed a **1-hour cooling period for select digital payments above ₹10,000** (discussion paper, April 2026; **not yet adopted**), a direct regulatory response to first-payment fraud | RBI discussion paper, public feedback closed May 8, 2026 |
 | Refund abuse is now the **#1 attack vector** (47% of merchants report it); merchants average 5 fraud tools yet still lose margin | The Payments Association, 2025 fraud trends |
 | AI-enabled fraud (synthetic identities, scripted ring attacks) is the fastest-growing category in Indian BFSI | Track 02 brief |
 
@@ -30,7 +30,7 @@ Fraud-ring exposure per month (illustrative, conservative):
   Total monthly bleed               ≈ ₹1,89,000  (~₹22.7 lakh/year)
 ```
 
-Rough ROI at the design operating point (recall ≈ 60% of ring events caught, precision ≈ 0.80; FP cost ₹321 per doc 05):
+Rough ROI at a deliberately conservative operating point (recall ≈ 60% of ring events caught, below the recall ≥ 0.70 design target in doc 05, so this is a floor, not the target case; precision ≈ 0.80; FP cost ₹321 per doc 05):
 
 ```
 Fraud events in the bleed model: 200/month (120 chargebacks + 80 refund abuse)
