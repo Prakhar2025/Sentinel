@@ -10,7 +10,8 @@
 |-------|-------|-------|
 | 0 | Scaffold, tooling, CI, Bedrock model verification | done |
 | 1 | Seeded synthetic generator (900 clean / 100 fraud, ring-stratified splits) | done |
-| 2-8 | Graph, scorer, API, LLM layer, evaluation, console | planned (see [docs/11-roadmap.md](docs/11-roadmap.md)) |
+| 2 | Entity normalization + identity link graph with taint propagation | done |
+| 3-8 | Scorer, API, LLM layer, evaluation, console | planned (see [docs/11-roadmap.md](docs/11-roadmap.md)) |
 
 ## Quick start
 
