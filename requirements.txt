@@ -1,4 +1,3 @@
--e git+https://github.com/Prakhar2025/Sentinel.git@96451eee06e38ea19a92adbb6416f50b9c68e5bb#egg=abuse_ring_sentinel
 annotated-doc==0.0.5
 annotated-types==0.8.0
 anyio==4.14.2
