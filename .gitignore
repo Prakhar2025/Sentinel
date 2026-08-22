@@ -1,0 +1,44 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Environment and secrets (NEVER commit)
+.env
+.env.*
+!.env.example
+
+# Test and tool caches
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+coverage.xml
+htmlcov/
+
+# Local databases and generated artifacts
+*.db
+*.sqlite3
+evaluation/
+data/generated/
+graphml/
+
+# OS noise
+Thumbs.db
+.DS_Store
+
+# Node (analyst console, Phase 7)
+node_modules/
+.next/
+out/
+
+# Spool files from degraded-mode ingestion
+*.spool
