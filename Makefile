@@ -1,4 +1,4 @@
-.PHONY: setup check lint format type test test-all calibrate evaluate models hooks clean
+.PHONY: setup check lint format type test test-all serve calibrate evaluate models hooks clean
 
 # One-time setup: virtualenv, pinned deps, git hooks.
 setup:
@@ -34,6 +34,10 @@ test:
 
 test-all:
 	.venv/Scripts/python -m pytest
+
+# Run the API service locally on port 8000.
+serve:
+	.venv/Scripts/python -m uvicorn sentinel.service:create_app --factory --port 8000
 
 # Calibrate weights/thresholds on train+calibration splits (writes evaluation/model_config.json).
 calibrate:

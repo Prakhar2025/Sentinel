@@ -12,7 +12,8 @@
 | 1 | Seeded synthetic generator (900 clean / 100 fraud, ring-stratified splits) | done |
 | 2 | Entity normalization + identity link graph with taint propagation | done |
 | 3 | F1-F7 features, deterministic scorer, verdict engine, calibration lock | done |
-| 4-8 | API, LLM layer, evaluation, console | planned (see [docs/11-roadmap.md](docs/11-roadmap.md)) |
+| 4 | FastAPI service: two-key auth, audit store, masking, spooling, degradation | done |
+| 5-8 | LLM layer, evaluation, console | planned (see [docs/11-roadmap.md](docs/11-roadmap.md)) |
 
 ## Quick start
 
