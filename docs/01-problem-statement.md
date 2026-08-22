@@ -9,7 +9,7 @@ Organized fraud rings operating across India's digital payment ecosystem recycle
 | Fact | Source / Context |
 |------|------------------|
 | UPI fraud losses: **₹573 crore (FY23) → ₹1,087 crore (FY24)**, nearly doubled in one year | PwC India, *Combating Payments Fraud* |
-| UPI processed **~22,000 crore transactions in CY2025**; ~7,500 TPS sustained, 10,000+ TPS peaks | PIB / NPCI |
+| UPI processed **~22,000 crore transactions in CY2025**; ~8,000 TPS average (NPCI Jan 2026: 21.7B transactions/month), peaks well above 10,000 | PIB / NPCI |
 | RBI proposed a **1-hour cooling period for select digital payments above ₹10,000** (discussion paper, April 2026; **not yet adopted**), a direct regulatory response to first-payment fraud | RBI discussion paper, public feedback closed May 8, 2026 |
 | Refund abuse is now the **#1 attack vector** (47% of merchants report it); merchants average 5 fraud tools yet still lose margin | The Payments Association, 2025 fraud trends |
 | AI-enabled fraud (synthetic identities, scripted ring attacks) is the fastest-growing category in Indian BFSI | Track 02 brief |

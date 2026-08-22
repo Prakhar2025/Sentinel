@@ -104,7 +104,7 @@ flowchart LR
     RE --> AN
 ```
 
-Scale envelope used for design reasoning: UPI sustains ~7,500 TPS (peaks 10k+); Razorpay-scale ingestion therefore demands stream processing + sharded graph store. The local build proves the logic; this diagram proves we understand what productionization requires.
+Scale envelope used for design reasoning: UPI runs ~8,000 TPS on average (NPCI Jan 2026: 21.7B transactions/month), peaks well above 10k; Razorpay-scale ingestion therefore demands stream processing + sharded graph store. The local build proves the logic; this diagram proves we understand what productionization requires.
 
 ## Failure Handling Strategy
 

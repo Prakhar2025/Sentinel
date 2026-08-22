@@ -36,6 +36,7 @@ We treat this as a formal security property. Analysis of dual-use surface:
 ## Production AuthN/Z Design (documented, not built)
 
 - Merchant-scoped JWTs; verdict visibility restricted to each merchant's own events + **federated signals only** ("linked to N confirmed-fraud events elsewhere", count and recency, never another merchant's identity data). This federated-privacy pattern is what makes cross-merchant detection deployable without merchants sharing customer data with each other.
+- **Raw entity data is admin-scoped** (doc 06 `GET /v1/risk/entities`): standard-scope callers get federated aggregates only (linked-merchant count, fan-out, recency, taint); the actual merchant and identity lists behind an entity require `X-Admin-Key` and every such call is audit-logged.
 - Immutable audit store with separate write-only credentials.
 - Rate limits: 100 req/min/merchant (demo), production per-contract.
 

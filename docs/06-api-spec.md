@@ -47,7 +47,25 @@ Analyst ranked queue: verdicts filtered + sorted by score desc, with evidence su
 
 ## GET /v1/risk/entities/{entity_type}/{entity_value}
 
-Entity-centric lookup: the merchants, identities, and devices linked to a given VPA / phone / device, plus current taint and fan-out stats. Entity types: `upi | phone | device | email`.
+Entity-centric lookup for `upi | phone | device | email`. **Response is scoped by key** (this is the enforcement point of the federated-privacy promise in doc 07):
+
+**Standard API key → federated aggregates only.** Counts, fan-out, recency, taint. Never another merchant's identifiers:
+
+```json
+{
+  "entity_type": "device",
+  "entity_value": "dev_9f2a1c",
+  "federated_signal": {
+    "linked_merchant_count": 4,
+    "max_cross_merchant_fanout": 4,
+    "linked_identity_count": 6,
+    "fraud_taint": 0.36,
+    "last_link_recency": "2h"
+  }
+}
+```
+
+**Admin key (`X-Admin-Key`) → full investigation view**: actual linked merchant IDs, linked identity list, and taint paths, for internal ops/ring investigation only. Every admin-scoped call is appended to the audit store (same pattern as unmask). This split also closes the "is this identity burned?" probing vector flagged in doc 07's dual-use analysis: a standard-key caller can learn that an entity is risky, but cannot enumerate which merchants to attack next.
 
 ## GET /v1/graph/cluster/{customer_id}
 
@@ -89,4 +107,5 @@ Liveness / readiness (readiness = graph store loaded + Bedrock reachable-flag, w
 - **Idempotency**: `event_id` is the key; replays return the stored verdict (`200`, `duplicate: true`).
 - **Money**: always integer paise.
 - **PII**: phone numbers returned masked by default (`+9198XXXX5678`); full value only via `?unmask=true`, which requires the separate **admin credential** (`X-Admin-Key` = `SENTINEL_ADMIN_API_KEY`, distinct from the standard API key), and **every unmask request is appended to the audit store** (entity, requester key id, timestamp, verdict context).
+- **Scope**: cross-merchant raw identifiers (merchant IDs, linked identity lists) are admin-key-only; standard-scope callers receive federated aggregates (counts, fan-out, recency, taint) per doc 07.
 - **Versioning**: URL-versioned (`/v1`); `schema_version` in every payload; breaking changes bump the URL.

@@ -35,7 +35,7 @@ Indian digital payments are under sustained attack by organized fraud rings that
 The local build proves the **detection logic, evaluation honesty, and API contracts**. It deliberately does not demonstrate, and makes no measured claims about:
 
 - **Streaming ingestion / production throughput**: no Kinesis/Flink; synchronous API only. The production topology is documented (doc 03) but unbuilt.
-- **Graph scale**: in-process networkx, not sharded Neo4j. No claims about behavior at UPI-scale volumes (7,500+ TPS).
+- **Graph scale**: in-process networkx, not sharded Neo4j. No claims about behavior at UPI-scale volumes (8,000+ TPS average).
 - **Real-world data**: all data is synthetic by design (no real PII); metrics measure the detector against a specified synthetic attack model, not observed fraud in the wild.
 - **Measured latency**: all latency figures are design targets until Phase 6 benchmarks are back-filled into doc 02.
 - **Multi-tenant authN/Z, HA, deployment**: static demo keys, single process, local SQLite.
