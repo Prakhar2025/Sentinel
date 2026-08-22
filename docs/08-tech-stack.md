@@ -34,15 +34,23 @@ Compute is local; no AWS infra is deployed. Credits are effectively not a constr
 
 **Cost caveat:** per-token prices vary by Bedrock region and model tier; the estimates above assume the cheapest available tier for each model. The Phase 0 model-verification calls (below) also record actual observed pricing/latency, and the envelope is updated then. If gpt-oss 120B proves unavailable or materially pricier in the configured region, the fallback chain (doc 03) already routes to gpt-oss-20B / GLM-5 / Llama 3.3 70B, all cheaper, with no architecture change.
 
-## Appendix, Model Verification Log (fill in during Phase 0, before Phase 5)
+## Appendix, Model Verification Log (measured 2026-08-22, us-east-1)
 
-The design assumes all four candidate models honor constrained/structured JSON output on Bedrock comparably. **Verify on day 1 with one throwaway call per model** (10-event evidence payload → explanation JSON) and record results here, this becomes the measured half of the model-selection justification (doc 03):
+The design assumed all candidate models honor constrained/structured JSON output on Bedrock comparably. **Measured on day one with one bounded call per model** (`scripts/verify_models.py`; discovery via the free control-plane API, at most one inference per model per run). Results:
 
-| Model | Constrained JSON OK? | Observed latency | Quality note | Verdict |
-|-------|----------------------|------------------|--------------|---------|
-| gpt-oss 120B | _pending Phase 0_ | | | |
-| gpt-oss 20B | _pending Phase 0_ | | | |
-| GLM-5 | _pending Phase 0_ | | | |
-| Nova Lite | _pending Phase 0_ | | | |
+| Model | Bedrock model ID (live) | Constrained JSON | Latency (1 call) | Quality note | Verdict |
+|-------|-------------------------|------------------|------------------|--------------|---------|
+| gpt-oss 120B | `openai.gpt-oss-120b-1:0` | prompt-only (native responseFormat rejected) | 7,235 ms | valid JSON; reasoning model needs ≥512 maxTokens or returns empty text | Primary explanation model; async by design, so latency acceptable |
+| gpt-oss 20B | `openai.gpt-oss-20b-1:0` | prompt-only | 1,360 ms | valid JSON | FALLBACK_1 |
+| GLM-5 | `zai.glm-5` | prompt-only | 703 ms | valid JSON, unfenced | FALLBACK_2 (fastest full-quality fallback) |
+| Nova Lite | `amazon.nova-lite-v1:0` | prompt-only | 514 ms | valid JSON, wrapped in markdown fences | Extraction model |
+| Llama 3.3 70B | `meta.llama3-3-70b-instruct-v1:0` | not invocable | n/a | listed in-region but Converse rejects the base ID (needs a cross-region inference profile) | Out of the chain; GLM-5 keeps the final fallback slot |
 
-If constrained output behaves materially differently across providers, the Phase 5 design (jsonschema gate + single structured retry) is revisited **before** it is built.
+**Conclusions feeding Phase 5 (this is why the log exists):**
+
+1. **No candidate supports native `responseFormat` JSON on Bedrock.** The Phase 5 pipeline must be prompt-based JSON + markdown-fence stripping + jsonschema validation + a single structured retry. The doc 05/06 design is confirmed; fence-stripping is now a hard requirement (Nova and GLM both fence).
+2. **gpt-oss models are reasoning models**: a 128-token budget produced empty output (all tokens spent thinking). Phase 5 uses ≥512 maxTokens for explanation calls and must not parse empty text as failure-to-comply without checking the stop reason.
+3. **Latency spread is 14x** (514 ms Nova vs 7.2 s gpt-oss-120b). Explanations stay async; batch backfill must be concurrent, not serial, or 1,000 explanations at 7 s would take ~2 hours.
+4. **The earlier "prefer llama-3.3-70b in US regions" note is measured-wrong for us-east-1**: the model is listed but its base ID is not invocable there. Chain stays gpt-oss-120b → gpt-oss-20b → glm-5.
+
+Total verification spend: 3 bounded runs, ~15 calls of ≤512 tokens, well under $0.10 of the $20 budget.

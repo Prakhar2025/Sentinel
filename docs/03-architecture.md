@@ -72,13 +72,13 @@ Selection criteria applied: (1) reliable constrained JSON output, non-negotiable
 **Model routing policy** (env-configurable; boto3 default credential chain, never explicit keys):
 
 ```
-EXTRACTION_MODEL          = nova-lite
-EXPLANATION_MODEL         = gpt-oss-120b
-FALLBACK_1_EXPLANATION    = gpt-oss-20b
-FALLBACK_2_EXPLANATION    = glm-5        # prefer llama-3.3-70b instead if the account region offers it (US regions), cheaper at comparable quality
+EXTRACTION_MODEL          = amazon.nova-lite-v1:0
+EXPLANATION_MODEL         = openai.gpt-oss-120b-1:0
+FALLBACK_1_EXPLANATION    = openai.gpt-oss-20b-1:0
+FALLBACK_2_EXPLANATION    = zai.glm-5
 ```
 
-Fallbacks are attempted in order on timeout/throttle/malformed-JSON exhaustion; once the chain is exhausted the verdict stands with `explanation_status=SKIPPED` (degradation ladder, doc 10). The full model-verification log (constrained-JSON behavior per model, measured in Phase 0) lives in doc 08.
+All four IDs verified against the live us-east-1 control plane on 2026-08-22, with latency and constrained-JSON measurements in the doc 08 appendix. Notable measured findings: no model supports native responseFormat JSON (prompt-based JSON + fence-stripping + jsonschema gate is the confirmed Phase 5 design), gpt-oss needs ≥512 maxTokens (reasoning), and llama-3.3-70b, though listed, is not invocable via its base ID in this region, so it stays out of the chain. Fallbacks are attempted in order on timeout/throttle/malformed-JSON exhaustion; once the chain is exhausted the verdict stands with `explanation_status=SKIPPED` (degradation ladder, doc 10).
 
 ## Production Topology (documented, not built)
 
