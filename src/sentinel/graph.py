@@ -116,12 +116,17 @@ class GraphStore:
             entity_nodes.append(entity)
 
         self._graph.nodes[customer]["event_count"] += 1
+        self._graph.nodes[customer]["amount_sum"] += float(event.amount_paise)
+        self._graph.nodes[customer]["amount_count"] += 1
         for entity in entity_nodes:
             self._recompute_entity(entity)
 
         if event.prior_outcome in FRAUD_OUTCOMES:
             self._graph.nodes[customer]["confirmed_fraud"] = True
             self._graph.nodes[customer]["fraud_taint"] = 1.0
+            current_fraud_ts = self._graph.nodes[customer]["fraud_ts"]
+            if current_fraud_ts == 0.0 or ts < current_fraud_ts:
+                self._graph.nodes[customer]["fraud_ts"] = ts
             self._taint_sources.add(customer)
             self._spread_taint(customer)
         elif created_edges and self._taint_sources:
@@ -143,6 +148,9 @@ class GraphStore:
                 linked_identity_count=0,
                 fraud_taint=0.0,
                 confirmed_fraud=False,
+                fraud_ts=0.0,
+                amount_sum=0.0,
+                amount_count=0,
             )
         else:
             self._graph.nodes[node]["last_seen"] = max(self._graph.nodes[node]["last_seen"], ts)
@@ -269,6 +277,32 @@ class GraphStore:
         if node not in self._graph:
             return None
         return dict(self._graph.nodes[node])
+
+    def raw_node_attrs(self, node: str) -> dict[str, float | int | bool | str] | None:
+        """Read attributes of a node by its canonical id string."""
+        if node not in self._graph:
+            return None
+        return dict(self._graph.nodes[node])
+
+    def successors(self, node: str) -> list[str]:
+        """Out-neighbors of a node by canonical id."""
+        return list(self._graph.successors(node)) if node in self._graph else []
+
+    def edge_attrs(self, source: str, target: str) -> dict[str, float | int] | None:
+        """Attributes of the directed edge between two canonical node ids."""
+        if self._graph.has_edge(source, target):
+            return dict(self._graph.edges[source, target])
+        return None
+
+    def has_node(self, node: str) -> bool:
+        """Whether a canonical node id exists."""
+        return node in self._graph
+
+    def undirected_neighbors(self, node: str) -> list[str]:
+        """Neighbors ignoring edge direction (identity traversal views)."""
+        if node not in self._graph:
+            return []
+        return list(self._graph.to_undirected(as_view=True).neighbors(node))
 
     @property
     def size(self) -> int:
