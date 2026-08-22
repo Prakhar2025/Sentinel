@@ -42,6 +42,10 @@ class Settings(BaseSettings):
     review_threshold: int = 35
     block_threshold: int = 70
 
+    # Service wiring
+    model_config_path: str = "evaluation/model_config.json"
+    spool_dir: str = "data/spool"
+
 
 @lru_cache
 def get_settings() -> Settings:
