@@ -5,6 +5,7 @@ setup:
 	py -3.12 -m venv .venv
 	.venv/Scripts/python -m pip install --upgrade pip
 	.venv/Scripts/python -m pip install -r requirements.txt
+	.venv/Scripts/python -m pip install -e . --no-deps
 	@cp scripts/hooks/pre-commit .git/hooks/pre-commit 2>/dev/null || true
 	@echo "Setup complete. Activate: .venv/Scripts/activate"
 
