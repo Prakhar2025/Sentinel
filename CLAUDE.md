@@ -158,20 +158,27 @@ Generate synthetic data (900 clean, 100 fraud transactions, realistic patterns).
 - Show what broke. Show how you fixed it — genuinely, don't invent a failure.
 - Use AWS Bedrock models only. No external paid APIs.
 - Must run locally without deployed infrastructure.
-- Keep the codebase under 3000 lines. Quality over quantity.
+- **No line-count cap** (owner decision, 2026-08-22). Discipline instead: every module must deliver a measured capability, a test, and documentation. Signal density over volume; no speculative features or abstraction.
+- **Bedrock budget:** soft budget of $20 for the whole build. Never call Bedrock inside unbounded loops or retry storms; every script that spends money has an explicit call cap and prints what it spent. Verification calls are one-shot per model.
 
 **Security rule (non-negotiable):**
 - Use the default AWS credential chain via boto3 (`boto3.client(...)` with no explicit keys). Credentials are already configured in the local AWS CLI.
 - NEVER read, print, `cat`, or echo the contents of `~/.aws/credentials`, `.env` files, or any variable containing SECRET or KEY, for any reason including debugging. If auth fails, report the error message only, never the credential values.
+- NEVER commit `.env`, keys, or account identifiers to the repository. Gitleaks runs in CI on every push.
 
 ---
 
-## Section 8: Start
+## Section 8: Build Protocol (phase-gated)
 
-Do NOT write any code yet.
+The design phase is complete (see `/docs`). Code is now built in phases per `docs/11-roadmap.md`, with this loop per phase:
 
-First, respond with:
-1. The complete ARCHITECTURE.md content
-2. Your build plan, step by step, with verification checks
+1. **Build** the phase scope only.
+2. **Verify** locally: `ruff check`, `ruff format --check`, `mypy`, `pytest` all green, plus the phase's checkpoint from doc 11.
+3. **Push** with a professional conventional commit (`type(phase-N): summary`, e.g. `feat(phase-1): seeded generator with ring-stratified splits`).
+4. **Report** what was built, verification results, and anything that broke (append to `docs/what-broke.md` in real time).
+5. **Wait** for the owner's explicit go before the next phase.
 
-Wait for my confirmation before writing any code.
+Rules that hold across all phases:
+- Modern repo management: src-layout package, pinned `requirements.txt` (lockfile), CI on every push, no direct commits to main that skip local checks.
+- Latest stable versions of all dependencies; pins refreshed deliberately, never silently.
+- `docs/what-broke.md` freshness is enforced by a pre-commit hook. Log failures as they happen; never invent or polish them afterward.
