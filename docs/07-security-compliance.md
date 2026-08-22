@@ -16,7 +16,7 @@ We treat this as a formal security property. Analysis of dual-use surface:
 ## Data Protection (India DPDP Act 2023 alignment)
 
 - **No real PII anywhere.** Synthetic data only; generator produces Indian-format identifiers that are provably non-real (reserved number ranges, synthetic VPA handles).
-- **Data minimization:** store only entities needed for linking; mask phones in API responses by default.
+- **Data minimization:** store only entities needed for linking; mask phones in API responses by default. Unmasking requires a **separate admin credential** (`SENTINEL_ADMIN_API_KEY`, distinct from the standard API key) and every unmask request is written to the audit store (doc 06).
 - **Purpose limitation:** labels (fraud/clean) exist only for evaluation, physically separated from the serving path.
 - **Audit trail:** every verdict queryable with evidence (DPDP accountability principle).
 - Production notes: consent artifacts for entity graph building, retention policy (identity graph TTL per entity type), erasure workflow (right to erasure → node deletion + re-link integrity check) — documented as production requirements, out of local build scope.
@@ -31,7 +31,7 @@ We treat this as a formal security property. Analysis of dual-use surface:
 1. AWS access via **boto3 default credential chain only** — never explicit keys in code.
 2. Never read/print/echo `~/.aws/credentials`, `.env`, or any `*SECRET*`/`*KEY*` variable — including for debugging. Auth failures report the error message only.
 3. `.env` in `.gitignore`; `.env.example` documents required variables with placeholder values.
-4. Static API key for the demo comes from env (`SENTINEL_API_KEY`); production design uses OAuth2 client-credentials per merchant with scope-limited tokens.
+4. Demo credentials come from env: `SENTINEL_API_KEY` (standard scope) and `SENTINEL_ADMIN_API_KEY` (admin scope — the only key that can unmask PII); production design uses OAuth2 client-credentials per merchant with scope-limited tokens.
 
 ## Production AuthN/Z Design (documented, not built)
 

@@ -10,7 +10,7 @@
 
 ## User Stories
 
-1. **US-1 (Ingest & Score)** — As a merchant system, when a payment event arrives, I want a risk verdict (ALLOW / REVIEW / BLOCK-recommend) + score + reason codes within **< 300 ms p95** (local; design target 100 ms at production scale).
+1. **US-1 (Ingest & Score)** — As a merchant system, when a payment event arrives, I want a risk verdict (ALLOW / REVIEW / BLOCK-recommend) + score + reason codes within **< 300 ms p95**. *The 300 ms covers the synchronous verdict path only (validate → graph update → deterministic score → verdict); the LLM explanation is asynchronous and cached.* **DESIGN TARGET — not yet measured; the real p95 is benchmarked in Phase 6 and back-filled here.**
 2. **US-2 (Ring Detection)** — As a risk analyst, I want to see when an identity contacting my merchant is already linked to confirmed fraud at other merchants — with the cross-merchant evidence trail.
 3. **US-3 (Explainability)** — As any user, I want every score backed by: top contributing signals, the linked entities, and a generated natural-language explanation.
 4. **US-4 (Honest Metrics)** — As a platform team, I want a reproducible evaluation harness that reports precision, recall, F1, confusion matrix, and **false-positive cost in ₹** on a held-out set.
@@ -37,7 +37,7 @@
 
 | ID | Requirement | Target |
 |----|-------------|------|
-| NFR-1 | Latency (local, end-to-end per event) | p95 < 300 ms (graph scoring alone < 20 ms; LLM explanation async/cached) |
+| NFR-1 | Latency (local, synchronous verdict path per event) | **Design target:** p95 < 300 ms (graph scoring alone: target < 20 ms; LLM explanation async, never on this path). **Measured values filled in at Phase 6 and updated here.** |
 | NFR-2 | Determinism | Same input + same graph state → same score (LLM only explains, never scores) |
 | NFR-3 | Reproducibility | `make evaluate` produces identical metrics from fixed random seed |
 | NFR-4 | Cost | Full build + evaluation within $550 AWS credits |
@@ -55,6 +55,29 @@
 | Streaming infra (Kafka/Kinesis) | Local-first constraint; batch + synchronous API demonstrates the design; production topology documented in arch doc |
 | Deep learning / GNN model training | At 1000-event scale, learned GNNs would overfit; deterministic graph heuristics + features are honest, explainable, and sufficient. GNN is the documented v2 path |
 | Mule-account / AML detection | Different loss class; noted as roadmap extension |
+
+## Dashboard Wireframe (FR-10 / P1, single-page view)
+
+```
+┌────────────────────────────────────────────────────────────────────────┐
+│ Abuse-Ring Sentinel — Analyst Console          verdict ▾  score ▾  ⟳   │
+├──────────────────────────┬─────────────────────────────────────────────┤
+│ Ranked queue (score ↓)   │  Detail pane                                 │
+│ ┌──────────────────────┐ │  event evt_01H…  Score 78  BLOCK_REC        │
+│ │ #1 78 BLOCK_REC  ●   │ │  Reasons: RNG_DEVICE_FANOUT · RNG_TAINT     │
+│ │ #2 71 BLOCK_REC  ●   │ │  ── Features ──────────────────────────     │
+│ │ #3 64 REVIEW     ▲   │ │  F1 ratio 6.0   F2 fanout 4   F3 taint 0.36 │
+│ │ #4 61 REVIEW     ▲   │ │  ── Evidence ──────────────────────────     │
+│ │ #5 55 REVIEW     ▲   │ │  merchants(4): mcht_88… · 90… · 77… · 10…   │
+│ │ …                    │ │  identities on device: 6                    │
+│ └──────────────────────┘ │  taint path: cust_54(fraud)→dev_9f→cust_55  │
+│ filters: merchant ▾ 7d ▾ │  ┌─ cluster graph ──────────────────────┐   │
+│                          │  │   ○ cust ─□ dev ─◇ vpa ─◀ merchant  │   │
+│ export: CSV  │  ⌕ entity │  │   ○ cust ─┘ (tainted edges in red)   │   │
+│                          │  └───────────────────────────────────────┘   │
+│                          │  LLM narrative: "…" [explanation_status ●]   │
+└──────────────────────────┴─────────────────────────────────────────────┘
+```
 
 ## Success Definition (buildathon bar mapping)
 

@@ -69,7 +69,16 @@ Two distinct LLM jobs with different needs:
 
 Selection criteria applied: (1) reliable constrained JSON output — non-negotiable for audit pipeline, (2) latency tier, (3) cost within credits, (4) availability in the configured region. Anthropic models are blocked per constraints and were not considered. DeepSeek-R1 was rejected for explanations — reasoning traces add latency without improving a summarization task.
 
-**Model routing policy:** `EXTRACTION_MODEL=nova-lite`, `EXPLANATION_MODEL=gpt-oss-120b` with `FALLBACK_EXPLANATION_MODEL=glm-5`, all env-configurable; call sites use the boto3 default credential chain (never explicit keys).
+**Model routing policy** (env-configurable; boto3 default credential chain — never explicit keys):
+
+```
+EXTRACTION_MODEL          = nova-lite
+EXPLANATION_MODEL         = gpt-oss-120b
+FALLBACK_1_EXPLANATION    = gpt-oss-20b
+FALLBACK_2_EXPLANATION    = glm-5        # prefer llama-3.3-70b instead if the account region offers it (US regions) — cheaper at comparable quality
+```
+
+Fallbacks are attempted in order on timeout/throttle/malformed-JSON exhaustion; once the chain is exhausted the verdict stands with `explanation_status=SKIPPED` (degradation ladder, doc 10). The full model-verification log (constrained-JSON behavior per model, measured in Phase 0) lives in doc 08.
 
 ## Production Topology (documented, not built)
 

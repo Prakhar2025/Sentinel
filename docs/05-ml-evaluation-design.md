@@ -25,6 +25,12 @@ score = clip( Σ wᵢ · norm(Fᵢ), 0, 100 ),  wᵢ calibrated on train split,
 
 Thresholds set on the **calibration split** (never the test split) to target a design point of **precision ≥ 0.80 at recall ≥ 0.70**, then locked and run once on the held-out test set. Any post-hoc threshold change is disclosed in the metrics report — this is the honesty protocol.
 
+### How the weights are calibrated (train split only)
+
+1. **Method:** coordinate ascent over the 7 feature weights (weights constrained to sum to 100), maximizing F1 under **5-fold ring-grouped cross-validation on the train split only**. Ring-grouped CV folds by ring, mirroring the split-integrity rule — no ring's entities span folds.
+2. **Freeze:** after ascent converges, final weights are frozen as named constants, published in code, and recorded in `metrics.json` under `MODEL_VERSION`.
+3. **Order of operations (non-negotiable):** weights ← train split → thresholds ← calibration split → single pass on held-out test. No tuning of anything on the test set; any later change bumps `MODEL_VERSION` and re-runs the whole protocol with disclosure.
+
 ### Why not a trained classifier (stated tradeoff)
 
 At 1,000 events with heavy entity overlap, logistic regression / GBDT / GNN would (a) overfit shared-entity clusters unless ring-aware CV is used, (b) make the explainability contract much harder, (c) make "measured precision/recall" partly a function of lucky regularization. The deterministic ensemble is auditable, seed-stable, and its features are exactly what a production GNN would consume. **Documented v2:** GNN (GraphSAGE/RGCM) on the same feature schema, trained when ≥ 10⁵ labeled events exist.
@@ -74,23 +80,44 @@ flowchart LR
 
 ## False-Positive Cost Model (the track's differentiating requirement)
 
-Every false positive has a price; we price it explicitly:
+Every false positive has a price; we price it explicitly. All inputs are **named constants** (single source of truth; mirrored verbatim into the code's cost module at build time):
+
+```
+REVIEW_COST_MINUTES     = 12      # analyst review time per flagged event
+ANALYST_HOURLY_INR      = 600
+P_LOST_FULFILLMENT      = 0.50    # P(customer walks away | wrongly flagged)
+AOV_INR                 = 650
+MARGIN                  = 0.25
+P_CHURN_GIVEN_DECLINED  = 0.10
+LTV_INR                 = 1200
+```
 
 ```
 FP event cost =
-    manual_review_cost        (₹120 ≈ 12 min analyst @ ₹600/h)
-  + false_decline_revenue     (P(fulfillment lost) × avg_order_value ₹650 × margin 0.25)
-  + customer_lifetime_impact  (P(churn | declined) 0.10 × LTV ₹1,200)
-  ≈ ₹120 + ₹81 + ₹12          ≈ ₹213 per FP event (parameters versioned, cited in report)
+    manual_review_cost       = 12/60 × 600              = ₹120
+  + false_decline_revenue    = 0.50 × 650 × 0.25        =  ₹81
+  + customer_lifetime_impact = 0.10 × 1,200             = ₹120
+                                                            --------
+                                                  total = ₹321 per FP event
 
 FN event cost =
     chargeback_amount ₹850 + penalty ₹200 + operational ₹50 ≈ ₹1,100 per FN event
 
 Net impact of deploying the system (per 1,000 events):
-    savings = (TP × 1,100) − (FP × 213) − (REVIEW × 120)
+    savings = (TP × 1,100) − (FP × 321) − (REVIEW × 120)
 ```
 
-All parameters are **named constants in one file** (`cost_model.py`-equivalent spec) with sources/assumptions documented — reviewers can disagree with a parameter and recompute; the model structure is the deliverable. The final report shows net ₹ impact at the chosen operating point AND at two alternative thresholds (conservative/aggressive) so the tradeoff curve is visible, not hidden behind one number.
+**Assumptions & sources for every constant** (these are assumptions, stated as such — reviewers can change one and recompute; the structure is the deliverable):
+
+| Constant | Basis |
+|----------|-------|
+| Analyst ₹600/h | Fully-loaded cost of a mid-level Indian risk analyst (assumption) |
+| AOV ₹650, margin 0.25 | Mid-size Indian e-commerce merchant norms (assumption; sensitivity table varies ±50%) |
+| P_LOST_FULFILLMENT = 0.50 | Conservative default for false-decline walk-away (assumption) |
+| P_CHURN_GIVEN_DECLINED = 0.10, LTV ₹1,200 | ~2 repeat orders × AOV × margin (derived); conservative churn probability (assumption) |
+| Chargeback ₹850 + ₹200 penalty | Matches the doc 01 loss model |
+
+The final report shows net ₹ impact at the chosen operating point AND at two alternative thresholds (conservative/aggressive) so the tradeoff curve is visible, not hidden behind one number.
 
 ## Reproducibility
 

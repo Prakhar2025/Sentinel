@@ -31,3 +31,18 @@ Every choice with a justification and what we rejected. Constraint context: loca
 | **Total LLM spend** | **≈ $45–50, ~10× headroom** |
 
 Compute is local; no AWS infra is deployed. Credits are effectively not a constraint — which is itself a design outcome (LLM used surgically, not as the substrate).
+
+**Cost caveat:** per-token prices vary by Bedrock region and model tier; the estimates above assume the cheapest available tier for each model. The Phase 0 model-verification calls (below) also record actual observed pricing/latency, and the envelope is updated then. If gpt-oss 120B proves unavailable or materially pricier in the configured region, the fallback chain (doc 03) already routes to gpt-oss-20B / GLM-5 / Llama 3.3 70B — all cheaper — with no architecture change.
+
+## Appendix — Model Verification Log (fill in during Phase 0, before Phase 5)
+
+The design assumes all four candidate models honor constrained/structured JSON output on Bedrock comparably. **Verify on day 1 with one throwaway call per model** (10-event evidence payload → explanation JSON) and record results here — this becomes the measured half of the model-selection justification (doc 03):
+
+| Model | Constrained JSON OK? | Observed latency | Quality note | Verdict |
+|-------|----------------------|------------------|--------------|---------|
+| gpt-oss 120B | _pending Phase 0_ | | | |
+| gpt-oss 20B | _pending Phase 0_ | | | |
+| GLM-5 | _pending Phase 0_ | | | |
+| Nova Lite | _pending Phase 0_ | | | |
+
+If constrained output behaves materially differently across providers, the Phase 5 design (jsonschema gate + single structured retry) is revisited **before** it is built.

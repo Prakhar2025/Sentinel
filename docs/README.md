@@ -30,6 +30,18 @@
 
 Indian digital payments are under sustained attack by organized fraud rings that recycle the same identities — UPI IDs, phone numbers, device fingerprints — across many merchants until each merchant individually blocks them. No single merchant sees the whole pattern; only a network-level view can. **Abuse-Ring Sentinel** ingests payment events, extracts and links identity entities, builds a cross-merchant link graph, scores each identity cluster for abuse-ring membership, and produces a ranked, explainable risk verdict (ALLOW / REVIEW / BLOCK recommendation) with a full audit trail — every score backed by evidence, never a black box. It is strictly **defense-only**: it detects and informs, it never moves money, and it generates no offensive capability.
 
+## Local Build Limitations (read before judging the demo)
+
+The local build proves the **detection logic, evaluation honesty, and API contracts**. It deliberately does not demonstrate, and makes no measured claims about:
+
+- **Streaming ingestion / production throughput** — no Kinesis/Flink; synchronous API only. The production topology is documented (doc 03) but unbuilt.
+- **Graph scale** — in-process networkx, not sharded Neo4j. No claims about behavior at UPI-scale volumes (7,500+ TPS).
+- **Real-world data** — all data is synthetic by design (no real PII); metrics measure the detector against a specified synthetic attack model, not observed fraud in the wild.
+- **Measured latency** — all latency figures are design targets until Phase 6 benchmarks are back-filled into doc 02.
+- **Multi-tenant authN/Z, HA, deployment** — static demo keys, single process, local SQLite.
+
+None of these are hidden; each maps to a documented production design and a roadmap v2 item (doc 11).
+
 ## Design Principles (non-negotiable)
 
 1. **Explainable or it doesn't ship.** Every risk score carries a reason code, evidence list, and feature attribution.
