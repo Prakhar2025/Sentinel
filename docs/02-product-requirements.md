@@ -30,8 +30,11 @@
 | FR-7 | Evaluation harness: held-out test set, metrics report incl. FP cost in ₹ | P0 |
 | FR-8 | Synthetic data generator (900 clean / 100 fraud, realistic ring patterns) | P0 |
 | FR-9 | Audit log of every verdict | P1 |
-| FR-10 | Analyst dashboard (simple web view of the ranked queue + graph) | P1 |
+| FR-10 | Analyst console (Next.js): live ranked queue, entity/evidence drill-down with cluster graph, evaluation report view, demo replay mode | P1 |
 | FR-11 | Feedback ingestion (analyst confirms/rejects flag → future training signal) | P2 (stub only) |
+| FR-12 | Adversarial evasion pack: attacker simulators (slow-rate rings, identity rotation, benign-mimicry amounts) run against our own detector, evasion rates reported honestly per strategy | P1 |
+| FR-13 | Baseline comparator: logistic regression + GBDT trained on the same features/splits, reported next to the rule ensemble as measured AI-judgment evidence | P1 |
+| FR-14 | Demo replay CLI: scripted, deterministic replay of the ring-caught-across-4-merchants scenario for the pitch video | P1 |
 
 ## Non-Functional Requirements
 
@@ -42,7 +45,7 @@
 | NFR-3 | Reproducibility | `make evaluate` produces identical metrics from fixed random seed |
 | NFR-4 | Cost | Full build + evaluation within $550 AWS credits |
 | NFR-5 | Portability | Runs locally; no deployed infra required |
-| NFR-6 | Codebase size | < 3000 lines (per buildathon constraint) |
+| NFR-6 | Codebase size | **No line cap.** Discipline instead: every module must earn its place by delivering a measured capability, a test, and documentation. Signal density over volume; no speculative features or abstraction |
 | NFR-7 | Test coverage | Core scoring/graph logic ≥ 90% line coverage |
 
 ## Explicit Scope Boundaries (what we are NOT building, and why)
@@ -55,8 +58,16 @@
 | Streaming infra (Kafka/Kinesis) | Local-first constraint; batch + synchronous API demonstrates the design; production topology documented in arch doc |
 | Deep learning / GNN model training | At 1000-event scale, learned GNNs would overfit; deterministic graph heuristics + features are honest, explainable, and sufficient. GNN is the documented v2 path |
 | Mule-account / AML detection | Different loss class; noted as roadmap extension |
+| Full frontend platform (auth screens, settings, multi-role admin) | Console is hard-scoped to the 4 views the demo and analysts actually need (queue, evidence, metrics, replay); anything beyond dilutes build time without adding judged signal |
 
-## Dashboard Wireframe (FR-10 / P1, single-page view)
+## Analyst Console (FR-10 / P1)
+
+Four views, built as a local Next.js app against the FastAPI (doc 08 has the stack decision and its reversal note):
+
+1. **Live Queue** (wireframe below): ranked verdicts, filters, CSV export, entity search
+2. **Evidence drill-down**: features, reason codes, linked merchants/identities, cluster graph, LLM narrative
+3. **Evaluation report**: precision/recall with CIs, confusion matrix, per-ring recall, FP-cost and threshold tradeoff charts (straight from `metrics.json`)
+4. **Demo replay**: one-click scripted replay of the ring-caught-across-4-merchants scenario for the pitch video
 
 ```
 ┌────────────────────────────────────────────────────────────────────────┐

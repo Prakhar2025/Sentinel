@@ -67,6 +67,28 @@ flowchart LR
 4. **Per-ring recall** reported, not just per-event, catching 9 of 10 rings matters more than event-level recall; we name the ring we missed and why.
 5. Sophisticated-ring subset reported separately, expected lower recall, shown anyway.
 
+### Adversarial evaluation: the evasion pack (P1)
+
+We attack our own detector and publish the results, because a fraud system that has only been tested against cooperative fraud is untested. Attacker simulators generate adversarial rings designed to evade each signal:
+
+| Strategy | How it attacks | Reported as |
+|----------|----------------|-------------|
+| Slow-rate ring | Velocity kept under F4 threshold (days between merchants) | Evasion rate vs. baseline rings |
+| Identity rotation | Fresh device/VPA per merchant, shared only by phone or taint | Evasion rate; which feature still catches it |
+| Benign-mimicry amounts | Amounts drawn from the clean population's distribution | Evasion rate; FP impact of tightening F6 |
+| Partitioned ring | Sub-rings sized below cluster-density thresholds, linked only by taint | Evasion rate at different taint weights |
+
+Protocol: evasion rings are generated into the **evaluation pipeline only** (never used for calibration), scored with the locked model, and the report includes an honest per-strategy evasion table plus the residual features that still detect each strategy. This is defense research on our own system: it creates no attack capability beyond what the synthetic generator already has.
+
+### Baseline comparator (P1): measured, not asserted
+
+The claim "deterministic rules beat a naive classifier here" is tested, not stated. Two baselines are trained on the **same features, same ring-stratified splits**:
+
+1. Logistic regression (with ring-grouped CV to select regularization)
+2. Gradient-boosted trees (small depth budget to limit overfit at n≈600 train events)
+
+The report shows all three (rule ensemble, LR, GBDT) side by side on the held-out test set: precision, recall, F1, FP cost. Expected outcome: baselines are competitive on event-level metrics but degrade on per-ring recall and explainability; if a baseline actually wins, that result is shown, and it strengthens the v2 GNN case honestly.
+
 ## Metrics Specification
 
 | Metric | Definition | Report format |
@@ -76,6 +98,8 @@ flowchart LR
 | F1 | harmonic mean | value |
 | Confusion matrix | ALLOW/REVIEW/BLOCK-REC × clean/fraud | 3×2 table (REVIEW counted as neither TP nor FP, abstention, reported separately) |
 | **FP cost (₹)** | see model below | ₹ per 1,000 events + net-savings figure |
+| Evasion rate | fraction of adversarial-pack rings scoring below REVIEW under the locked model | per-strategy table (evasion pack) |
+| Baseline comparison | LR + GBDT on identical features/splits | side-by-side table with the rule ensemble |
 | Score calibration | fraction of fraud by score decile | reliability table |
 
 ## False-Positive Cost Model (the track's differentiating requirement)

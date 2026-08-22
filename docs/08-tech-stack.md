@@ -1,6 +1,6 @@
 # 08: Tech Stack Decisions
 
-Every choice with a justification and what we rejected. Constraint context: local-first, < 3,000 lines, < $550 AWS credits, Bedrock-only LLMs, single builder.
+Every choice with a justification and what we rejected. Constraint context: local-first, < $550 AWS credits, Bedrock-only LLMs, single builder. **No line-count cap** (owner decision, recorded in doc 02 NFR-6); discipline is maintained by scope rules, not size limits.
 
 | Layer | Choice | Why | Rejected |
 |-------|--------|-----|----------|
@@ -11,15 +11,15 @@ Every choice with a justification and what we rejected. Constraint context: loca
 | Relational store | **SQLite + SQLAlchemy 2** | Zero-config, file-based, append-only triggers for audit; SQLAlchemy keeps the door open to Postgres | Postgres local (infra overhead, no benefit at this scale) |
 | LLM inference | **boto3 → AWS Bedrock** (default credential chain) | Required constraint; models: Nova Lite (extraction), gpt-oss 120B w/ GLM-5 fallback (explanation) | LangChain/LangGraph wrapper, unnecessary abstraction for 2 direct Bedrock calls with constrained JSON output; fewer deps, fewer lines, more control. *Deliberate "where not to use a framework" decision* |
 | LLM structured output | **Constrained JSON via Bedrock response format + jsonschema validation + 1 retry** | Deterministic pipeline beats agent-style parsing | LLM function-calling frameworks |
-| Dashboard (P1) | **Single-page HTML + embedded mermaid.js/d3 graph, served by FastAPI** | Zero build toolchain, ~150 lines, shows the graph visually | Next.js app (build tooling not justified for a P1 analyst view; Prakhar knows Next.js and *chose* to skip it, simplicity-first) |
+| Analyst console (P1) | **Next.js 15 + TypeScript + Tailwind**, react-flow for cluster graphs, recharts for metrics charts; runs locally against FastAPI | **Decision reversed from the original single-file HTML plan, and the reversal is the point:** the original rejection ("build tooling not justified under a line cap") was voided when the owner removed the cap. A real console is the demo surface for 90 seconds of a 5-minute video, matches the builder's strongest stack (Next.js/TS), and the evaluation-report view makes the honest-metrics story visual. Still hard-scoped to 4 views (doc 02) | Single-file HTML (now insufficient for the metrics + replay views), full component library platforms |
 | Tests | **pytest + coverage** | Standard, fast, parameterized tests for feature/score cases | unittest (verbose) |
 | Lint/types | **ruff + mypy (strict on core)** | One tool for lint+format; strictness on money-adjacent code |, |
 | Data generation | **NumPy (seeded Generator) + custom ring injector** | Full control of distributions; Zipf/log-normal realism | Faker (identity-realistic but no relational ring structure, the structure IS the point) |
 | Config | **pydantic-settings + `.env`** | Typed config, fail-fast on missing env | os.getenv sprinkles |
 
-## Dependency Budget (direct, target ≤ 15)
+## Dependency Budget
 
-`fastapi, uvicorn, pydantic, pydantic-settings, sqlalchemy, networkx, boto3, numpy, pytest, coverage, ruff, mypy, httpx`, 13. Every addition must argue its way in.
+Backend (direct, target ≤ 18): `fastapi, uvicorn, pydantic, pydantic-settings, sqlalchemy, networkx, boto3, numpy, pytest, coverage, ruff, mypy, httpx` (+ `scikit-learn` for the FR-13 baselines). Every addition must argue its way in. Frontend deps live in the console's own `package.json` and are held to the same rule.
 
 ## Cost Envelope (within $550 credits)
 

@@ -9,8 +9,9 @@
 "Abuse-Ring Sentinel builds an identity link graph (devices, phones, UPI IDs, merchants) and scores every payment event for ring membership using deterministic graph features: device fan-out across merchants, taint propagation from confirmed fraud, velocity, burn-and-rotate patterns. Verdict: ALLOW, REVIEW, or BLOCK-recommendation, with evidence. And here's my AI judgment call: the LLM never scores. Scoring is deterministic and auditable. The LLM, gpt-oss on Bedrock, does what LLMs are actually good at: turning evidence into an audit-grade explanation."
 
 **1:30–3:00: Live Demo**
-- Show dashboard: event comes in at Merchant 4 → verdict BLOCK_REC (quote the **measured** p95 from Phase 6, not the design target) → drill into evidence: same device linked to 6 identities across 4 merchants, taint path from a confirmed chargeback. LLM narrative explains it in one paragraph.
+- Analyst console: event comes in at Merchant 4 → verdict BLOCK_REC (quote the **measured** p95 from Phase 6, not the design target) → drill into the evidence view: same device linked to 6 identities across 4 merchants, taint path from a confirmed chargeback, LLM narrative in one paragraph.
 - Show the ranked queue; click a sophisticated-ring case flagged only by taint.
+- Flash the evaluation-report view: metrics, FP cost in ₹, and the evasion table (we attacked our own detector and published what got through).
 
 **3:00–4:00: Metrics and Honest Evaluation**
 "Held-out test set, ring-stratified so no entity leaks between splits. Precision ⟨P6: value⟩ with 95% CI, recall ⟨P6: value⟩ at both event and ring level, and I'll name the ring I missed and why. ⟨P6: the missed ring + reason, from the real run⟩. False positives cost money: I price every FP at ₹321, review time plus lost fulfillment plus churn risk, every constant named and sourced in the docs, and report net ₹ saved per 1,000 events at three thresholds, so you see the tradeoff, not one cherry-picked number. Full reproducibility: `make evaluate`, seed 42, identical metrics twice."

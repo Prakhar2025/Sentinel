@@ -10,7 +10,7 @@ Detect the same UPI ID, phone number, or device fingerprint being reused across 
 flowchart TB
     subgraph Clients
         SIM["Synthetic Merchant Event Stream<br/>(simulates Razorpay webhook traffic)"]
-        API_C["Analyst Dashboard (P1)"]
+        API_C["Analyst Console (Next.js, P1)"]
     end
 
     subgraph "Abuse-Ring Sentinel"
@@ -55,7 +55,7 @@ flowchart TB
 |----------|-----------|
 | **Deterministic graph scoring, not ML classification, at the core** | At 1,000-event scale a trained classifier overfits; graph heuristics are explainable, debuggable, seed-reproducible, and honest. The features we compute are exactly the features a production GNN would consume, documented as the v2 path. |
 | **LLM for explanation + messy-field extraction only** | The right tool in the right place. LLM strengths: fluent structured summaries of evidence. LLM weaknesses for scoring: non-determinism, hallucination risk, cost, unauditable. We say this out loud, it's an AI-judgment differentiator. |
-| **In-process networkx graph** | Local-first, < 3000 lines, zero infra. Production swap-out is Neo4j/MemoryDB behind the same interface (`GraphStore` port/adapter). |
+| **In-process networkx graph** | Local-first, zero extra infra, fully sufficient for the workload. Production swap-out is Neo4j/MemoryDB behind the same interface (`GraphStore` port/adapter). |
 | **Async, cached LLM narrative** | Keeps p95 latency deterministic; explanation is an enhancement, not a dependency. |
 
 ## AWS Bedrock Model Selection (required justification)
