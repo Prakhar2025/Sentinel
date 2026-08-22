@@ -1,0 +1,22 @@
+#!/bin/sh
+# Fails the commit if docs/what-broke.md is stale while development is active
+# (i.e., recent commits exist but the log has not been touched in 24h).
+# Log a real failure, or an explicit "no failures in this window" entry.
+
+now=$(date +%s)
+
+last_break=$(git log -1 --format=%ct -- docs/what-broke.md 2>/dev/null)
+[ -n "$last_break" ] || last_break=$(date -r docs/what-broke.md +%s 2>/dev/null || echo "$now")
+
+last_commit=$(git log -1 --format=%ct 2>/dev/null || echo 0)
+
+development_active=$((now - last_commit))       # seconds since last commit
+log_is_stale=$((now - last_break))              # seconds since log touched
+
+if [ "$development_active" -lt 86400 ] && [ "$log_is_stale" -gt 86400 ]; then
+    echo "docs/what-broke.md has not been updated in over 24h while development is active."
+    echo "Append a real failure entry (or an explicit no-failures note), then commit again."
+    exit 1
+fi
+
+exit 0
