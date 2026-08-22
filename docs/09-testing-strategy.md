@@ -1,4 +1,4 @@
-# 09 — Testing & Quality Strategy
+# 09: Testing & Quality Strategy
 
 ## Test Pyramid
 
@@ -30,7 +30,7 @@ flowchart BT
 
 ## Evaluation Harness as a Test
 
-- `make evaluate` is itself gated: asserts precision ≥ 0.80, recall ≥ 0.70 at the locked operating point **on the calibration split**; CI fails if the scorer regresses (the test set is never used as a CI gate — it stays held-out).
+- `make evaluate` is itself gated: asserts precision ≥ 0.80, recall ≥ 0.70 at the locked operating point **on the calibration split**; CI fails if the scorer regresses (the test set is never used as a CI gate, it stays held-out).
 - Reproducibility test: two consecutive runs produce identical `metrics.json` (hash comparison).
 
 ## CI Gates (GitHub Actions)
@@ -39,4 +39,4 @@ flowchart BT
 
 ## "What Broke" Log (buildathon deliverable)
 
-A living `docs/what-broke.md`: every genuine failure during development, root cause, and fix — appended in real time, not written retrospectively. This is both an honesty artifact and pitch material (4:00–4:30 slot).
+A living `docs/what-broke.md`: every genuine failure during development, root cause, and fix, appended in real time, not written retrospectively. This is both an honesty artifact and pitch material (4:00–4:30 slot).

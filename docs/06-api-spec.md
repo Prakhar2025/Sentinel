@@ -1,4 +1,4 @@
-# 06 — API Specification
+# 06: API Specification
 
 Base URL (local): `http://localhost:8000`, all responses JSON. Auth: `X-API-Key` header (static key from env for the demo; production design in doc 07). Errors follow RFC 7807-style problem JSON.
 
@@ -8,7 +8,7 @@ Base URL (local): `http://localhost:8000`, all responses JSON. Auth: `X-API-Key`
 
 Ingest a single payment event and return the risk verdict.
 
-**Request** — event schema from doc 04.
+**Request**: event schema from doc 04.
 
 **Response `200`**
 ```json
@@ -35,7 +35,7 @@ Ingest a single payment event and return the risk verdict.
 
 Array of ≤ 1,000 events; per-item status array in response; partial success semantics (valid items processed, invalid items reported with index + error). Used by the evaluation harness and the demo backfill.
 
-**Semantics:** synchronous, intended **for evaluation and backfill only** — not a production ingestion path (production is streaming; see doc 03). Only the deterministic scoring path runs inline (~20 ms/event design target → a 1,000-event batch is expected well under 1 minute); LLM explanations are enqueued async, same as the single-event endpoint.
+**Semantics:** synchronous, intended **for evaluation and backfill only**, not a production ingestion path (production is streaming; see doc 03). Only the deterministic scoring path runs inline (~20 ms/event design target → a 1,000-event batch is expected well under 1 minute); LLM explanations are enqueued async, same as the single-event endpoint.
 
 ## GET /v1/verdicts/{event_id}
 
@@ -51,7 +51,7 @@ Entity-centric lookup: the merchants, identities, and devices linked to a given 
 
 ## GET /v1/graph/cluster/{customer_id}
 
-The local identity cluster (radius ≤ 2) around a customer — node/edge list for the dashboard's graph visualization.
+The local identity cluster (radius ≤ 2) around a customer, node/edge list for the dashboard's graph visualization.
 
 ## POST /v1/feedback
 
@@ -72,7 +72,7 @@ Liveness / readiness (readiness = graph store loaded + Bedrock reachable-flag, w
 |---------|---------|------------------|
 | `ALLOW` | score < 35 | none |
 | `REVIEW` | 35–69 or system-degraded | queue for analyst |
-| `BLOCK_REC` | ≥ 70 | **recommendation only** — merchant/analyst must act |
+| `BLOCK_REC` | ≥ 70 | **recommendation only**: merchant/analyst must act |
 
 | Reason code | Fired by |
 |-------------|----------|
@@ -88,5 +88,5 @@ Liveness / readiness (readiness = graph store loaded + Bedrock reachable-flag, w
 
 - **Idempotency**: `event_id` is the key; replays return the stored verdict (`200`, `duplicate: true`).
 - **Money**: always integer paise.
-- **PII**: phone numbers returned masked by default (`+9198XXXX5678`); full value only via `?unmask=true`, which requires the separate **admin credential** (`X-Admin-Key` = `SENTINEL_ADMIN_API_KEY`, distinct from the standard API key) — and **every unmask request is appended to the audit store** (entity, requester key id, timestamp, verdict context).
+- **PII**: phone numbers returned masked by default (`+9198XXXX5678`); full value only via `?unmask=true`, which requires the separate **admin credential** (`X-Admin-Key` = `SENTINEL_ADMIN_API_KEY`, distinct from the standard API key), and **every unmask request is appended to the audit store** (entity, requester key id, timestamp, verdict context).
 - **Versioning**: URL-versioned (`/v1`); `schema_version` in every payload; breaking changes bump the URL.

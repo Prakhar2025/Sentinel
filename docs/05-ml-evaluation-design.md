@@ -1,8 +1,8 @@
-# 05 — ML & Evaluation Design
+# 05: ML & Evaluation Design
 
 ## Detection Approach: Deterministic Graph Feature Scoring
 
-The scorer computes a feature vector for the identity cluster touched by an event, then applies a **weighted rule ensemble** (weights calibrated on the train split, thresholds calibrated on the calibration split). Weights are simple, published in code, and every score decomposes into per-feature contributions — that's the explainability contract.
+The scorer computes a feature vector for the identity cluster touched by an event, then applies a **weighted rule ensemble** (weights calibrated on the train split, thresholds calibrated on the calibration split). Weights are simple, published in code, and every score decomposes into per-feature contributions, that's the explainability contract.
 
 ### Features (the ring fingerprint)
 
@@ -13,7 +13,7 @@ The scorer computes a feature vector for the identity cluster touched by an even
 | `F3 taint_propagation` | shortest-path distance to any confirmed-fraud node, discounted by hop count (`0.6^hops`) | Post-hoc linking of "burned" rings |
 | `F4 velocity` | distinct merchants touched by cluster entities in a sliding 72 h window | Scripted bursts |
 | `F5 burn_rotate` | boolean-ish: identity abandoned ≤ 48 h after its first fraud outcome, replaced by a graph neighbor | Classic ring behavior |
-| `F6 amount_pattern` | cluster median amount vs. ring-typical band (₹500–2,000, low variance) | Weak alone; contributes little weight — deliberately kept small to avoid punishing normal merchants |
+| `F6 amount_pattern` | cluster median amount vs. ring-typical band (₹500–2,000, low variance) | Weak alone; contributes little weight, deliberately kept small to avoid punishing normal merchants |
 | `F7 new_identity_burst` | fraction of cluster identities created < 7 days | Fresh-account farms |
 
 ### Scoring
@@ -23,11 +23,11 @@ score = clip( Σ wᵢ · norm(Fᵢ), 0, 100 ),  wᵢ calibrated on train split,
         weights fixed & versioned (MODEL_VERSION), sum of wᵢ = 100
 ```
 
-Thresholds set on the **calibration split** (never the test split) to target a design point of **precision ≥ 0.80 at recall ≥ 0.70**, then locked and run once on the held-out test set. Any post-hoc threshold change is disclosed in the metrics report — this is the honesty protocol.
+Thresholds set on the **calibration split** (never the test split) to target a design point of **precision ≥ 0.80 at recall ≥ 0.70**, then locked and run once on the held-out test set. Any post-hoc threshold change is disclosed in the metrics report, this is the honesty protocol.
 
 ### How the weights are calibrated (train split only)
 
-1. **Method:** coordinate ascent over the 7 feature weights (weights constrained to sum to 100), maximizing F1 under **5-fold ring-grouped cross-validation on the train split only**. Ring-grouped CV folds by ring, mirroring the split-integrity rule — no ring's entities span folds.
+1. **Method:** coordinate ascent over the 7 feature weights (weights constrained to sum to 100), maximizing F1 under **5-fold ring-grouped cross-validation on the train split only**. Ring-grouped CV folds by ring, mirroring the split-integrity rule, no ring's entities span folds.
 2. **Freeze:** after ascent converges, final weights are frozen as named constants, published in code, and recorded in `metrics.json` under `MODEL_VERSION`.
 3. **Order of operations (non-negotiable):** weights ← train split → thresholds ← calibration split → single pass on held-out test. No tuning of anything on the test set; any later change bumps `MODEL_VERSION` and re-runs the whole protocol with disclosure.
 
@@ -61,11 +61,11 @@ flowchart LR
 ```
 
 **Protocol rules (honesty guarantees):**
-1. Ring-stratified split — all events of a ring in one split (no entity leakage).
+1. Ring-stratified split, all events of a ring in one split (no entity leakage).
 2. Thresholds locked before touching the test set; single test pass; changes disclosed.
 3. Metrics reported with **confidence intervals** (Wilson 95% for precision/recall at n=200 test events).
-4. **Per-ring recall** reported, not just per-event — catching 9 of 10 rings matters more than event-level recall; we name the ring we missed and why.
-5. Sophisticated-ring subset reported separately — expected lower recall, shown anyway.
+4. **Per-ring recall** reported, not just per-event, catching 9 of 10 rings matters more than event-level recall; we name the ring we missed and why.
+5. Sophisticated-ring subset reported separately, expected lower recall, shown anyway.
 
 ## Metrics Specification
 
@@ -74,7 +74,7 @@ flowchart LR
 | Precision | TP / (TP + FP), positive = BLOCK-REC verdict | value + Wilson 95% CI |
 | Recall | TP / (TP + FN) at ring level and event level | both, with CI |
 | F1 | harmonic mean | value |
-| Confusion matrix | ALLOW/REVIEW/BLOCK-REC × clean/fraud | 3×2 table (REVIEW counted as neither TP nor FP — abstention, reported separately) |
+| Confusion matrix | ALLOW/REVIEW/BLOCK-REC × clean/fraud | 3×2 table (REVIEW counted as neither TP nor FP, abstention, reported separately) |
 | **FP cost (₹)** | see model below | ₹ per 1,000 events + net-savings figure |
 | Score calibration | fraction of fraud by score decile | reliability table |
 
@@ -107,7 +107,7 @@ Net impact of deploying the system (per 1,000 events):
     savings = (TP × 1,100) − (FP × 321) − (REVIEW × 120)
 ```
 
-**Assumptions & sources for every constant** (these are assumptions, stated as such — reviewers can change one and recompute; the structure is the deliverable):
+**Assumptions & sources for every constant** (these are assumptions, stated as such, reviewers can change one and recompute; the structure is the deliverable):
 
 | Constant | Basis |
 |----------|-------|
@@ -122,4 +122,4 @@ The final report shows net ₹ impact at the chosen operating point AND at two a
 ## Reproducibility
 
 - One command: `make evaluate` → regenerates data (seed 42), replays splits, reruns scorer, prints report + writes `evaluation/report.md` + `evaluation/metrics.json`.
-- `metrics.json` contains model_version, weights, thresholds, seed, git-style commit of code, full metric set — everything needed to reproduce the number.
+- `metrics.json` contains model_version, weights, thresholds, seed, git-style commit of code, full metric set, everything needed to reproduce the number.

@@ -1,21 +1,21 @@
-# 02 — Product Requirements (PRD)
+# 02: Product Requirements (PRD)
 
 ## Personas
 
 | Persona | Description | Need |
 |---------|-------------|------|
-| **Risk Analyst (Riya)** | Reviews flagged identities at a large merchant | Wants ranked queue with *evidence*, not raw scores — "show me why" |
+| **Risk Analyst (Riya)** | Reviews flagged identities at a large merchant | Wants ranked queue with *evidence*, not raw scores, "show me why" |
 | **Merchant Ops (Arjun)** | Solo founder, 5k txns/month | Wants a simple API: "should I fulfil this order?" with a plain-language reason |
 | **Risk Platform Team (Razorpay internal)** | Builds risk infra | Wants an explainable subsystem that plugs into the existing rule engine |
 
 ## User Stories
 
-1. **US-1 (Ingest & Score)** — As a merchant system, when a payment event arrives, I want a risk verdict (ALLOW / REVIEW / BLOCK-recommend) + score + reason codes within **< 300 ms p95**. *The 300 ms covers the synchronous verdict path only (validate → graph update → deterministic score → verdict); the LLM explanation is asynchronous and cached.* **DESIGN TARGET — not yet measured; the real p95 is benchmarked in Phase 6 and back-filled here.**
-2. **US-2 (Ring Detection)** — As a risk analyst, I want to see when an identity contacting my merchant is already linked to confirmed fraud at other merchants — with the cross-merchant evidence trail.
-3. **US-3 (Explainability)** — As any user, I want every score backed by: top contributing signals, the linked entities, and a generated natural-language explanation.
-4. **US-4 (Honest Metrics)** — As a platform team, I want a reproducible evaluation harness that reports precision, recall, F1, confusion matrix, and **false-positive cost in ₹** on a held-out set.
-5. **US-5 (Safe Failure)** — As an operator, I want any subsystem failure (LLM timeout, graph store down) to degrade gracefully — verdict defaults to ALLOW-with-REVIEW flag, never a crash, never a silent auto-block.
-6. **US-6 (Audit)** — As a compliance officer, I want every verdict persisted with its full evidence payload and model versions, queryable later.
+1. **US-1 (Ingest & Score)**: As a merchant system, when a payment event arrives, I want a risk verdict (ALLOW / REVIEW / BLOCK-recommend) + score + reason codes within **< 300 ms p95**. *The 300 ms covers the synchronous verdict path only (validate → graph update → deterministic score → verdict); the LLM explanation is asynchronous and cached.* **DESIGN TARGET, not yet measured; the real p95 is benchmarked in Phase 6 and back-filled here.**
+2. **US-2 (Ring Detection)**: As a risk analyst, I want to see when an identity contacting my merchant is already linked to confirmed fraud at other merchants, with the cross-merchant evidence trail.
+3. **US-3 (Explainability)**: As any user, I want every score backed by: top contributing signals, the linked entities, and a generated natural-language explanation.
+4. **US-4 (Honest Metrics)**: As a platform team, I want a reproducible evaluation harness that reports precision, recall, F1, confusion matrix, and **false-positive cost in ₹** on a held-out set.
+5. **US-5 (Safe Failure)**: As an operator, I want any subsystem failure (LLM timeout, graph store down) to degrade gracefully, verdict defaults to ALLOW-with-REVIEW flag, never a crash, never a silent auto-block.
+6. **US-6 (Audit)**: As a compliance officer, I want every verdict persisted with its full evidence payload and model versions, queryable later.
 
 ## Functional Requirements
 
@@ -60,7 +60,7 @@
 
 ```
 ┌────────────────────────────────────────────────────────────────────────┐
-│ Abuse-Ring Sentinel — Analyst Console          verdict ▾  score ▾  ⟳   │
+│ Abuse-Ring Sentinel, Analyst Console          verdict ▾  score ▾  ⟳   │
 ├──────────────────────────┬─────────────────────────────────────────────┤
 │ Ranked queue (score ↓)   │  Detail pane                                 │
 │ ┌──────────────────────┐ │  event evt_01H…  Score 78  BLOCK_REC        │
@@ -85,5 +85,5 @@
 |----------------------|-------------------|
 | Problem taste | Identity-reuse rings: the relational blind spot individual-transaction ML can't see |
 | Build quality | Typed, tested, documented; runs with `make setup && make evaluate` |
-| AI judgment | LLM used only where it's genuinely right (entity extraction assist + explanation); **scoring is deterministic** — we explicitly chose NOT to let an LLM score |
+| AI judgment | LLM used only where it's genuinely right (entity extraction assist + explanation); **scoring is deterministic**, and we explicitly chose NOT to let an LLM score |
 | Failure recovery | Doc 10 risk register + genuine "what broke" log maintained during build |

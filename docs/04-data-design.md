@@ -1,4 +1,4 @@
-# 04 — Data Design
+# 04: Data Design
 
 ## Storage Layers
 
@@ -28,7 +28,7 @@
 }
 ```
 
-All identity fields optional except `event_id`, `merchant_id`, `customer_id` — a ring detection system must handle partial identities gracefully.
+All identity fields optional except `event_id`, `merchant_id`, `customer_id`, a ring detection system must handle partial identities gracefully.
 
 ## Entity Relationship Model
 
@@ -113,21 +113,21 @@ graph_snapshots(id INTEGER PRIMARY KEY, run_id TEXT, graphml TEXT, sha256 TEXT, 
 
 ## Synthetic Data Generation Plan (the honest-test-set foundation)
 
-**Composition: 900 clean + 100 fraud = 1,000 events** (track-specified ratio), split 60/20/20 train/calibration/test **with ring-aware stratification** — all events of one ring go into exactly one split (prevents leakage, since ring members share entities; this is a real evaluation-design decision most teams miss).
+**Composition: 900 clean + 100 fraud = 1,000 events** (track-specified ratio), split 60/20/20 train/calibration/test **with ring-aware stratification**: all events of one ring go into exactly one split (prevents leakage, since ring members share entities; this is a real evaluation-design decision most teams miss).
 
-**Clean population (900):** generated from realistic distributions, not uniform noise —
-- Zipf-distributed merchants (a few big, many small), amount log-normal (median ₹450, tail to ₹12k), diurnal + weekday seasonality, 15% of clean users legitimately share a device (family), some phones linked to 2 identities (phone upgrade). *Benign overlap is deliberate — it's what makes false positives possible and the FP-cost metric meaningful.*
+**Clean population (900):** generated from realistic distributions, not uniform noise -
+- Zipf-distributed merchants (a few big, many small), amount log-normal (median ₹450, tail to ₹12k), diurnal + weekday seasonality, 15% of clean users legitimately share a device (family), some phones linked to 2 identities (phone upgrade). *Benign overlap is deliberate, it's what makes false positives possible and the FP-cost metric meaningful.*
 
-**Fraud rings (100 events, ~8–12 rings):** injected with the attack model from doc 01 —
+**Fraud rings (100 events, ~8–12 rings):** injected with the attack model from doc 01 -
 - Each ring: 1–3 devices, 4–10 UPI IDs, 2–4 phones, hitting 3–6 merchants in bursts;
-- At least one ring with **high sophistication** (low velocity, mimics seasonality) to test recall limits — and we report it even when we miss it;
+- At least one ring with **high sophistication** (low velocity, mimics seasonality) to test recall limits, and we report it even when we miss it;
 - `prior_outcome` seeded on ~30% of ring events (chargebacks/refund abuse) to feed taint propagation.
 
-**Generator requirements:** fixed seed (deterministic), generates labels alongside events (labels live only in the events table `label` column and are **never** exposed to the scorer via the serving path — enforced by a separation between serving and evaluation repositories), unit-tested distributions (assert merchant Zipf exponent, assert ring fan-out ranges).
+**Generator requirements:** fixed seed (deterministic), generates labels alongside events (labels live only in the events table `label` column and are **never** exposed to the scorer via the serving path, enforced by a separation between serving and evaluation repositories), unit-tested distributions (assert merchant Zipf exponent, assert ring fan-out ranges).
 
 ## Data Quality Rules (enforced in validation)
 
 - Phone must normalize to E.164 (`+91` + 10 digits) else stored as `unnormalized_phone` and excluded from phone-linking;
 - VPA must match `^[a-z0-9._-]+@[a-z]+$` post-normalization;
 - `ts` within ingestion window ± tolerance; future-dated events rejected;
-- Amounts in paise (integer) — never floats for money.
+- Amounts in paise (integer), never floats for money.
