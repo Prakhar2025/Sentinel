@@ -1,4 +1,4 @@
-.PHONY: setup check lint format type test evaluate models hooks clean
+.PHONY: setup check lint format type test test-all calibrate evaluate models hooks clean
 
 # One-time setup: virtualenv, pinned deps, git hooks.
 setup:
@@ -30,7 +30,14 @@ type:
 	.venv/Scripts/python -m mypy src
 
 test:
+	.venv/Scripts/python -m pytest -m "not slow"
+
+test-all:
 	.venv/Scripts/python -m pytest
+
+# Calibrate weights/thresholds on train+calibration splits (writes evaluation/model_config.json).
+calibrate:
+	.venv/Scripts/python -m sentinel.calibrate
 
 # Phase 6: regenerate data, run evaluation, write metrics (added in Phase 6).
 evaluate:
