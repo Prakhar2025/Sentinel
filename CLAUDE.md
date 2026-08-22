@@ -174,7 +174,7 @@ The design phase is complete (see `/docs`). Code is now built in phases per `doc
 
 1. **Build** the phase scope only.
 2. **Verify** locally: `ruff check`, `ruff format --check`, `mypy`, `pytest` all green, plus the phase's checkpoint from doc 11.
-3. **Push** with a professional conventional commit (`type(phase-N): summary`, e.g. `feat(phase-1): seeded generator with ring-stratified splits`).
+3. **Push** with a professional conventional commit (`type: summary`, e.g. `feat: seeded generator with ring-stratified splits`). **Never put phase labels (phase-0, phase-1, ...) or roadmap jargon in commit messages**; describe what the change does, not which roadmap step it belongs to.
 4. **Report** what was built, verification results, and anything that broke (append to `docs/what-broke.md` in real time).
 5. **Wait** for the owner's explicit go before the next phase.
 
