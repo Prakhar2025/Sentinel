@@ -55,8 +55,9 @@ backfill:
 calibrate:
 	.venv/Scripts/python -m sentinel.calibrate
 
-# Phase 6: regenerate data, run evaluation, write metrics (added in Phase 6).
+# Held-out evaluation; calibrates first on a fresh clone (no locked config yet).
 evaluate:
+	@test -f evaluation/model_config.json || $(MAKE) calibrate
 	.venv/Scripts/python -m sentinel.evaluate
 
 # Phase 0: one-shot Bedrock model verification (bounded spend; see docs/08).
