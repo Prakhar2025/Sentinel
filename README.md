@@ -84,11 +84,23 @@ py -3.12 -m venv .venv
 
 ### The analyst console
 
-| Queue and evidence | Evaluation dossier | Ring replay |
-|---------------------|--------------------|-------------|
-| ![Queue](docs/screenshots/console-queue.png) | ![Metrics](docs/screenshots/console-metrics.png) | ![Replay](docs/screenshots/console-replay.png) |
+<p align="center">
+  <img src="docs/screenshots/console-queue.png" alt="Ranked queue with the evidence panel open on a BLOCK_REC verdict: cluster graph, taint path, signal decomposition, and the LLM narrative" width="880">
+</p>
 
-Ranked verdicts with a live evidence panel (signal decomposition, cross-merchant links, taint path, the hand-drawn radial cluster graph, and the LLM narrative), the full evaluation dossier, and a scripted replay where a ring's scores climb 23 to 82 as it spreads across six merchants. For a fresh replay experience, delete `sentinel.db*` before `make serve`. The console is a hand-built design system, the watchroom: warm dark ink, radar-amber accent, verdict triad colors, three type voices, custom logo and favicon, no template UI.
+<p align="center"><sub><b>The catch.</b> Score 100, BLOCK_REC: six identities on one device across six merchants, a taint path to a confirmed chargeback, and the evidence-bound LLM narrative.</sub></p>
+
+| Under review (abstention band) | Cleared traffic | Ring replay, live scoring |
+|-------------------------------|-----------------|---------------------------|
+| ![Queue filtered to REVIEW verdicts](docs/screenshots/console-queue-review.png) | ![Queue filtered to ALLOW verdicts](docs/screenshots/console-queue-allow.png) | ![Ring replay running](docs/screenshots/console-replay.png) |
+
+<p align="center">
+  <img src="docs/screenshots/console-metrics.png" alt="Evaluation dossier: held-out metrics with confidence intervals, rupee ledger, confusion matrix, baselines, and the evasion table" width="880">
+</p>
+
+<p align="center"><sub><b>The receipts.</b> Every held-out metric with confidence intervals, the rupee ledger, the baseline comparison, and the adversarial evasion table.</sub></p>
+
+The queue triages three bands (BLOCK_REC / REVIEW / ALLOW, shown above), every verdict carries its full evidence bundle, and the replay ingests a fresh copy of the ring each run so scores climb live against the warm graph. For a fresh experience, delete `sentinel.db*` before `make serve`. The console is a hand-built design system, the watchroom: warm dark ink, radar-amber accent, verdict triad colors, three type voices, custom logo and favicon, no template UI.
 
 ## API surface
 
