@@ -45,11 +45,13 @@ jobs:
       - name: Build API image
         run: docker build -t sentinel-api .
       - name: Boot API and verify serving
+        env:
+          SENTINEL_API_KEY: dev-sentinel-key
         run: |
           docker run -d --name api -p 8000:8000 sentinel-api
           for i in $(seq 1 30); do curl -sf http://localhost:8000/healthz >/dev/null && break; sleep 2; done
           curl -sf http://localhost:8000/healthz
-          curl -sf -X POST http://localhost:8000/v1/events             -H "X-API-Key: dev-sentinel-key" -H "Content-Type: application/json"             -d '{"event_id":"ci-1","merchant_id":"m1","customer_id":"c1","amount_paise":100,"ts":"2026-08-20T10:00:00+05:30","payment_method":"upi"}'             | grep -o '"verdict":"[A-Z_]*"'
+          curl -sf -X POST http://localhost:8000/v1/events             -H "X-API-Key: $SENTINEL_API_KEY" -H "Content-Type: application/json"             -d '{"event_id":"ci-1","merchant_id":"m1","customer_id":"c1","amount_paise":100,"ts":"2026-08-20T10:00:00+05:30","payment_method":"upi"}'             | grep -o '"verdict":"[A-Z_]*"'
           docker rm -f api
       - name: Build console image
         run: docker build -t sentinel-console ./console
