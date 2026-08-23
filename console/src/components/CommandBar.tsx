@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { DEMO_MODE } from "@/lib/demo";
 import { LogoMark, Wordmark } from "@/components/Logo";
 import { useApi } from "@/lib/api";
 
@@ -42,7 +43,9 @@ export function CommandBar() {
         </nav>
 
         <div className="ml-auto flex items-center gap-3">
-          <span className="micro hidden md:inline">{base.replace(/^https?:\/\//, "")}</span>
+          <span className="micro hidden md:inline">
+            {DEMO_MODE ? "static snapshot" : base.replace(/^https?:\/\//, "")}
+          </span>
           <span className="flex items-center gap-2">
             <span className="relative flex h-2 w-2">
               <span className="absolute inline-flex h-full w-full rounded-full bg-allow opacity-60" />

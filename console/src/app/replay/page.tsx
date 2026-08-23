@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { ScoreNumber, VerdictBadge } from "@/components/Verdict";
+import { DEMO_MODE, demoFeed } from "@/lib/demo";
 import { fetchScenario, ingestEvent, useApi, type Scenario } from "@/lib/api";
 import { rupees, shortId } from "@/lib/format";
 
@@ -40,6 +41,27 @@ export default function ReplayPage() {
     setRunning(true);
     setFeed([]);
     const token = ++runToken.current;
+    if (DEMO_MODE) {
+      const feed = demoFeed();
+      for (const row of feed) {
+        if (runToken.current !== token) break;
+        setFeed((prev) => [
+          ...prev,
+          {
+            index: row.index,
+            merchant: row.merchant,
+            customer: row.customer,
+            amount: row.amount_paise,
+            score: row.score,
+            verdict: row.verdict,
+            duplicate: row.duplicate,
+          },
+        ]);
+        await new Promise((resolve) => setTimeout(resolve, STEP_MS));
+      }
+      if (runToken.current === token) setRunning(false);
+      return;
+    }
     /*
       Each run ingests a fresh copy of the scenario: event ids carry a
       per-run suffix so idempotency never swallows the demo. When the
@@ -158,6 +180,9 @@ export default function ReplayPage() {
             ))}
           </ul>
 
+          {DEMO_MODE && (
+            <p className="micro mt-4 text-amber">static snapshot: recorded run, no backend attached</p>
+          )}
           <p className="micro mt-4 leading-relaxed">
             watch the score climb as the ring&rsquo;s shared entities accumulate fan-out and taint
             &middot; a returning ring is flagged even faster the second time

@@ -9,6 +9,8 @@ import { useEffect, useState } from "react";
   proxy and per-merchant OAuth (documented in the security doc).
 */
 
+import { DEMO_MODE, demoCluster, demoEvaluation, demoQueue, demoScenario } from "@/lib/demo";
+
 const FALLBACK_BASE = "http://localhost:8000";
 const FALLBACK_KEY = "dev-sentinel-key";
 
@@ -81,6 +83,11 @@ export function useVerdictQueue(filter: string | null) {
   useEffect(() => {
     let cancelled = false;
     const load = async () => {
+      if (DEMO_MODE) {
+        setRows(demoQueue());
+        setLoaded(true);
+        return;
+      }
       try {
         const params = new URLSearchParams({ limit: "50" });
         if (filter) params.set("verdict", filter);
@@ -111,6 +118,7 @@ export async function fetchVerdict(base: string, key: string, eventId: string): 
 }
 
 export async function fetchCluster(base: string, key: string, customerId: string) {
+  if (DEMO_MODE) return demoCluster(customerId);
   return request<{
     customer_id: string;
     nodes: { type: string; id: string; taint: number }[];
@@ -120,6 +128,7 @@ export async function fetchCluster(base: string, key: string, customerId: string
 }
 
 export async function fetchEvaluation(base: string, key: string) {
+  if (DEMO_MODE) return demoEvaluation();
   return request<{
     metrics: Record<string, unknown>;
     latency?: { p50_ms: number; p95_ms: number; events: number };
@@ -127,6 +136,7 @@ export async function fetchEvaluation(base: string, key: string) {
 }
 
 export async function fetchScenario(base: string, key: string): Promise<Scenario> {
+  if (DEMO_MODE) return demoScenario();
   return request<Scenario>(base, key, "/v1/demo/scenario");
 }
 

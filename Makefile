@@ -1,4 +1,4 @@
-.PHONY: setup check lint format type test test-all console-setup console serve backfill merchant-token challenger loadtest calibrate evaluate models hooks clean
+.PHONY: setup check lint format type test test-all console-setup console serve backfill snapshot merchant-token challenger loadtest calibrate evaluate models hooks clean
 
 # One-time setup: virtualenv, pinned deps, git hooks.
 setup:
@@ -50,6 +50,11 @@ serve:
 # Backfill LLM explanations for pending verdicts (bounded; costs Bedrock money).
 backfill:
 	.venv/Scripts/python -m sentinel.backfill --limit 20
+
+# Zero-backend static demo snapshot into console/out/ (hostable anywhere, free).
+snapshot:
+	.venv/Scripts/python scripts/make_demo_fixtures.py
+	cd console && NEXT_PUBLIC_DEMO=1 npx next build
 
 # Mint a per-merchant JWT (default TTL 24h): make merchant-token MERCHANT_ID=mcht_00001
 merchant-token:
