@@ -42,8 +42,36 @@ def test_baselines_reported_side_by_side_keys() -> None:
 
 
 @pytest.fixture(scope="module")
-def evaluation() -> dict:
-    return run_evaluation(seed=42)
+def test_config(tmp_path_factory: pytest.TempPathFactory) -> Path:
+    """A self-contained locked config.
+
+    The real calibration (evaluation/model_config.json) is a gitignored
+    local artifact; CI checks out without it, so no test may depend on
+    it. Tests assert structure and mechanics against the default
+    weights; the calibrated numbers come from
+    `make calibrate && make evaluate` locally.
+    """
+    import json
+
+    from sentinel.scorer import DEFAULT_WEIGHTS
+
+    config_path = tmp_path_factory.mktemp("config") / "model_config.json"
+    config_path.write_text(
+        json.dumps(
+            {
+                "model_version": "rules-test",
+                "weights": DEFAULT_WEIGHTS,
+                "thresholds": {"review": 25, "block": 35},
+            }
+        ),
+        encoding="utf-8",
+    )
+    return config_path
+
+
+@pytest.fixture(scope="module")
+def evaluation(test_config: Path) -> dict:
+    return run_evaluation(seed=42, config_path=test_config)
 
 
 def test_evaluation_covers_doc05_spec(evaluation: dict) -> None:
@@ -75,11 +103,13 @@ def test_evaluation_rings_all_accounted(evaluation: dict) -> None:
     assert len(rings["sophisticated"]) >= 1
 
 
-def test_metrics_json_is_byte_identical_across_runs(tmp_path: Path, evaluation: dict) -> None:
+def test_metrics_json_is_byte_identical_across_runs(
+    tmp_path: Path, evaluation: dict, test_config: Path
+) -> None:
     first_dir = tmp_path / "a"
     second_dir = tmp_path / "b"
     write_outputs(first_dir, evaluation)
-    write_outputs(second_dir, run_evaluation(seed=42))
+    write_outputs(second_dir, run_evaluation(seed=42, config_path=test_config))
     first = (first_dir / "metrics.json").read_bytes()
     second = (second_dir / "metrics.json").read_bytes()
     assert first == second  # no timestamps or timings inside metrics.json
