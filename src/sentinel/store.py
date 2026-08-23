@@ -143,14 +143,27 @@ class AuditStore:
     # ------------------------------------------------------------------ write
 
     def insert_event(self, payload: dict[str, Any]) -> bool:
-        """Insert an event; False when the event_id already exists."""
-        from sqlalchemy import insert
+        """Insert an event; False when the event_id already exists.
 
+        Conflict handling is dialect-aware: SQLite takes OR IGNORE,
+        Postgres takes ON CONFLICT DO NOTHING on the primary key.
+        """
         try:
             with self._engine.begin() as connection:
-                result = connection.execute(
-                    insert(EventRow).values(**payload).prefix_with("OR IGNORE")
-                )
+                if self._engine.dialect.name == "postgresql":
+                    from sqlalchemy.dialects.postgresql import insert as pg_insert
+
+                    result = connection.execute(
+                        pg_insert(EventRow)
+                        .values(**payload)
+                        .on_conflict_do_nothing(index_elements=["event_id"])
+                    )
+                else:
+                    from sqlalchemy.dialects.sqlite import insert as sqlite_insert
+
+                    result = connection.execute(
+                        sqlite_insert(EventRow).values(**payload).prefix_with("OR IGNORE")
+                    )
                 return result.rowcount > 0
         except OperationalError as exc:
             raise StoreUnavailableError(str(exc)) from exc

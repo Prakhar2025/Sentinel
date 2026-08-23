@@ -81,7 +81,8 @@ jobs:
           pip install -r requirements.txt
       - name: Postgres integration tests
         env:
-          SENTINEL_TEST_DATABASE_URL: postgresql+psycopg://postgres:PLACEHOLDER@localhost:5432/sentinel
+          POSTGRES_PASSWORD: sentinel
+          SENTINEL_TEST_DATABASE_URL: postgresql+psycopg://postgres:${{ env.POSTGRES_PASSWORD }}@localhost:5432/sentinel
         run: python -m pytest -m postgres --no-cov -q
 
   secrets:

@@ -17,18 +17,17 @@ Usage: python scripts/make_demo_fixtures.py
 from __future__ import annotations
 
 import json
+import sys
 from pathlib import Path
 from typing import Any
 
-import sys
-
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
-from sentinel.data.generate import generate_dataset  # noqa: E402
-from sentinel.graph import GraphStore, entities_of  # noqa: E402
-from sentinel.service import _demo_scenario_cached, _event_row  # noqa: E402
-from sentinel.store import AuditStore  # noqa: E402
-from sentinel.verdict import VerdictEngine, verdict_to_json  # noqa: E402
+from sentinel.data.generate import generate_dataset
+from sentinel.graph import GraphStore, entities_of
+from sentinel.service import _demo_scenario_cached, _event_row
+from sentinel.store import AuditStore
+from sentinel.verdict import VerdictEngine, verdict_to_json
 
 OUT_DIR = Path(__file__).resolve().parents[1] / "console" / "src" / "demo"
 
@@ -109,9 +108,7 @@ def main() -> int:
             evaluation["metrics"] = json.loads(metrics_path.read_text(encoding="utf-8"))
         if latency_path.exists():
             evaluation["latency"] = json.loads(latency_path.read_text(encoding="utf-8"))
-        (OUT_DIR / "evaluation.json").write_text(
-            json.dumps(evaluation, indent=1), encoding="utf-8"
-        )
+        (OUT_DIR / "evaluation.json").write_text(json.dumps(evaluation, indent=1), encoding="utf-8")
 
         scenario = _demo_scenario_cached()
         scenario["recorded_feed"] = record_replay_feed(GraphStore())
@@ -130,7 +127,9 @@ def main() -> int:
                 kind, _, value = node.partition(":")
                 if kind == "phone":
                     value = _mask_phone(value)
-                node_payloads.append({"type": kind, "id": value, "taint": attrs.get("fraud_taint", 0.0)})
+                node_payloads.append(
+                    {"type": kind, "id": value, "taint": attrs.get("fraud_taint", 0.0)}
+                )
             edges = [
                 {"source": node, "target": target}
                 for node in nodes
