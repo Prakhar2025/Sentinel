@@ -15,7 +15,8 @@
 | 4 | FastAPI service: two-key auth, audit store, masking, spooling, degradation | done |
 | 5 | Bedrock LLM layer: explanation chain, fence-stripping, cost log, backfill | done |
 | 6 | Evaluation harness: held-out test, FP cost, baselines, evasion pack | done |
-| 7-8 | Analyst console, pitch polish | planned (see [docs/11-roadmap.md](docs/11-roadmap.md)) |
+| 7 | Analyst console: ranked queue, evidence + cluster graph, metrics dossier, ring replay | done |
+| 8 | Pitch polish | planned (see [docs/11-roadmap.md](docs/11-roadmap.md)) |
 
 ## Measured results (held-out test set, seed 42)
 
@@ -38,10 +39,29 @@ time-windowed-fanout fix. Regenerate everything with `make calibrate && make eva
 ## Quick start
 
 ```bash
-make setup          # venv (Python 3.12), pinned deps, git hooks
-make check          # lint + format check + mypy strict + pytest with coverage
-make models         # one-shot Bedrock constrained-JSON verification (bounded spend)
+make setup              # venv (Python 3.12), pinned deps, git hooks
+make check              # lint + format check + mypy strict + pytest with coverage
+make models             # one-shot Bedrock constrained-JSON verification (bounded spend)
+make calibrate          # lock weights/thresholds on train + calibration splits
+make evaluate           # single held-out test pass -> evaluation/report.md + metrics.json
+make backfill           # seed 1,000 verdicts + generate top-20 LLM narratives (bounded spend)
+make serve              # API on http://localhost:8000 (docs at /docs)
+make console-setup      # install the analyst console (Node 20+)
+make console            # console on http://localhost:3000
 ```
+
+### The analyst console
+
+Three views against the live API: the **ranked queue** with the evidence
+panel (signal decomposition, cross-merchant links, taint path, the
+hand-drawn SVG identity-cluster graph, and the LLM narrative), the
+**evaluation dossier** (every metric from the held-out run, including the
+baseline comparison and the evasion table), and **ring replay** (watch a
+fraud ring's scores climb 23 to 82 as it spreads across six merchants,
+live). For a fresh replay, delete `sentinel.db` before `make serve`.
+Design: the watchroom system, a warm-dark observatory theme with a
+radar-amber accent, custom logo/favicon, three type voices, and no
+template UI. Screenshots in [docs/screenshots/](docs/screenshots/).
 
 Requires AWS credentials via the default chain (no keys in the repo, ever) for `make models` and the LLM features. Everything else runs offline.
 

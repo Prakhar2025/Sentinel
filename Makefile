@@ -1,4 +1,4 @@
-.PHONY: setup check lint format type test test-all serve backfill calibrate evaluate models hooks clean
+.PHONY: setup check lint format type test test-all console-setup console serve backfill calibrate evaluate models hooks clean
 
 # One-time setup: virtualenv, pinned deps, git hooks.
 setup:
@@ -34,6 +34,14 @@ test:
 
 test-all:
 	.venv/Scripts/python -m pytest
+
+# One-time console setup: install the Next.js analyst console dependencies.
+console-setup:
+	cd console && npm install
+
+# Run the analyst console on port 3000 (needs `make serve` on 8000).
+console:
+	cd console && npm run dev
 
 # Run the API service locally on port 8000.
 serve:

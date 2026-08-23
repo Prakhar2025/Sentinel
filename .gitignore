@@ -26,9 +26,11 @@ htmlcov/
 
 # Local databases and generated artifacts
 *.db
+*.db-shm
+*.db-wal
 *.sqlite3
 evaluation/
-data/generated/
+data/
 graphml/
 
 # OS noise
