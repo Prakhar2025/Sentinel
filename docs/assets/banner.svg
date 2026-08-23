@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 300" role="img" aria-label="Sentinel, abuse-ring watchroom">
+  <rect width="1200" height="300" fill="#0d0e11"/>
+
+  <!-- faint radar field -->
+  <g fill="none" stroke="#1f232a">
+    <circle cx="230" cy="150" r="70"/>
+    <circle cx="230" cy="150" r="110" stroke-dasharray="2 8"/>
+    <circle cx="230" cy="150" r="150" stroke-dasharray="1 10"/>
+  </g>
+  <line x1="230" y1="150" x2="360" y2="52" stroke="#e8a33d" stroke-opacity="0.35" stroke-width="2"/>
+
+  <!-- mark -->
+  <g fill="none" stroke="#e8a33d" stroke-linecap="round">
+    <path d="M 194 150 A 36 36 0 0 1 230 114" stroke-width="6"/>
+    <path d="M 243 120.5 A 36 36 0 0 1 266 150" stroke-width="6" opacity="0.55"/>
+    <path d="M 256 160 A 36 36 0 0 1 210 161" stroke-width="6" opacity="0.3"/>
+  </g>
+  <circle cx="230" cy="150" r="13" fill="none" stroke="#e8e3d5" stroke-width="4"/>
+  <circle cx="230" cy="150" r="4.5" fill="#e8a33d"/>
+
+  <!-- wordmark -->
+  <text x="330" y="152" font-family="Georgia, 'Times New Roman', serif" font-size="84" fill="#e8e3d5">Sentinel</text>
+  <text x="336" y="196" font-family="Consolas, 'Courier New', monospace" font-size="17" letter-spacing="6" fill="#8b8574">ABUSE-RING WATCHROOM</text>
+
+  <!-- right-side verdict ticks -->
+  <g font-family="Consolas, monospace" font-size="15">
+    <rect x="880" y="96" width="16" height="16" rx="3" fill="none" stroke="#4cc38a" stroke-width="2"/>
+    <text x="908" y="109" fill="#8b8574">ALLOW</text>
+    <rect x="880" y="132" width="16" height="16" rx="3" fill="none" stroke="#e8a33d" stroke-width="2"/>
+    <text x="908" y="145" fill="#8b8574">REVIEW</text>
+    <rect x="880" y="168" width="16" height="16" rx="3" fill="none" stroke="#e5484d" stroke-width="2"/>
+    <text x="908" y="181" fill="#8b8574">BLOCK REC</text>
+  </g>
+  <text x="330" y="242" font-family="Consolas, monospace" font-size="14" fill="#565246">cross-merchant identity-reuse fraud detection &#183; measured precision, recall, and rupee cost</text>
+</svg>
