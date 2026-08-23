@@ -24,6 +24,10 @@
 | 12 | [Pitch Script](./12-pitch-script.md) | 5-minute video structure |
 | 13 | [Glossary](./13-glossary.md) | Domain terms |
 | 14 | [Champion/Challenger](./14-champion-challenger.md) | Shadow model, agreement reporting, promotion criteria |
+| 15 | [Productionization RFC](./15-productionization-rfc.md) | Measured capacity plan to fintech scale |
+| 16 | [Threat Model](./16-threat-model.md) | STRIDE analysis mapped to built controls |
+| 17 | [Runbook](./17-runbook.md) | Deploy, rollback, and 3 AM incident procedures |
+| 18 | [ADRs](./18-adrs.md) | The six decisions that define the system |
 
 ---
 
