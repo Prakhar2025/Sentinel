@@ -1,0 +1,188 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import { ClusterGraph, type ClusterData } from "@/components/ClusterGraph";
+import { ReasonChip, ScoreMeter, VerdictBadge } from "@/components/Verdict";
+import { fetchCluster, ingestEvent, useApi, type Verdict } from "@/lib/api";
+import { factorLabel, shortId } from "@/lib/format";
+
+const FEATURE_KEYS = [
+  "device_identity_ratio",
+  "cross_merchant_fanout",
+  "taint_propagation",
+  "velocity_72h",
+  "burn_rotate",
+  "amount_pattern",
+  "new_identity_burst",
+];
+
+const NORM_KEYS: Record<string, string> = {
+  device_identity_ratio: "n_f1",
+  cross_merchant_fanout: "n_f2",
+  taint_propagation: "n_f3",
+  velocity_72h: "n_f4",
+  burn_rotate: "n_f5",
+  amount_pattern: "n_f6",
+  new_identity_burst: "n_f7",
+};
+
+function Narrative({ verdict }: { verdict: Verdict }) {
+  if (verdict.explanation_status !== "DONE" || !verdict.explanation) {
+    return (
+      <div className="rounded-lg border border-hairline bg-panel p-4">
+        <span className="micro">analyst narrative</span>
+        <p className="mt-2 text-sm text-faint">
+          {verdict.explanation_status === "PENDING"
+            ? "Narrative generating (async LLM pass; run make backfill)."
+            : "Narrative unavailable for this verdict."}
+        </p>
+      </div>
+    );
+  }
+  let parsed: { summary?: string; risk_factors?: string[]; recommended_action?: string } = {};
+  try {
+    parsed = JSON.parse(verdict.explanation);
+  } catch {
+    parsed = {};
+  }
+  return (
+    <div className="rounded-lg border border-hairline bg-panel p-4">
+      <div className="flex items-center justify-between">
+        <span className="micro">analyst narrative</span>
+        <span className="micro text-faint">generated, evidence-bound</span>
+      </div>
+      {parsed.summary && <p className="mt-2 font-display text-[17px] leading-snug">{parsed.summary}</p>}
+      {parsed.risk_factors && parsed.risk_factors.length > 0 && (
+        <ul className="mt-3 flex flex-wrap gap-1.5">
+          {parsed.risk_factors.map((factor) => (
+            <li key={factor} className="data rounded-sm bg-raised px-1.5 py-0.5 text-[10px] text-muted">
+              {factor}
+            </li>
+          ))}
+        </ul>
+      )}
+      {parsed.recommended_action && (
+        <p className="mt-3 border-t border-hairline-soft pt-2 text-[13px] text-muted">
+          <span className="micro mr-2">action</span>
+          {parsed.recommended_action}
+        </p>
+      )}
+    </div>
+  );
+}
+
+export function EvidencePanel({ verdict, reviewAt, blockAt }: { verdict: Verdict; reviewAt: number; blockAt: number }) {
+  const { base, key } = useApi();
+  const [cluster, setCluster] = useState<ClusterData | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    fetchCluster(base, key, customerIdOf(verdict))
+      .then((data) => {
+        if (!cancelled) setCluster(data);
+      })
+      .catch(() => {
+        if (!cancelled) setCluster(null);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [base, key, verdict.event_id]);
+
+  return (
+    <section className="flex flex-col gap-4">
+      <header className="rounded-lg border border-hairline bg-panel p-4">
+        <div className="flex items-start justify-between gap-4">
+          <div>
+            <div className="flex items-center gap-2">
+              <VerdictBadge verdict={verdict.verdict} />
+              <span className="data text-[12px] text-muted">{shortId(verdict.event_id, 18)}</span>
+            </div>
+            <h2 className="data mt-2 text-[13px] text-muted">
+              customer <span className="text-text">{customerIdOf(verdict)}</span>
+            </h2>
+          </div>
+          <div className="w-56">
+            <ScoreMeter score={verdict.score} reviewAt={reviewAt} blockAt={blockAt} />
+          </div>
+        </div>
+        {verdict.reason_codes.length > 0 && (
+          <div className="mt-3 flex flex-wrap gap-1.5 border-t border-hairline-soft pt-3">
+            {verdict.reason_codes.map((code) => (
+              <ReasonChip key={code} code={code} />
+            ))}
+          </div>
+        )}
+      </header>
+
+      <div className="grid gap-4 lg:grid-cols-2">
+        <div className="flex flex-col gap-4">
+          <div className="rounded-lg border border-hairline bg-panel p-4">
+            <span className="micro">signal decomposition</span>
+            <ul className="mt-3 flex flex-col gap-2.5">
+              {FEATURE_KEYS.map((feature) => {
+                const normalized = verdict.features[NORM_KEYS[feature]] ?? 0;
+                const raw = verdict.features[feature];
+                return (
+                  <li key={feature} className="grid grid-cols-[130px_1fr_46px] items-center gap-3">
+                    <span className="text-[12px] text-muted">{factorLabel(feature)}</span>
+                    <span className="h-[3px] rounded-full bg-raised">
+                      <span
+                        className="block h-[3px] rounded-full bg-amber/80"
+                        style={{ width: `${Math.round(normalized * 100)}%` }}
+                      />
+                    </span>
+                    <span className="data text-right text-[11px] text-muted">{raw}</span>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+
+          <div className="rounded-lg border border-hairline bg-panel p-4">
+            <span className="micro">cross-merchant evidence</span>
+            <div className="mt-3 grid grid-cols-2 gap-x-6 gap-y-2">
+              <div>
+                <p className="data text-[20px] font-semibold">{verdict.evidence.linked_merchants?.length ?? 0}</p>
+                <p className="micro">merchants linked</p>
+              </div>
+              <div>
+                <p className="data text-[20px] font-semibold">{verdict.evidence.shared_devices?.[0]?.linked_identities ?? "-"}</p>
+                <p className="micro">identities on top device</p>
+              </div>
+            </div>
+            {verdict.evidence.linked_merchants && verdict.evidence.linked_merchants.length > 0 && (
+              <p className="data mt-3 text-[11px] leading-relaxed text-faint">
+                {verdict.evidence.linked_merchants.join("  \u00b7  ")}
+              </p>
+            )}
+            {verdict.evidence.taint_path && verdict.evidence.taint_path.length > 1 && (
+              <p className="data mt-3 border-t border-hairline-soft pt-2 text-[11px] text-block">
+                taint path &nbsp;{verdict.evidence.taint_path.join(" \u2192 ")}
+              </p>
+            )}
+          </div>
+        </div>
+
+        <div className="flex flex-col gap-4">
+          {cluster ? (
+            <ClusterGraph cluster={cluster} subject={customerIdOf(verdict)} />
+          ) : (
+            <div className="flex h-64 items-center justify-center rounded-lg border border-hairline bg-panel">
+              <span className="micro">cluster unavailable</span>
+            </div>
+          )}
+          <Narrative verdict={verdict} />
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function customerIdOf(verdict: Verdict): string {
+  const stored = (verdict.evidence as { customer_id?: string }).customer_id;
+  if (stored) return stored;
+  return verdict.event_id; // placeholder until event detail is fetched
+}
+
+export { ingestEvent };

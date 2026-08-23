@@ -1,0 +1,113 @@
+@import "tailwindcss";
+
+/*
+  Sentinel design system, "the watchroom".
+  Warm dark ink, radar-amber accent, verdict triad (allow/review/block),
+  three type voices: Instrument Serif (display), Space Grotesk (interface),
+  JetBrains Mono (data). No gradients, no glass, no purple.
+*/
+
+@theme {
+  --color-ink: #0d0e11;
+  --color-panel: #15171c;
+  --color-raised: #1b1e24;
+  --color-hairline: #262a32;
+  --color-hairline-soft: #1f232a;
+  --color-text: #e8e3d5;
+  --color-muted: #8b8574;
+  --color-faint: #565246;
+  --color-amber: #e8a33d;
+  --color-allow: #4cc38a;
+  --color-block: #e5484d;
+  --color-taint: #e5484d;
+  --color-device: #8fb8d8;
+  --color-vpa: #6fbfa8;
+  --color-phone: #d8b36a;
+  --color-email: #b8a88f;
+  --color-merchant: #7a8391;
+
+  --font-display: var(--font-instrument-serif), "Iowan Old Style", Georgia, serif;
+  --font-sans: var(--font-space-grotesk), "Segoe UI", system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), "Cascadia Mono", Consolas, monospace;
+}
+
+html {
+  color-scheme: dark;
+}
+
+body {
+  background-color: var(--color-ink);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: rgba(232, 163, 61, 0.28);
+}
+
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+*::-webkit-scrollbar-thumb {
+  background: var(--color-hairline);
+  border-radius: 4px;
+}
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Micro label: the console's quiet structural voice. */
+.micro {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+.data {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Tainted graph nodes breathe slowly; nothing else moves. */
+@keyframes taint-pulse {
+  0%,
+  100% {
+    opacity: 0.55;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+.taint-pulse {
+  animation: taint-pulse 2.4s ease-in-out infinite;
+}
+
+@keyframes row-arrival {
+  from {
+    background-color: rgba(232, 163, 61, 0.09);
+  }
+  to {
+    background-color: transparent;
+  }
+}
+.row-arrival {
+  animation: row-arrival 1.2s ease-out;
+}
+
+@keyframes sweep {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+.radar-sweep {
+  transform-origin: center;
+  animation: sweep 6s linear infinite;
+}
