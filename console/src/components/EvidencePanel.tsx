@@ -54,8 +54,11 @@ function Narrative({ verdict }: { verdict: Verdict }) {
       {parsed.summary && <p className="mt-2 font-display text-[17px] leading-snug">{parsed.summary}</p>}
       {parsed.risk_factors && parsed.risk_factors.length > 0 && (
         <ul className="mt-3 flex flex-wrap gap-1.5">
-          {parsed.risk_factors.map((factor) => (
-            <li key={factor} className="data rounded-sm bg-raised px-1.5 py-0.5 text-[10px] text-muted">
+          {parsed.risk_factors.map((factor, index) => (
+            <li
+              key={`factor-${index}-${factor}`}
+              className="data rounded-sm bg-raised px-1.5 py-0.5 text-[10px] text-muted"
+            >
               {factor}
             </li>
           ))}

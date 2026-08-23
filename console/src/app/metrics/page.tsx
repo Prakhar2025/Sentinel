@@ -292,8 +292,11 @@ export default function MetricsPage() {
 
       <Panel title="score calibration" aside="fraud rate by score bucket">
         <ul className="grid gap-2 md:grid-cols-2">
-          {data.calibration_deciles.map((row) => (
-            <li key={row.score_range} className="grid grid-cols-[80px_1fr_60px] items-center gap-3">
+          {data.calibration_deciles.map((row, index) => (
+            <li
+              key={`cal-${row.score_range}-${index}`}
+              className="grid grid-cols-[80px_1fr_60px] items-center gap-3"
+            >
               <span className="data text-[11px] text-faint">{row.score_range}</span>
               <span className="h-[3px] rounded-full bg-raised">
                 <span
