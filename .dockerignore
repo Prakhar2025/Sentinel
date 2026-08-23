@@ -1,0 +1,12 @@
+.git
+.venv
+__pycache__
+data
+evaluation
+*.db
+*.db-shm
+*.db-wal
+docs
+.github
+console
+node_modules
