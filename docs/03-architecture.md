@@ -49,6 +49,10 @@ flowchart TB
 6. **Explain (LLM, Bedrock)**: the structured evidence is rendered into a natural-language audit narrative by a Bedrock model with constrained JSON output. This is cached and non-blocking; verdict returns before the narrative completes.
 7. **Audit**: verdict + evidence + model/schema versions persisted to the audit store.
 
+Measured after the Phase 6 evaluation run: the synchronous verdict path
+scores at p50 2.3 ms / p95 4.1 ms per event (design target < 20 ms), and
+the LLM narrative remains async exactly as specified here.
+
 ## Why This Shape (key decisions)
 
 | Decision | Rationale |

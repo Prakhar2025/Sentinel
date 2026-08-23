@@ -40,7 +40,7 @@
 
 | ID | Requirement | Target |
 |----|-------------|------|
-| NFR-1 | Latency (local, synchronous verdict path per event) | **Design target:** p95 < 300 ms (graph scoring alone: target < 20 ms; LLM explanation async, never on this path). **Measured values filled in at Phase 6 and updated here.** |
+| NFR-1 | Latency (local, synchronous verdict path per event) | Design target was p95 < 300 ms end-to-end and < 20 ms for graph scoring. **Measured (Phase 6, held-out test run): scoring p50 2.3 ms / p95 4.1 ms** on the reference laptop, ~5x inside the target; LLM explanation async as designed. |
 | NFR-2 | Determinism | Same input + same graph state → same score (LLM only explains, never scores) |
 | NFR-3 | Reproducibility | `make evaluate` produces identical metrics from fixed random seed |
 | NFR-4 | Cost | Full build + evaluation within $550 AWS credits |

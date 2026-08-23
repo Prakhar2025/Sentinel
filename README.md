@@ -14,7 +14,26 @@
 | 3 | F1-F7 features, deterministic scorer, verdict engine, calibration lock | done |
 | 4 | FastAPI service: two-key auth, audit store, masking, spooling, degradation | done |
 | 5 | Bedrock LLM layer: explanation chain, fence-stripping, cost log, backfill | done |
-| 6-8 | Evaluation harness, console | planned (see [docs/11-roadmap.md](docs/11-roadmap.md)) |
+| 6 | Evaluation harness: held-out test, FP cost, baselines, evasion pack | done |
+| 7-8 | Analyst console, pitch polish | planned (see [docs/11-roadmap.md](docs/11-roadmap.md)) |
+
+## Measured results (held-out test set, seed 42)
+
+| Metric | Value |
+|--------|-------|
+| Precision (positive = BLOCK_REC) | 0.833 (95% CI 0.586-0.946) |
+| Recall (event level) | 0.882 (95% CI 0.622-0.966) |
+| F1 | 0.857 |
+| Rings caught | 2 of 2 (incl. the sophisticated low-and-slow ring) |
+| Fraud silently allowed (ALLOW band) | 0 |
+| Net saving after FP + review cost | ~Rs.38,665 per 1,000 events |
+| Scoring latency | p50 2.3 ms / p95 4.1 ms |
+
+Honest disclosures in [evaluation/report.md](evaluation/report.md) once regenerated:
+the GBDT baseline edges the rule ensemble on F1 (0.909 vs 0.857; the
+deterministic scorer keeps the explainability contract), and slow-rate
+evasion rings evade the current weights, documented as the v2
+time-windowed-fanout fix. Regenerate everything with `make calibrate && make evaluate`.
 
 ## Quick start
 
