@@ -73,12 +73,21 @@ ignore_missing_imports = true
 module = "sklearn.*"
 ignore_missing_imports = true
 
+[[tool.mypy.overrides]]
+module = "boto3.*"
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = "botocore.*"
+ignore_missing_imports = true
+
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 pythonpath = ["src"]
 addopts = "--cov=sentinel --cov-report=term-missing --cov-fail-under=90"
 markers = [
     "slow: long-running integration tests (full calibration; excluded in CI)",
+    "bedrock: live AWS Bedrock calls that cost money (manual only, never CI)",
 ]
 
 [tool.coverage.run]

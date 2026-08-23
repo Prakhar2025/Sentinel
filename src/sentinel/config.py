@@ -36,7 +36,12 @@ class Settings(BaseSettings):
     explanation_model: str = "openai.gpt-oss-120b-1:0"
     fallback1_explanation_model: str = "openai.gpt-oss-20b-1:0"
     fallback2_explanation_model: str = "zai.glm-5"
-    bedrock_timeout_seconds: float = 5.0
+    # LLM behavior. Timeout default raised from 5s to 30s after the Phase 0
+    # measurement: gpt-oss-120b took 7.2s on a trivial prompt (reasoning
+    # overhead), so 5s would timeout every real explanation. Explanations
+    # are async by design, so the larger bound costs nothing user-facing.
+    bedrock_timeout_seconds: float = 30.0
+    explanation_max_tokens: int = 1024
 
     # Verdict thresholds (locked at Phase 3 calibration; doc 05)
     review_threshold: int = 35

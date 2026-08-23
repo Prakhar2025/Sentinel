@@ -145,6 +145,35 @@ class AuditStore:
         except OperationalError as exc:
             raise StoreUnavailableError(str(exc)) from exc
 
+    def set_explanation(self, event_id: str, explanation: str, status: str) -> None:
+        """Attach the LLM narrative to an existing verdict (backfill)."""
+        from sqlalchemy import update
+
+        try:
+            with self._engine.begin() as connection:
+                connection.execute(
+                    update(VerdictRow)
+                    .where(VerdictRow.event_id == event_id)
+                    .values(explanation=explanation, explanation_status=status)
+                )
+        except OperationalError as exc:
+            raise StoreUnavailableError(str(exc)) from exc
+
+    def pending_explanations(self, limit: int) -> list[dict[str, Any]]:
+        """Verdicts still awaiting a narrative, highest score first."""
+        statement = (
+            select(VerdictRow)
+            .where(VerdictRow.explanation_status == "PENDING")
+            .order_by(VerdictRow.score.desc())
+            .limit(limit)
+        )
+        try:
+            with self._engine.connect() as connection:
+                rows = connection.execute(statement).mappings().all()
+        except OperationalError as exc:
+            raise StoreUnavailableError(str(exc)) from exc
+        return [self._public_verdict(dict(row)) for row in rows]
+
     def insert_feedback(self, verdict_id: str, decision: str, note: str | None) -> None:
         from sqlalchemy import insert
 
@@ -237,6 +266,10 @@ class AuditStore:
             return True
         except OperationalError:
             return False
+
+    def close(self) -> None:
+        """Dispose connection pools; required on Windows before unlinking."""
+        self._engine.dispose()
 
     @staticmethod
     def _public_verdict(row: dict[str, Any]) -> dict[str, Any]:
