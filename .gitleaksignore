@@ -1,0 +1,6 @@
+# Gitleaks false positives: the flagged values are public demo defaults
+# (dev-sentinel-key in a CI curl header, then a CI dummy postgres URL),
+# not credentials. Historical commits cannot be edited without rewriting;
+# the current content uses env vars so no new findings appear.
+046547217cbe771646c62adcae94129a8a8d613c:.github/workflows/ci.yml:curl-auth-header:50
+50c2afd5bbc4ad81bcb505218e42e20b53a1963c:.github/workflows/ci.yml:curl-auth-header:50
