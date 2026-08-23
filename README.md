@@ -13,7 +13,8 @@
 | 2 | Entity normalization + identity link graph with taint propagation | done |
 | 3 | F1-F7 features, deterministic scorer, verdict engine, calibration lock | done |
 | 4 | FastAPI service: two-key auth, audit store, masking, spooling, degradation | done |
-| 5-8 | LLM layer, evaluation, console | planned (see [docs/11-roadmap.md](docs/11-roadmap.md)) |
+| 5 | Bedrock LLM layer: explanation chain, fence-stripping, cost log, backfill | done |
+| 6-8 | Evaluation harness, console | planned (see [docs/11-roadmap.md](docs/11-roadmap.md)) |
 
 ## Quick start
 

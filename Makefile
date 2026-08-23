@@ -1,4 +1,4 @@
-.PHONY: setup check lint format type test test-all serve calibrate evaluate models hooks clean
+.PHONY: setup check lint format type test test-all serve backfill calibrate evaluate models hooks clean
 
 # One-time setup: virtualenv, pinned deps, git hooks.
 setup:
@@ -38,6 +38,10 @@ test-all:
 # Run the API service locally on port 8000.
 serve:
 	.venv/Scripts/python -m uvicorn sentinel.service:create_app --factory --port 8000
+
+# Backfill LLM explanations for pending verdicts (bounded; costs Bedrock money).
+backfill:
+	.venv/Scripts/python -m sentinel.backfill --limit 20
 
 # Calibrate weights/thresholds on train+calibration splits (writes evaluation/model_config.json).
 calibrate:
