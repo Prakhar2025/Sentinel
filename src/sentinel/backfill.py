@@ -75,7 +75,7 @@ def rebuild_store(db_path: Path, seed: int) -> int:
                 "score": verdict.score,
                 "verdict": verdict.verdict,
                 "reason_codes": payload["reason_codes"],
-                "evidence": payload["evidence"],
+                "evidence": {**payload["evidence"], "customer_id": event.customer_id},
                 "features": payload["features"],
                 "contributions": payload["contributions"],
                 "model_version": payload["model_version"],

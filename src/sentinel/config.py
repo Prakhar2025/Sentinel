@@ -50,6 +50,7 @@ class Settings(BaseSettings):
     # Service wiring
     model_config_path: str = "evaluation/model_config.json"
     spool_dir: str = "data/spool"
+    console_origin: str = "http://localhost:3000"
 
 
 @lru_cache

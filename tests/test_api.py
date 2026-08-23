@@ -260,3 +260,71 @@ def test_mask_phone_shapes() -> None:
     assert mask_phone("+919812345678") == "+9198XXXX5678"
     assert mask_phone(None) is None
     assert mask_phone("123") == "XXX"
+
+
+class TestConsoleEndpoints:
+    def test_evaluation_artifacts_404_when_missing(
+        self, client: TestClient, tmp_path: Path, monkeypatch
+    ) -> None:
+        monkeypatch.chdir(tmp_path)  # no evaluation/ artifacts here
+        response = client.get("/v1/evaluation", headers=API_KEY)
+        assert response.status_code == 404
+        assert response.json()["type"] == "NOT_EVALUATED"
+
+    def test_evaluation_served_when_present(
+        self, client: TestClient, tmp_path: Path, monkeypatch
+    ) -> None:
+        import json
+
+        (tmp_path / "evaluation").mkdir()
+        (tmp_path / "evaluation" / "metrics.json").write_text(
+            json.dumps({"event_metrics": {"precision": 0.83}}), encoding="utf-8"
+        )
+        (tmp_path / "evaluation" / "latency.json").write_text(
+            json.dumps({"p95_ms": 4.1}), encoding="utf-8"
+        )
+        monkeypatch.chdir(tmp_path)
+        response = client.get("/v1/evaluation", headers=API_KEY)
+        assert response.status_code == 200
+        body = response.json()
+        assert body["metrics"]["event_metrics"]["precision"] == 0.83
+        assert body["latency"]["p95_ms"] == 4.1
+
+    def test_demo_scenario_shape(self, client: TestClient) -> None:
+        response = client.get("/v1/demo/scenario", headers=API_KEY)
+        assert response.status_code == 200
+        body = response.json()
+        assert body["strategy"] == "standard"
+        assert len(body["merchants"]) >= 3
+        events = body["events"]
+        assert len(events) >= 8
+        timestamps = [e["ts"] for e in events]
+        assert timestamps == sorted(timestamps)
+        for event in events:  # serving shape only: no labels leak
+            assert "is_fraud" not in event
+            assert "ring_id" not in event
+
+    def test_demo_scenario_is_deterministic(self, client: TestClient) -> None:
+        first = client.get("/v1/demo/scenario", headers=API_KEY).json()
+        second = client.get("/v1/demo/scenario", headers=API_KEY).json()
+        assert first["events"] == second["events"]
+
+    def test_cors_scoped_to_console_origin(self, client: TestClient) -> None:
+        preflight = client.options(
+            "/v1/verdicts",
+            headers={
+                "Origin": "http://localhost:3000",
+                "Access-Control-Request-Method": "GET",
+                "Access-Control-Request-Headers": "X-API-Key",
+            },
+        )
+        assert preflight.status_code == 200
+        assert preflight.headers["access-control-allow-origin"] == "http://localhost:3000"
+        denied = client.options(
+            "/v1/verdicts",
+            headers={
+                "Origin": "http://evil.example",
+                "Access-Control-Request-Method": "GET",
+            },
+        )
+        assert "access-control-allow-origin" not in denied.headers

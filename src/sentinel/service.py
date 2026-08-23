@@ -84,6 +84,38 @@ def load_model_config(path: Path) -> tuple[dict[str, int], dict[str, int], str] 
     return config["weights"], config["thresholds"], config["model_version"]
 
 
+def _rebuild_graph_from_store(store: AuditStore) -> GraphStore:
+    """Replay stored events into a fresh graph (event sourcing).
+
+    Without this, a restart serves an empty in-memory graph while the
+    audit store holds thousands of events: cluster and entity lookups
+    would 404 until new traffic arrived. Rebuild is chronological by
+    ingestion order, matching online semantics.
+    """
+    from datetime import datetime
+
+    from .data.models import PaymentMethod, PriorOutcome
+
+    graph = GraphStore()
+    for row in store.all_events():
+        event = PaymentEvent(
+            event_id=row["event_id"],
+            merchant_id=row["merchant_id"],
+            customer_id=row["customer_id"],
+            amount_paise=row["amount_paise"],
+            upi_vpa=row["upi_vpa"],
+            phone=row["phone"],
+            device_id=row["device_id"],
+            email=row["email"],
+            ip=row["ip"],
+            ts=datetime.fromisoformat(row["ts"]),
+            payment_method=PaymentMethod(row["payment_method"]),
+            prior_outcome=PriorOutcome(row["prior_outcome"]) if row["prior_outcome"] else None,
+        )
+        graph.upsert_event(event, entities_of(event))
+    return graph
+
+
 def _event_row(event: PaymentEvent) -> dict[str, Any]:
     """Persistable row for the events table."""
     return {
@@ -102,6 +134,49 @@ def _event_row(event: PaymentEvent) -> dict[str, Any]:
     }
 
 
+_SCENARIO_CACHE: dict[str, Any] = {}
+
+
+def _demo_scenario_cached(seed: int = 42) -> dict[str, Any]:
+    """Largest standard ring from the dataset, as serving-shaped events.
+
+    Cached per process; deterministic for the seed.
+    """
+    key = f"seed:{seed}"
+    if key in _SCENARIO_CACHE:
+        cached: dict[str, Any] = _SCENARIO_CACHE[key]
+        return cached
+    from .data.generate import generate_dataset
+
+    events, labels, _ = generate_dataset(seed=seed)
+    label_by_id = {label.event_id: label for label in labels}
+    rings: dict[str, list[PaymentEvent]] = {}
+    for event in events:
+        label = label_by_id[event.event_id]
+        strategy = label.ring_strategy.value if label.ring_strategy else ""
+        if label.is_fraud and label.ring_id and strategy == "standard":
+            rings.setdefault(label.ring_id, []).append(event)
+    # Pick the ring hitting the most merchants; ties by event count then id.
+    chosen_id, chosen = max(
+        rings.items(),
+        key=lambda pair: (
+            len({e.merchant_id for e in pair[1]}),
+            len(pair[1]),
+            # deterministic tie-break on ring id (max with reversed id)
+            -int(pair[0].split("_")[1]),
+        ),
+    )
+    ordered = sorted(chosen, key=lambda e: e.ts)
+    scenario = {
+        "ring_id": chosen_id,
+        "strategy": "standard",
+        "merchants": sorted({e.merchant_id for e in ordered}),
+        "events": [json.loads(e.model_dump_json()) for e in ordered],
+    }
+    _SCENARIO_CACHE[key] = scenario
+    return scenario
+
+
 def create_app(
     settings: Settings | None = None,
     store: AuditStore | None = None,
@@ -113,7 +188,7 @@ def create_app(
     app = FastAPI(title="Abuse-Ring Sentinel", version="1", docs_url="/docs")
     app.state.settings = app_settings
     app.state.store = store or AuditStore(Path("sentinel.db"))
-    app.state.graph = graph or GraphStore()
+    app.state.graph = graph or _rebuild_graph_from_store(app.state.store)
     if engine is None:
         locked = load_model_config(Path(app_settings.model_config_path))
         if locked is None:
@@ -128,6 +203,17 @@ def create_app(
             )
     else:
         app.state.engine = engine
+
+    # The analyst console is a separate local origin; CORS is scoped to
+    # exactly that origin (docs/07: no wildcard).
+    from fastapi.middleware.cors import CORSMiddleware
+
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins=[app_settings.console_origin],
+        allow_methods=["GET", "POST"],
+        allow_headers=["X-API-Key", "X-Admin-Key", "Content-Type"],
+    )
 
     # ------------------------------------------------------------- auth deps
 
@@ -154,15 +240,16 @@ def create_app(
         with (spool_dir / "ingest.spool").open("a", encoding="utf-8") as handle:
             handle.write(event.model_dump_json() + "\n")
 
-    def persist(verdict: Verdict) -> None:
+    def persist(verdict: Verdict, customer_id: str = "") -> None:
         payload = verdict_to_json(verdict)
+        evidence = {**payload["evidence"], "customer_id": customer_id}
         app.state.store.insert_verdict(
             {
                 "event_id": verdict.event_id,
                 "score": verdict.score,
                 "verdict": verdict.verdict,
                 "reason_codes": payload["reason_codes"],
-                "evidence": payload["evidence"],
+                "evidence": evidence,
                 "features": payload["features"],
                 "contributions": payload["contributions"],
                 "model_version": payload["model_version"],
@@ -188,7 +275,7 @@ def create_app(
                 return JSONResponse(status_code=409, content=merged)
             app.state.graph.upsert_event(event, entities_of(event))
             verdict = app.state.engine.score_event(event, app.state.graph)
-            persist(verdict)
+            persist(verdict, event.customer_id)
             return {
                 **verdict_to_json(verdict),
                 "explanation_status": "PENDING",
@@ -227,7 +314,7 @@ def create_app(
                     continue
                 app.state.graph.upsert_event(event, entities_of(event))
                 verdict = app.state.engine.score_event(event, app.state.graph)
-                persist(verdict)
+                persist(verdict, event.customer_id)
                 accepted += 1
                 results.append(
                     {"index": index, "status": "accepted", "verdict": verdict_to_json(verdict)}
@@ -350,6 +437,33 @@ def create_app(
             verdict["verdict_id"], payload.analyst_decision, payload.note
         )
         return {"status": "recorded"}
+
+    @app.get("/v1/evaluation", dependencies=[Depends(require_api_key)])
+    def evaluation() -> Any:
+        """Serve the last evaluation artifacts (read-only, for the console)."""
+        metrics_path = Path("evaluation/metrics.json")
+        latency_path = Path("evaluation/latency.json")
+        if not metrics_path.exists():
+            return problem(
+                404,
+                "NOT_EVALUATED",
+                "no evaluation artifacts",
+                "run `make evaluate` to generate evaluation/metrics.json",
+            )
+        payload: dict[str, Any] = {"metrics": json.loads(metrics_path.read_text(encoding="utf-8"))}
+        if latency_path.exists():
+            payload["latency"] = json.loads(latency_path.read_text(encoding="utf-8"))
+        return payload
+
+    @app.get("/v1/demo/scenario", dependencies=[Depends(require_api_key)])
+    def demo_scenario() -> Any:
+        """The scripted ring-caught-across-merchants story for the replay view.
+
+        Deterministic: largest standard ring from the seed-42 dataset,
+        serving-shaped events only (no labels cross the boundary).
+        """
+        events_payload = _demo_scenario_cached()
+        return events_payload
 
     @app.get("/healthz")
     def healthz() -> dict[str, str]:
