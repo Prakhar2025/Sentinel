@@ -44,3 +44,4 @@ out/
 
 # Spool files from degraded-mode ingestion
 *.spool
+console/tsconfig.tsbuildinfo
