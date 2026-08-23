@@ -18,12 +18,14 @@ from __future__ import annotations
 import hmac
 import json
 import re
+import time
+from collections.abc import Callable
 from pathlib import Path
 from typing import Annotated, Any
 
 from fastapi import Depends, FastAPI, Header, HTTPException, Query, Request
 from fastapi.exceptions import RequestValidationError
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, Response
 from pydantic import BaseModel, Field
 
 from .challenger import ChallengerModel
@@ -31,6 +33,7 @@ from .config import Settings, get_settings
 from .data.models import PaymentEvent
 from .features import extract_features
 from .graph import GraphStore, NodeType, entities_of
+from .observability import MetricsRegistry, new_request_id
 from .store import SCHEMA_VERSION, AuditStore, StoreUnavailableError
 from .verdict import Verdict, VerdictEngine, verdict_to_json
 
@@ -185,6 +188,7 @@ def create_app(
     engine: VerdictEngine | None = None,
     graph: GraphStore | None = None,
     challenger: ChallengerModel | None = None,
+    enable_challenger: bool = True,
 ) -> FastAPI:
     """Build the service. Every dependency is injectable for tests."""
     app_settings = settings or get_settings()
@@ -209,9 +213,29 @@ def create_app(
     # Shadow challenger: records its opinion next to every verdict and
     # never influences the decision (docs/14). Loaded from the artifact
     # when present; injectable for tests.
-    app.state.challenger = challenger or ChallengerModel.load(
-        Path(app_settings.challenger_model_path)
+    app.state.challenger = (
+        (challenger or ChallengerModel.load(Path(app_settings.challenger_model_path)))
+        if enable_challenger
+        else None
     )
+    app.state.metrics = MetricsRegistry()
+
+    @app.middleware("http")
+    async def telemetry(request: Request, call_next: Callable[[Request], Any]) -> Any:
+        """Request id + counters + latency histogram; best-effort only."""
+        request_id = request.headers.get("X-Request-Id") or new_request_id()
+        started = time.perf_counter()
+        response = await call_next(request)
+        response.headers["X-Request-Id"] = request_id
+        try:
+            app.state.metrics.inc("sentinel_http_requests_total")
+            if request.url.path == "/v1/events" and request.method == "POST":
+                app.state.metrics.observe(
+                    "sentinel_event_latency_seconds", time.perf_counter() - started
+                )
+        except Exception:  # telemetry must never break serving
+            pass
+        return response
 
     # The analyst console is a separate local origin; CORS is scoped to
     # exactly that origin (docs/07: no wildcard).
@@ -303,6 +327,16 @@ def create_app(
             verdict = app.state.engine.score_event(event, app.state.graph)
             shadow = shadow_opinion(verdict, event)
             persist(verdict, event.customer_id, event, shadow)
+            app.state.metrics.inc("sentinel_events_total")
+            app.state.metrics.inc(
+                f'sentinel_verdicts_total{{band="{verdict.verdict.lower()}"}}'.split("{")[0]
+                + '{band="'
+                + verdict.verdict.lower()
+                + '"}'
+            )
+            if verdict.degraded:
+                app.state.metrics.inc("sentinel_degraded_total")
+            app.state.metrics.observe_score(verdict.score)
             return {
                 **verdict_to_json(verdict),
                 "challenger": shadow,
@@ -345,6 +379,8 @@ def create_app(
                 shadow = shadow_opinion(verdict, event)
                 persist(verdict, event.customer_id, event, shadow)
                 accepted += 1
+                app.state.metrics.inc("sentinel_events_total")
+                app.state.metrics.observe_score(verdict.score)
                 results.append(
                     {
                         "index": index,
@@ -497,6 +533,10 @@ def create_app(
         """
         events_payload = _demo_scenario_cached()
         return events_payload
+
+    @app.get("/metrics", dependencies=[Depends(require_api_key)])
+    def metrics_endpoint() -> Response:
+        return Response(content=app.state.metrics.render(), media_type="text/plain")
 
     @app.get("/healthz")
     def healthz() -> dict[str, str]:

@@ -81,6 +81,7 @@ class TestShadowInService:
             store=store,
             engine=VerdictEngine(),
             challenger=challenger,
+            enable_challenger=challenger is not None,
         )
         return TestClient(app, raise_server_exceptions=False)
 
