@@ -106,19 +106,26 @@ class StoreUnavailableError(RuntimeError):
 class AuditStore:
     """Typed wrapper over the SQLite audit schema."""
 
-    def __init__(self, path: Path) -> None:
-        path.parent.mkdir(parents=True, exist_ok=True)
-        self._engine: Engine = create_engine(
-            f"sqlite:///{path}",
-            connect_args={"check_same_thread": False},
-        )
+    def __init__(self, path: Path | None = None, url: str | None = None) -> None:
+        if url is not None:
+            self._engine: Engine = create_engine(url)
+        elif path is not None:
+            path.parent.mkdir(parents=True, exist_ok=True)
+            self._engine = create_engine(
+                f"sqlite:///{path}",
+                connect_args={"check_same_thread": False},
+            )
+        else:
+            raise ValueError("provide either a sqlite path or a database url")
 
-        @event.listens_for(self._engine, "connect")
-        def _set_pragmas(dbapi_connection: object, _record: object) -> None:
-            cursor = dbapi_connection.cursor()  # type: ignore[attr-defined]
-            cursor.execute("PRAGMA journal_mode=WAL")
-            cursor.execute("PRAGMA foreign_keys=ON")
-            cursor.close()
+        if self._engine.dialect.name == "sqlite":
+
+            @event.listens_for(self._engine, "connect")
+            def _set_pragmas(dbapi_connection: object, _record: object) -> None:
+                cursor = dbapi_connection.cursor()  # type: ignore[attr-defined]
+                cursor.execute("PRAGMA journal_mode=WAL")
+                cursor.execute("PRAGMA foreign_keys=ON")
+                cursor.close()
 
         Base.metadata.create_all(self._engine)
         self._migrate_verdicts_challenger()
