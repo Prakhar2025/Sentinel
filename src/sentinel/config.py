@@ -49,6 +49,7 @@ class Settings(BaseSettings):
 
     # Service wiring
     model_config_path: str = "evaluation/model_config.json"
+    challenger_model_path: str = "evaluation/challenger.pkl"
     spool_dir: str = "data/spool"
     console_origin: str = "http://localhost:3000"
 

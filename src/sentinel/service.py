@@ -26,8 +26,10 @@ from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel, Field
 
+from .challenger import ChallengerModel
 from .config import Settings, get_settings
 from .data.models import PaymentEvent
+from .features import extract_features
 from .graph import GraphStore, NodeType, entities_of
 from .store import SCHEMA_VERSION, AuditStore, StoreUnavailableError
 from .verdict import Verdict, VerdictEngine, verdict_to_json
@@ -182,6 +184,7 @@ def create_app(
     store: AuditStore | None = None,
     engine: VerdictEngine | None = None,
     graph: GraphStore | None = None,
+    challenger: ChallengerModel | None = None,
 ) -> FastAPI:
     """Build the service. Every dependency is injectable for tests."""
     app_settings = settings or get_settings()
@@ -203,6 +206,12 @@ def create_app(
             )
     else:
         app.state.engine = engine
+    # Shadow challenger: records its opinion next to every verdict and
+    # never influences the decision (docs/14). Loaded from the artifact
+    # when present; injectable for tests.
+    app.state.challenger = challenger or ChallengerModel.load(
+        Path(app_settings.challenger_model_path)
+    )
 
     # The analyst console is a separate local origin; CORS is scoped to
     # exactly that origin (docs/07: no wildcard).
@@ -240,7 +249,23 @@ def create_app(
         with (spool_dir / "ingest.spool").open("a", encoding="utf-8") as handle:
             handle.write(event.model_dump_json() + "\n")
 
-    def persist(verdict: Verdict, customer_id: str = "") -> None:
+    def shadow_opinion(
+        verdict: Verdict, event: PaymentEvent | None
+    ) -> dict[str, float | int | bool] | None:
+        if app.state.challenger is None or event is None or verdict.degraded:
+            return None
+        features = extract_features(event, app.state.graph)
+        if features is None:
+            return None
+        opinion: dict[str, float | int | bool] = app.state.challenger.predict(features)
+        return opinion
+
+    def persist(
+        verdict: Verdict,
+        customer_id: str = "",
+        event: PaymentEvent | None = None,
+        shadow: dict[str, float | int | bool] | None = None,
+    ) -> None:
         payload = verdict_to_json(verdict)
         evidence = {**payload["evidence"], "customer_id": customer_id}
         app.state.store.insert_verdict(
@@ -254,6 +279,7 @@ def create_app(
                 "contributions": payload["contributions"],
                 "model_version": payload["model_version"],
                 "explanation_status": "PENDING",
+                "challenger": shadow,
             }
         )
 
@@ -275,9 +301,11 @@ def create_app(
                 return JSONResponse(status_code=409, content=merged)
             app.state.graph.upsert_event(event, entities_of(event))
             verdict = app.state.engine.score_event(event, app.state.graph)
-            persist(verdict, event.customer_id)
+            shadow = shadow_opinion(verdict, event)
+            persist(verdict, event.customer_id, event, shadow)
             return {
                 **verdict_to_json(verdict),
+                "challenger": shadow,
                 "explanation_status": "PENDING",
                 "schema_version": SCHEMA_VERSION,
                 "duplicate": False,
@@ -314,10 +342,15 @@ def create_app(
                     continue
                 app.state.graph.upsert_event(event, entities_of(event))
                 verdict = app.state.engine.score_event(event, app.state.graph)
-                persist(verdict, event.customer_id)
+                shadow = shadow_opinion(verdict, event)
+                persist(verdict, event.customer_id, event, shadow)
                 accepted += 1
                 results.append(
-                    {"index": index, "status": "accepted", "verdict": verdict_to_json(verdict)}
+                    {
+                        "index": index,
+                        "status": "accepted",
+                        "verdict": {**verdict_to_json(verdict), "challenger": shadow},
+                    }
                 )
             except StoreUnavailableError:
                 spool(event)

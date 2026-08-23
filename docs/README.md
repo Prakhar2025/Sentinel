@@ -23,6 +23,7 @@
 | 11 | [Roadmap & Build Plan](./11-roadmap.md) | Phased plan with verification checkpoints |
 | 12 | [Pitch Script](./12-pitch-script.md) | 5-minute video structure |
 | 13 | [Glossary](./13-glossary.md) | Domain terms |
+| 14 | [Champion/Challenger](./14-champion-challenger.md) | Shadow model, agreement reporting, promotion criteria |
 
 ---
 

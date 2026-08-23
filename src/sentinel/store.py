@@ -71,6 +71,7 @@ class VerdictRow(Base):
     schema_version: Mapped[str] = mapped_column(default=SCHEMA_VERSION)
     explanation: Mapped[str | None] = mapped_column(default=None)
     explanation_status: Mapped[str] = mapped_column(default="PENDING")
+    challenger: Mapped[dict[str, Any] | None] = mapped_column(JSON, default=None)
     created_at: Mapped[str] = mapped_column(default=_utcnow)
 
 
@@ -120,6 +121,17 @@ class AuditStore:
             cursor.close()
 
         Base.metadata.create_all(self._engine)
+        self._migrate_verdicts_challenger()
+
+    def _migrate_verdicts_challenger(self) -> None:
+        """Add the shadow-opinion column to pre-v2 verdicts tables."""
+        from sqlalchemy import inspect, text
+
+        inspector = inspect(self._engine)
+        columns = {column["name"] for column in inspector.get_columns("verdicts")}
+        if "challenger" not in columns:
+            with self._engine.begin() as connection:
+                connection.execute(text("ALTER TABLE verdicts ADD COLUMN challenger JSON"))
 
     # ------------------------------------------------------------------ write
 
@@ -286,6 +298,7 @@ class AuditStore:
             "schema_version": row["schema_version"],
             "explanation": row.get("explanation"),
             "explanation_status": row["explanation_status"],
+            "challenger": row.get("challenger"),
             "created_at": row["created_at"],
         }
 

@@ -1,4 +1,4 @@
-.PHONY: setup check lint format type test test-all console-setup console serve backfill loadtest calibrate evaluate models hooks clean
+.PHONY: setup check lint format type test test-all console-setup console serve backfill challenger loadtest calibrate evaluate models hooks clean
 
 # One-time setup: virtualenv, pinned deps, git hooks.
 setup:
@@ -50,6 +50,10 @@ serve:
 # Backfill LLM explanations for pending verdicts (bounded; costs Bedrock money).
 backfill:
 	.venv/Scripts/python -m sentinel.backfill --limit 20
+
+# Train the shadow challenger on train-split features (writes evaluation/challenger.pkl).
+challenger:
+	.venv/Scripts/python -m sentinel.challenger_train
 
 # Load test: measured throughput and latency of the verdict pipeline.
 loadtest:

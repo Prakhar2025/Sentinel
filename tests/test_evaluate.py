@@ -90,6 +90,7 @@ def test_evaluation_covers_doc05_spec(evaluation: dict) -> None:
         "calibration_deciles",
         "baselines",
         "evasion_pack",
+        "champion_challenger",
     ]
     for key in required:
         assert key in metrics, f"doc 05 metric missing: {key}"
