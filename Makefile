@@ -1,4 +1,4 @@
-.PHONY: setup check lint format type test test-all console-setup console serve backfill challenger loadtest calibrate evaluate models hooks clean
+.PHONY: setup check lint format type test test-all console-setup console serve backfill merchant-token challenger loadtest calibrate evaluate models hooks clean
 
 # One-time setup: virtualenv, pinned deps, git hooks.
 setup:
@@ -50,6 +50,10 @@ serve:
 # Backfill LLM explanations for pending verdicts (bounded; costs Bedrock money).
 backfill:
 	.venv/Scripts/python -m sentinel.backfill --limit 20
+
+# Mint a per-merchant JWT (default TTL 24h): make merchant-token MERCHANT_ID=mcht_00001
+merchant-token:
+	.venv/Scripts/python -m sentinel.merchant_token $(MERCHANT_ID) $(TTL)
 
 # Train the shadow challenger on train-split features (writes evaluation/challenger.pkl).
 challenger:

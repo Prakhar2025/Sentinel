@@ -25,6 +25,7 @@ class Settings(BaseSettings):
     # API authentication (demo scope; doc 06/07 two-key model)
     sentinel_api_key: str = "dev-sentinel-key"
     sentinel_admin_api_key: str = "dev-admin-key"
+    jwt_secret: str = "dev-jwt-secret"
 
     # AWS / Bedrock routing (doc 03). IDs verified against the live control
     # plane in us-east-1 on 2026-08-22; see the docs/08 appendix for latency

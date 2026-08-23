@@ -28,6 +28,7 @@ from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse, Response
 from pydantic import BaseModel, Field
 
+from .auth import MerchantIdentity, verify_token
 from .challenger import ChallengerModel
 from .config import Settings, get_settings
 from .data.models import PaymentEvent
@@ -119,6 +120,14 @@ def _rebuild_graph_from_store(store: AuditStore) -> GraphStore:
         )
         graph.upsert_event(event, entities_of(event))
     return graph
+
+
+def _row_merchant(row: dict[str, Any]) -> str | None:
+    """Best-effort merchant lookup from a stored verdict's evidence."""
+    evidence = row.get("evidence") or {}
+    if isinstance(evidence, dict):
+        return evidence.get("merchant_id")
+    return None
 
 
 def _event_row(event: PaymentEvent) -> dict[str, Any]:
@@ -265,6 +274,30 @@ def create_app(
             x_admin_key, app_settings.sentinel_admin_api_key
         )
 
+    def caller_identity(
+        authorization: Annotated[str | None, Header()] = None,
+    ) -> MerchantIdentity | None:
+        """Verified merchant identity when a valid bearer token is used."""
+        if not authorization or not authorization.startswith("Bearer "):
+            return None
+        return verify_token(app_settings.jwt_secret, authorization[7:])
+
+    def require_api_or_bearer(
+        x_api_key: Annotated[str | None, Header()] = None,
+        authorization: Annotated[str | None, Header()] = None,
+    ) -> MerchantIdentity | None:
+        """Standard authN: demo key OR a verified merchant JWT.
+
+        Returns the merchant identity when JWT was used, enabling
+        per-merchant scoping downstream; None for key auth (demo scope).
+        """
+        if x_api_key is not None and hmac.compare_digest(x_api_key, app_settings.sentinel_api_key):
+            return None
+        identity = caller_identity(authorization)
+        if identity is not None:
+            return identity
+        raise HTTPException(status_code=401, detail="missing or invalid credentials")
+
     # -------------------------------------------------------------- helpers
 
     def spool(event: PaymentEvent) -> None:
@@ -291,7 +324,11 @@ def create_app(
         shadow: dict[str, float | int | bool] | None = None,
     ) -> None:
         payload = verdict_to_json(verdict)
-        evidence = {**payload["evidence"], "customer_id": customer_id}
+        evidence = {
+            **payload["evidence"],
+            "customer_id": customer_id,
+            "merchant_id": event.merchant_id if event is not None else None,
+        }
         app.state.store.insert_verdict(
             {
                 "event_id": verdict.event_id,
@@ -309,8 +346,18 @@ def create_app(
 
     # --------------------------------------------------------------- routes
 
-    @app.post("/v1/events", dependencies=[Depends(require_api_key)])
-    def ingest_event(event: PaymentEvent) -> Any:
+    @app.post("/v1/events", dependencies=[Depends(require_api_or_bearer)])
+    def ingest_event(
+        event: PaymentEvent,
+        identity: MerchantIdentity | None = Depends(require_api_or_bearer),
+    ) -> Any:
+        if identity is not None and identity.merchant_id != event.merchant_id:
+            return problem(
+                403,
+                "MERCHANT_MISMATCH",
+                "merchant tokens may only ingest their own events",
+                f"token merchant {identity.merchant_id} != event merchant {event.merchant_id}",
+            )
         try:
             inserted = app.state.store.insert_event(_event_row(event))
             if not inserted:
@@ -353,7 +400,7 @@ def create_app(
                 "event spooled to disk for replay; re-ingest later",
             )
 
-    @app.post("/v1/events:batch", dependencies=[Depends(require_api_key)])
+    @app.post("/v1/events:batch", dependencies=[Depends(require_api_or_bearer)])
     def ingest_batch(events: list[PaymentEvent]) -> Any:
         if len(events) > BATCH_LIMIT:
             return problem(
@@ -399,24 +446,29 @@ def create_app(
             "results": results,
         }
 
-    @app.get("/v1/verdicts/{event_id}", dependencies=[Depends(require_api_key)])
+    @app.get("/v1/verdicts/{event_id}", dependencies=[Depends(require_api_or_bearer)])
     def get_verdict(event_id: str) -> Any:
         verdict = app.state.store.get_verdict(event_id)
         if verdict is None:
             return problem(404, "NOT_FOUND", "unknown event", f"no verdict for {event_id}")
         return verdict
 
-    @app.get("/v1/verdicts", dependencies=[Depends(require_api_key)])
+    @app.get("/v1/verdicts", dependencies=[Depends(require_api_or_bearer)])
     def queue(
         verdict: str | None = Query(default=None),
         limit: Annotated[int, Field(ge=1, le=200)] = 50,
+        identity: MerchantIdentity | None = Depends(require_api_or_bearer),
     ) -> list[dict[str, Any]]:
         rows: list[dict[str, Any]] = app.state.store.list_verdicts(verdict=verdict, limit=limit)
+        if identity is not None:
+            # JWT callers see only their own traffic (federated privacy,
+            # docs/07): other merchants' event rows are filtered out.
+            rows = [row for row in rows if _row_merchant(row) == identity.merchant_id]
         return rows
 
     @app.get(
         "/v1/risk/entities/{entity_type}/{entity_value}",
-        dependencies=[Depends(require_api_key)],
+        dependencies=[Depends(require_api_or_bearer)],
     )
     def entity_risk(entity_type: str, entity_value: str) -> Any:
         node_type = ENTITY_TYPES.get(entity_type)
@@ -457,7 +509,7 @@ def create_app(
             "node_attrs": app.state.graph.raw_node_attrs(node),
         }
 
-    @app.get("/v1/graph/cluster/{customer_id}", dependencies=[Depends(require_api_key)])
+    @app.get("/v1/graph/cluster/{customer_id}", dependencies=[Depends(require_api_or_bearer)])
     def cluster_view(
         customer_id: str,
         unmask: bool = False,
@@ -493,7 +545,7 @@ def create_app(
             "truncated": truncated,
         }
 
-    @app.post("/v1/feedback", dependencies=[Depends(require_api_key)], status_code=202)
+    @app.post("/v1/feedback", dependencies=[Depends(require_api_or_bearer)], status_code=202)
     def feedback(payload: FeedbackIn) -> Any:
         verdict = app.state.store.get_verdict_by_id(payload.verdict_id)
         if verdict is None:
@@ -507,7 +559,7 @@ def create_app(
         )
         return {"status": "recorded"}
 
-    @app.get("/v1/evaluation", dependencies=[Depends(require_api_key)])
+    @app.get("/v1/evaluation", dependencies=[Depends(require_api_or_bearer)])
     def evaluation() -> Any:
         """Serve the last evaluation artifacts (read-only, for the console)."""
         metrics_path = Path("evaluation/metrics.json")
@@ -524,7 +576,7 @@ def create_app(
             payload["latency"] = json.loads(latency_path.read_text(encoding="utf-8"))
         return payload
 
-    @app.get("/v1/demo/scenario", dependencies=[Depends(require_api_key)])
+    @app.get("/v1/demo/scenario", dependencies=[Depends(require_api_or_bearer)])
     def demo_scenario() -> Any:
         """The scripted ring-caught-across-merchants story for the replay view.
 
@@ -534,7 +586,7 @@ def create_app(
         events_payload = _demo_scenario_cached()
         return events_payload
 
-    @app.get("/metrics", dependencies=[Depends(require_api_key)])
+    @app.get("/metrics", dependencies=[Depends(require_api_or_bearer)])
     def metrics_endpoint() -> Response:
         return Response(content=app.state.metrics.render(), media_type="text/plain")
 
