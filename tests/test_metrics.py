@@ -97,9 +97,20 @@ def test_sensitivity_table_alternatives() -> None:
     assert rows[0]["tp"] >= rows[1]["tp"] >= rows[2]["tp"]
 
 
-def test_calibration_deciles_monotone_buckets() -> None:
+def test_calibration_deciles_buckets_unique_and_complete() -> None:
     outcomes = [outcome(i % 101, i % 7 == 0) for i in range(200)]
     table = calibration_deciles(outcomes)
     assert table
-    assert all("score_range" in row for row in table)
+    ranges = [row["score_range"] for row in table]
+    assert len(ranges) == len(set(ranges))  # no duplicated labels
     assert sum(row["events"] for row in table) == 200
+    assert sum(row["fraud"] for row in table) == sum(1 for o in outcomes if o.is_fraud)
+
+
+def test_calibration_deciles_never_split_a_score() -> None:
+    # Heavily tied, bimodal distribution: two big score masses.
+    outcomes = [outcome(40, False) for _ in range(60)] + [outcome(85, True) for _ in range(20)]
+    table = calibration_deciles(outcomes)
+    ranges = [row["score_range"] for row in table]
+    assert len(ranges) == len(set(ranges))
+    assert sum(row["events"] for row in table) == 80

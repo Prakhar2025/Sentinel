@@ -84,8 +84,8 @@ export default function ReplayPage() {
         <h1 className="font-display text-[34px] leading-none">Ring replay</h1>
         <p className="micro mt-2">
           {scenario
-            ? `${scenario.ring_id} &middot; ${scenario.events.length} events &middot; ${scenario.merchants.length} merchants &middot; live ingestion, real scoring`
-            : "loading scenario&hellip;"}
+            ? `${scenario.ring_id} · ${scenario.events.length} events · ${scenario.merchants.length} merchants · live ingestion, real scoring`
+            : "loading scenario…"}
         </p>
       </header>
 

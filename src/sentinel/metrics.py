@@ -120,21 +120,42 @@ def fp_cost_summary(
 
 
 def calibration_deciles(outcomes: list[Outcome]) -> list[dict[str, float | int | str]]:
-    """Fraud rate by score decile (reliability table)."""
+    """Fraud rate by score bucket (reliability table).
+
+    Buckets are built from whole score groups, never splitting a score
+    across buckets: on a bimodal distribution, equal-count slicing
+    produced repeated labels like 40-40, 40-40 which read as a bug.
+    Each score lands in exactly one bucket, so ranges are unique.
+    """
     if not outcomes:
         return []
-    scored = sorted(outcomes, key=lambda o: o.score)
+    by_score: dict[int, int] = {}
+    fraud_by_score: dict[int, int] = {}
+    for outcome in outcomes:
+        by_score[outcome.score] = by_score.get(outcome.score, 0) + 1
+        if outcome.is_fraud:
+            fraud_by_score[outcome.score] = fraud_by_score.get(outcome.score, 0) + 1
+    scores = sorted(by_score)
+    if not scores:
+        return []
+    target_buckets = min(10, len(scores))
+    per_bucket = len(scores) / target_buckets
     buckets: list[dict[str, float | int | str]] = []
-    bucket_size = max(1, len(scored) // 10)
-    for index in range(0, len(scored), bucket_size):
-        chunk = scored[index : index + bucket_size]
-        fraud = sum(1 for o in chunk if o.is_fraud)
+    start = 0
+    for index in range(target_buckets):
+        end = min(len(scores), max(index + 1, round((index + 1) * per_bucket)))
+        group = scores[start:end]
+        start = end
+        if not group:
+            continue
+        events = sum(by_score[s] for s in group)
+        fraud = sum(fraud_by_score.get(s, 0) for s in group)
         buckets.append(
             {
-                "score_range": f"{chunk[0].score}-{chunk[-1].score}",
-                "events": len(chunk),
+                "score_range": f"{group[0]}-{group[-1]}",
+                "events": events,
                 "fraud": fraud,
-                "fraud_rate": round(fraud / len(chunk), 4),
+                "fraud_rate": round(fraud / events, 4),
             }
         )
     return buckets

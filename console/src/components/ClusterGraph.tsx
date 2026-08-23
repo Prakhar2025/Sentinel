@@ -67,31 +67,54 @@ function place(cluster: ClusterData, subject: string): Placed[] {
     });
   }
 
-  entities.slice(0, 12).forEach((node, index) => {
+  entities.slice(0, 10).forEach((node, index) => {
     const angle = (index / Math.max(entities.length, 1)) * Math.PI * 2 - Math.PI / 2;
-    const wobble = index % 2 === 0 ? 0 : 0.35;
-    const radius = 78 + wobble * 26;
+    const wobble = index % 2 === 0 ? 0 : 0.3;
+    const radius = 86 + wobble * 24;
     placed.push({
       ...node,
       x: CENTER.x + Math.cos(angle) * radius,
-      y: CENTER.y + Math.sin(angle) * radius * 0.78,
+      y: CENTER.y + Math.sin(angle) * radius * 0.82,
       r: 11,
       color: ENTITY_COLOR[node.type] || "#8b8574",
     });
   });
 
-  merchants.slice(0, 10).forEach((node, index) => {
+  merchants.slice(0, 8).forEach((node, index) => {
     const angle = (index / Math.max(merchants.length, 1)) * Math.PI * 2 - Math.PI / 2;
     placed.push({
       ...node,
-      x: CENTER.x + Math.cos(angle) * 168,
-      y: CENTER.y + Math.sin(angle) * 118,
+      x: CENTER.x + Math.cos(angle) * 176,
+      y: CENTER.y + Math.sin(angle) * 124,
       r: 9,
       color: ENTITY_COLOR.merchant,
     });
   });
 
   return placed;
+}
+
+interface LabelLayout {
+  x: number;
+  y: number;
+  anchor: "start" | "middle" | "end";
+}
+
+function labelLayout(node: Placed): LabelLayout {
+  /*
+    Radial outward labeling, like an observatory plot: each label sits
+    beyond its node on the line from the center, anchored so text grows
+    away from the plot. Upper-half labels sit above their node, lower
+    half below. This keeps labels out of each other's way without a
+    layout engine.
+  */
+  const dx = node.x - CENTER.x;
+  const dy = node.y - CENTER.y;
+  const length = Math.hypot(dx, dy) || 1;
+  const lx = node.x + (dx / length) * (node.r + 12);
+  const ly = node.y + (dy / length) * (node.r + 12);
+  const anchor = dx > 24 ? "start" : dx < -24 ? "end" : "middle";
+  return { x: lx, y: dy <= 0 ? ly - 2 : ly + 8, anchor };
 }
 
 export function ClusterGraph({ cluster, subject }: { cluster: ClusterData; subject: string }) {
@@ -162,18 +185,21 @@ export function ClusterGraph({ cluster, subject }: { cluster: ClusterData; subje
               >
                 {GLYPH[node.type] ?? "?"}
               </text>
-              {node.type !== "customer" && (
-                <text
-                  x={node.x}
-                  y={node.y - node.r - 5}
-                  textAnchor="middle"
-                  fontSize="7.5"
-                  fontFamily="var(--font-mono, monospace)"
-                  fill="#565246"
-                >
-                  {node.id.length > 14 ? `${node.id.slice(0, 13)}\u2026` : node.id}
-                </text>
-              )}
+              {node.type !== "customer" && (() => {
+                const label = labelLayout(node);
+                return (
+                  <text
+                    x={label.x}
+                    y={label.y}
+                    textAnchor={label.anchor}
+                    fontSize="7.5"
+                    fontFamily="var(--font-mono, monospace)"
+                    fill="#565246"
+                  >
+                    {node.id.length > 16 ? `${node.id.slice(0, 15)}\u2026` : node.id}
+                  </text>
+                );
+              })()}
             </g>
           );
         })}
