@@ -40,9 +40,16 @@ export default function ReplayPage() {
     setRunning(true);
     setFeed([]);
     const token = ++runToken.current;
+    /*
+      Each run ingests a fresh copy of the scenario: event ids carry a
+      per-run suffix so idempotency never swallows the demo. When the
+      ring returns to an already-warm graph, Sentinel flags it even
+      faster, which is exactly the story this view exists to tell.
+    */
+    const runId = Date.now().toString(36);
     for (let index = 0; index < scenario.events.length; index++) {
       if (runToken.current !== token) break;
-      const event = scenario.events[index];
+      const event = { ...scenario.events[index], event_id: `${scenario.events[index].event_id}-r${runId}` };
       let row: FeedRow = {
         index,
         merchant: event.merchant_id,
@@ -112,7 +119,7 @@ export default function ReplayPage() {
             </button>
             <p className="micro max-w-md leading-relaxed">
               the same device, vpas and phones hit {scenario.merchants.length} merchants in
-              sequence; each event is scored against everything that came before it
+              sequence; every run ingests a fresh copy, scored live against the warm graph
             </p>
           </div>
 
@@ -153,7 +160,7 @@ export default function ReplayPage() {
 
           <p className="micro mt-4 leading-relaxed">
             watch the score climb as the ring&rsquo;s shared entities accumulate fan-out and taint
-            &middot; duplicates return the original verdict (idempotent replay)
+            &middot; a returning ring is flagged even faster the second time
           </p>
         </>
       )}
