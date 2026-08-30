@@ -8,6 +8,7 @@ import { useApi } from "@/lib/api";
 
 const NAV = [
   { href: "/", label: "Queue" },
+  { href: "/playground", label: "Playground" },
   { href: "/metrics", label: "Evaluation" },
   { href: "/replay", label: "Replay" },
 ];

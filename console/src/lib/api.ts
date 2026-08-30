@@ -36,7 +36,7 @@ export interface Verdict {
   features: Record<string, number>;
   contributions: Record<string, number>;
   explanation: string | null;
-  explanation_status: "PENDING" | "DONE" | "SKIPPED" | "FAILED";
+  explanation_status: "PENDING" | "DONE" | "SKIPPED" | "FAILED" | "CAP_REACHED";
   created_at: string;
 }
 
@@ -138,6 +138,20 @@ export async function fetchEvaluation(base: string, key: string) {
 export async function fetchScenario(base: string, key: string): Promise<Scenario> {
   if (DEMO_MODE) return demoScenario();
   return request<Scenario>(base, key, "/v1/demo/scenario");
+}
+
+export async function explainLive(
+  base: string,
+  key: string,
+  eventId: string
+): Promise<{ explanation: string | null; explanation_status: string; cap: Record<string, string | number> }> {
+  const response = await fetch(`${base}/v1/explain/${eventId}`, {
+    method: "POST",
+    headers: { "X-API-Key": key, "Content-Type": "application/json" },
+  });
+  const body = await response.json();
+  if (!response.ok) throw new Error(`${response.status} ${JSON.stringify(body).slice(0, 160)}`);
+  return body;
 }
 
 export async function ingestEvent(base: string, key: string, event: ScenarioEvent) {
