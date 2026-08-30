@@ -54,6 +54,17 @@ class Settings(BaseSettings):
     spool_dir: str = "data/spool"
     console_origin: str = "http://localhost:3000"
 
+    # Public-demo hardening: when public_demo=1 the admin surface and
+    # unmasking are structurally disabled (no admin key is honored),
+    # playground requests are rate limited per IP, and live narrative
+    # generation is capped per UTC day. AWS credentials, when present,
+    # stay server-side; the endpoint serves stored narratives after cap.
+    public_demo: bool = False
+    rate_limit_requests: int = 30
+    rate_limit_window_seconds: int = 60
+    explain_daily_cap: int = 50
+    explain_cap_path: str = "data/explain_cap.json"
+
 
 @lru_cache
 def get_settings() -> Settings:

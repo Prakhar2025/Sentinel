@@ -1,16 +1,21 @@
 """FastAPI service (docs/06 API specification).
 
 Security model:
-- Standard scope: X-API-Key, verdict ingestion and analyst views.
+- Standard scope: X-API-Key or a per-merchant JWT bearer token. JWT
+  callers can ingest and read only their own merchant's traffic.
 - Admin scope: X-Admin-Key, the only caller that can unmask PII or see
   raw cross-merchant entity lists; every admin action is written to the
   audit store with the caller's scope label, never the key value.
+- Public-demo mode (settings.public_demo): admin routes and unmasking
+  return 404 structurally, requests are per-IP rate limited, and live
+  narrative generation is daily-capped (docs/07 hardening).
 - Phones are masked in every response unless ?unmask=true AND admin
-  scope, which is audit-logged (docs/06, docs/07).
+  scope, which is audit-logged.
 
 Degradation ladder (doc 10): store failures spool the event to disk and
 return 503 STORE_UNAVAILABLE; the process never raises past a request
-boundary and never auto-blocks on failure.
+boundary and never auto-blocks on failure. The identity graph rebuilds
+from stored events on startup (event sourcing).
 """
 
 from __future__ import annotations
@@ -20,18 +25,21 @@ import json
 import re
 import time
 from collections.abc import Callable
+from datetime import datetime
 from pathlib import Path
 from typing import Annotated, Any
 
 from fastapi import Depends, FastAPI, Header, HTTPException, Query, Request
 from fastapi.exceptions import RequestValidationError
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse, Response
 from pydantic import BaseModel, Field
 
 from .auth import MerchantIdentity, verify_token
 from .challenger import ChallengerModel
 from .config import Settings, get_settings
-from .data.models import PaymentEvent
+from .data.models import PaymentEvent, PaymentMethod, PriorOutcome
+from .explain_api import DailyCap, RateLimiter
 from .features import extract_features
 from .graph import GraphStore, NodeType, entities_of
 from .observability import MetricsRegistry, new_request_id
@@ -90,18 +98,44 @@ def load_model_config(path: Path) -> tuple[dict[str, int], dict[str, int], str] 
     return config["weights"], config["thresholds"], config["model_version"]
 
 
+def _event_row(event: PaymentEvent) -> dict[str, Any]:
+    """Persistable row for the events table."""
+    return {
+        "event_id": event.event_id,
+        "merchant_id": event.merchant_id,
+        "customer_id": event.customer_id,
+        "amount_paise": event.amount_paise,
+        "upi_vpa": event.upi_vpa,
+        "phone": event.phone,
+        "device_id": event.device_id,
+        "email": event.email,
+        "ip": event.ip,
+        "payment_method": event.payment_method.value,
+        "prior_outcome": event.prior_outcome.value if event.prior_outcome else None,
+        "ts": event.ts.isoformat(),
+    }
+
+
+def _row_merchant(row: dict[str, Any]) -> str | None:
+    """Best-effort merchant lookup from a stored verdict's evidence."""
+    evidence = row.get("evidence") or {}
+    if isinstance(evidence, dict):
+        return evidence.get("merchant_id")
+    return None
+
+
+def _is_admin_path(path: str) -> bool:
+    """Routes unavailable on the public demo regardless of headers."""
+    return "/full" in path
+
+
 def _rebuild_graph_from_store(store: AuditStore) -> GraphStore:
     """Replay stored events into a fresh graph (event sourcing).
 
     Without this, a restart serves an empty in-memory graph while the
-    audit store holds thousands of events: cluster and entity lookups
-    would 404 until new traffic arrived. Rebuild is chronological by
+    audit store holds thousands of events. Rebuild is chronological by
     ingestion order, matching online semantics.
     """
-    from datetime import datetime
-
-    from .data.models import PaymentMethod, PriorOutcome
-
     graph = GraphStore()
     for row in store.all_events():
         event = PaymentEvent(
@@ -120,32 +154,6 @@ def _rebuild_graph_from_store(store: AuditStore) -> GraphStore:
         )
         graph.upsert_event(event, entities_of(event))
     return graph
-
-
-def _row_merchant(row: dict[str, Any]) -> str | None:
-    """Best-effort merchant lookup from a stored verdict's evidence."""
-    evidence = row.get("evidence") or {}
-    if isinstance(evidence, dict):
-        return evidence.get("merchant_id")
-    return None
-
-
-def _event_row(event: PaymentEvent) -> dict[str, Any]:
-    """Persistable row for the events table."""
-    return {
-        "event_id": event.event_id,
-        "merchant_id": event.merchant_id,
-        "customer_id": event.customer_id,
-        "amount_paise": event.amount_paise,
-        "upi_vpa": event.upi_vpa,
-        "phone": event.phone,
-        "device_id": event.device_id,
-        "email": event.email,
-        "ip": event.ip,
-        "payment_method": event.payment_method.value,
-        "prior_outcome": event.prior_outcome.value if event.prior_outcome else None,
-        "ts": event.ts.isoformat(),
-    }
 
 
 _SCENARIO_CACHE: dict[str, Any] = {}
@@ -176,7 +184,6 @@ def _demo_scenario_cached(seed: int = 42) -> dict[str, Any]:
         key=lambda pair: (
             len({e.merchant_id for e in pair[1]}),
             len(pair[1]),
-            # deterministic tie-break on ring id (max with reversed id)
             -int(pair[0].split("_")[1]),
         ),
     )
@@ -228,6 +235,22 @@ def create_app(
         else None
     )
     app.state.metrics = MetricsRegistry()
+    app.state.public_demo = app_settings.public_demo
+    app.state.rate_limiter = RateLimiter(
+        app_settings.rate_limit_requests, app_settings.rate_limit_window_seconds
+    )
+    app.state.explain_cap = DailyCap(
+        Path(app_settings.explain_cap_path), app_settings.explain_daily_cap
+    )
+
+    # The analyst console is a separate local origin; CORS is scoped to
+    # exactly that origin (docs/07: no wildcard).
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins=[app_settings.console_origin],
+        allow_methods=["GET", "POST"],
+        allow_headers=["X-API-Key", "X-Admin-Key", "X-Request-Id", "Content-Type"],
+    )
 
     @app.middleware("http")
     async def telemetry(request: Request, call_next: Callable[[Request], Any]) -> Any:
@@ -246,16 +269,18 @@ def create_app(
             pass
         return response
 
-    # The analyst console is a separate local origin; CORS is scoped to
-    # exactly that origin (docs/07: no wildcard).
-    from fastapi.middleware.cors import CORSMiddleware
-
-    app.add_middleware(
-        CORSMiddleware,
-        allow_origins=[app_settings.console_origin],
-        allow_methods=["GET", "POST"],
-        allow_headers=["X-API-Key", "X-Admin-Key", "Content-Type"],
-    )
+    @app.middleware("http")
+    async def public_guard(request: Request, call_next: Callable[[Request], Any]) -> Any:
+        """Per-IP rate limiting for the hosted demo; admin surface
+        structurally disabled when public_demo is set."""
+        if app.state.public_demo:
+            if not app.state.rate_limiter.allow(app.state.rate_limiter.client_key(request)):
+                return problem(
+                    429, "RATE_LIMITED", "too many requests", "slow down and retry shortly"
+                )
+            if _is_admin_path(request.url.path):
+                return problem(404, "NOT_FOUND", "not available in the public demo", None)
+        return await call_next(request)
 
     # ------------------------------------------------------------- auth deps
 
@@ -264,6 +289,8 @@ def create_app(
             raise HTTPException(status_code=401, detail="missing or invalid API key")
 
     def require_admin_key(x_admin_key: Annotated[str | None, Header()] = None) -> None:
+        if app.state.public_demo:
+            raise HTTPException(status_code=404, detail="not available in the public demo")
         if x_admin_key is None or not hmac.compare_digest(
             x_admin_key, app_settings.sentinel_admin_api_key
         ):
@@ -319,15 +346,14 @@ def create_app(
 
     def persist(
         verdict: Verdict,
-        customer_id: str = "",
-        event: PaymentEvent | None = None,
+        event: PaymentEvent,
         shadow: dict[str, float | int | bool] | None = None,
     ) -> None:
         payload = verdict_to_json(verdict)
         evidence = {
             **payload["evidence"],
-            "customer_id": customer_id,
-            "merchant_id": event.merchant_id if event is not None else None,
+            "customer_id": event.customer_id,
+            "merchant_id": event.merchant_id,
         }
         app.state.store.insert_verdict(
             {
@@ -373,14 +399,9 @@ def create_app(
             app.state.graph.upsert_event(event, entities_of(event))
             verdict = app.state.engine.score_event(event, app.state.graph)
             shadow = shadow_opinion(verdict, event)
-            persist(verdict, event.customer_id, event, shadow)
+            persist(verdict, event, shadow)
             app.state.metrics.inc("sentinel_events_total")
-            app.state.metrics.inc(
-                f'sentinel_verdicts_total{{band="{verdict.verdict.lower()}"}}'.split("{")[0]
-                + '{band="'
-                + verdict.verdict.lower()
-                + '"}'
-            )
+            app.state.metrics.inc("sentinel_verdicts_total", band=verdict.verdict.lower())
             if verdict.degraded:
                 app.state.metrics.inc("sentinel_degraded_total")
             app.state.metrics.observe_score(verdict.score)
@@ -424,7 +445,7 @@ def create_app(
                 app.state.graph.upsert_event(event, entities_of(event))
                 verdict = app.state.engine.score_event(event, app.state.graph)
                 shadow = shadow_opinion(verdict, event)
-                persist(verdict, event.customer_id, event, shadow)
+                persist(verdict, event, shadow)
                 accepted += 1
                 app.state.metrics.inc("sentinel_events_total")
                 app.state.metrics.observe_score(verdict.score)
@@ -493,7 +514,7 @@ def create_app(
 
     @app.get(
         "/v1/risk/entities/{entity_type}/{entity_value}/full",
-        dependencies=[Depends(require_api_key), Depends(require_admin_key)],
+        dependencies=[Depends(require_api_or_bearer), Depends(require_admin_key)],
     )
     def entity_risk_full(entity_type: str, entity_value: str) -> Any:
         node_type = ENTITY_TYPES.get(entity_type)
@@ -518,6 +539,8 @@ def create_app(
         nodes, truncated = app.state.graph.cluster(customer_id)
         if not nodes:
             return problem(404, "NOT_FOUND", "unknown customer", customer_id)
+        if unmask and app.state.public_demo:
+            return problem(404, "NOT_FOUND", "not available in the public demo", None)
         if unmask and not admin_key_valid(x_admin_key):
             raise HTTPException(status_code=403, detail="unmasking requires the admin key")
         if unmask:
@@ -583,10 +606,49 @@ def create_app(
         Deterministic: largest standard ring from the seed-42 dataset,
         serving-shaped events only (no labels cross the boundary).
         """
-        events_payload = _demo_scenario_cached()
-        return events_payload
+        return _demo_scenario_cached()
 
-    @app.get("/metrics", dependencies=[Depends(require_api_or_bearer)])
+    @app.post("/v1/explain/{event_id}", dependencies=[Depends(require_api_or_bearer)])
+    def explain_live(event_id: str) -> Any:
+        """Generate one narrative live (Bedrock) under the daily cap.
+
+        Cap exhausted or generation failure -> serves the stored
+        narrative with an explicit status; the visitor never sees an
+        error. AWS runs server-side only; the frontend never touches
+        credentials.
+        """
+        stored = app.state.store.get_verdict(event_id)
+        if stored is None:
+            return problem(404, "NOT_FOUND", "unknown event", event_id)
+        if not app.state.explain_cap.try_acquire():
+            return {
+                "event_id": event_id,
+                "explanation": stored.get("explanation"),
+                "explanation_status": "CAP_REACHED",
+                "cap": app.state.explain_cap.status(),
+            }
+        from .backfill import build_service
+        from .explain import CostLog
+
+        cost_log = CostLog(Path("evaluation/llm_cost.jsonl"))
+        service = build_service(app_settings, cost_log)
+        result = service.explain(stored)
+        if result.status == "DONE" and result.narrative is not None:
+            app.state.store.set_explanation(event_id, result.narrative, "DONE")
+            return {
+                "event_id": event_id,
+                "explanation": result.narrative,
+                "explanation_status": "DONE",
+                "cap": app.state.explain_cap.status(),
+            }
+        return {
+            "event_id": event_id,
+            "explanation": stored.get("explanation"),
+            "explanation_status": "SKIPPED",
+            "cap": app.state.explain_cap.status(),
+        }
+
+    @app.get("/metrics", dependencies=[Depends(require_api_key)])
     def metrics_endpoint() -> Response:
         return Response(content=app.state.metrics.render(), media_type="text/plain")
 
@@ -600,7 +662,7 @@ def create_app(
         body = {
             "store": "ok" if store_ok else "unavailable",
             "graph_nodes": app.state.graph.size,
-            "llm": "not_required",
+            "llm": "optional",
         }
         return body if store_ok else JSONResponse(status_code=503, content=body)
 

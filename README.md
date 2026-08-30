@@ -19,7 +19,7 @@
 
 Fraud rings in Indian digital payments do not invent new identities, they **recycle** them: the same device, VPA, and phone hit merchant after merchant until each one individually blocks them. Every merchant sees a clean first-time customer; the fraud only exists *between* merchants. Sentinel builds the identity link graph across the whole population, scores every payment event against it deterministically, and hands the analyst an evidence bundle, not a black-box number.
 
-> Razorpay AI Buildathon, Track 02 (AI Risk Manager). The system recommends, never acts: no autonomous blocking, no money movement, strictly defense-only.
+> Designed in response to a public fraud-detection problem statement on cross-merchant identity reuse. The system recommends, never acts: no autonomous blocking, no money movement, strictly defense-only.
 
 ## Measured results (held-out test set, seed 42, single pass)
 

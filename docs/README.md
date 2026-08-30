@@ -1,7 +1,5 @@
 # Abuse-Ring Sentinel, Documentation Suite
 
-**Razorpay AI Buildathon · Track 02 (AI Risk Manager)**
-
 > A defense-only fraud detection system that identifies the **same UPI ID, phone number, or device fingerprint being reused across multiple merchants and customers to commit fraud**, with honest, measured precision, recall, and false-positive cost.
 
 ---

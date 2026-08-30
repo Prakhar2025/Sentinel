@@ -49,7 +49,7 @@ Phased plan, each phase ends with a **verification checkpoint** (a runnable comm
 ## Phase 8, README, Pitch, Polish (1 day)
 
 - README (metrics table, ASCII architecture, setup, what-broke), pitch script + recorded video, final repo hygiene.
-- **Verify:** fresh-clone setup works (`make setup && make evaluate`); 5-min video within time; CLAUDE.md deliverable checklist fully ticked. `what-broke.md` complete, every entry real, timestamped.
+- **Verify:** fresh-clone setup works (`make setup && make evaluate`); 5-min video within time; repository checklist fully ticked. `what-broke.md` complete, every entry real, timestamped.
 
 ## Buffer, 1 day (Windows environment quirks, threshold honest-look adjustments with disclosure, video re-takes)
 

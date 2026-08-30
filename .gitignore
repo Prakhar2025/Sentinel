@@ -47,3 +47,4 @@ console/src/demo/
 # Spool files from degraded-mode ingestion
 *.spool
 console/tsconfig.tsbuildinfo
+CLAUDE.md
