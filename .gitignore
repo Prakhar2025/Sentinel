@@ -47,3 +47,4 @@ console/out/
 *.spool
 console/tsconfig.tsbuildinfo
 CLAUDE.md
+DEPLOY-PRIVATE.md
