@@ -44,6 +44,7 @@ from .features import extract_features
 from .graph import GraphStore, NodeType, entities_of
 from .observability import MetricsRegistry, new_request_id
 from .store import SCHEMA_VERSION, AuditStore, StoreUnavailableError
+from .story import system_payload
 from .verdict import Verdict, VerdictEngine, verdict_to_json
 
 BATCH_LIMIT = 1000
@@ -647,6 +648,15 @@ def create_app(
             "explanation_status": "SKIPPED",
             "cap": app.state.explain_cap.status(),
         }
+
+    @app.get("/v1/system", dependencies=[Depends(require_api_or_bearer)])
+    def system_view() -> Any:
+        """The About view's data: real docs parsed, real metrics attached."""
+        metrics_path = Path("evaluation/metrics.json")
+        metrics = None
+        if metrics_path.exists():
+            metrics = json.loads(metrics_path.read_text(encoding="utf-8"))
+        return system_payload(Path("docs"), metrics)
 
     @app.get("/metrics", dependencies=[Depends(require_api_key)])
     def metrics_endpoint() -> Response:

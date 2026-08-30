@@ -9,6 +9,7 @@ import { useApi } from "@/lib/api";
 const NAV = [
   { href: "/", label: "Queue" },
   { href: "/playground", label: "Playground" },
+  { href: "/system", label: "System" },
   { href: "/metrics", label: "Evaluation" },
   { href: "/replay", label: "Replay" },
 ];
