@@ -42,13 +42,17 @@ const AUDIT = { x: 710, y: 210, w: 150, h: 52 };
 
 function arrow(x1: number, x2: number, y: number) {
   return (
-    <path
-      key={`${x1}-${x2}`}
-      d={`M ${x1} ${y} L ${x2 - 6} ${y}`}
-      stroke={LINE}
-      strokeWidth="1.6"
-      markerEnd="url(#arrowhead)"
-    />
+    <g key={`${x1}-${x2}`}>
+      <path d={`M ${x1} ${y} L ${x2 - 6} ${y}`} stroke={LINE} strokeWidth="1.6" markerEnd="url(#arrowhead)" />
+      <path
+        d={`M ${x1} ${y} L ${x2 - 6} ${y}`}
+        stroke="#e8a33d"
+        strokeWidth="2.4"
+        strokeDasharray="10 90"
+        className="spine-flow"
+        opacity="0.9"
+      />
+    </g>
   );
 }
 

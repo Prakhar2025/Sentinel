@@ -9,6 +9,7 @@
 
 import { useEffect, useState } from "react";
 import { ArchitectureDiagram } from "@/components/ArchitectureDiagram";
+import { EvalProtocolDiagram } from "@/components/EvalProtocolDiagram";
 import { useApi } from "@/lib/api";
 
 interface SystemData {
@@ -128,6 +129,7 @@ export default function SystemPage() {
               ))}
             </div>
             <ArchitectureDiagram />
+            <EvalProtocolDiagram />
             <Panel title="the seven components, end to end" aside="every layer tested and documented">
               <ol className="flex flex-col divide-y divide-hairline-soft">
                 {data.components.map((component, index) => (
