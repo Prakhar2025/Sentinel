@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-label="Sentinel: catching fraud rings that cross merchants">
+  <defs>
+    <pattern id="bg-grid" width="30" height="30" patternUnits="userSpaceOnUse">
+      <circle cx="1" cy="1" r="1" fill="#181b21"/>
+    </pattern>
+    <radialGradient id="radar-fade" cx="50%" cy="50%" r="60%">
+      <stop offset="0%" stop-color="#15171c"/>
+      <stop offset="100%" stop-color="#0d0e11"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1200" height="675" fill="#0d0e11"/>
+  <rect width="1200" height="675" fill="url(#bg-grid)" opacity="0.5"/>
+
+  <!-- left: radar rings with one caught ring highlighted -->
+  <g fill="none">
+    <circle cx="240" cy="330" r="90" stroke="#1f232a"/>
+    <circle cx="240" cy="330" r="150" stroke="#1f232a" stroke-dasharray="2 8"/>
+    <circle cx="240" cy="330" r="210" stroke="#1f232a" stroke-dasharray="1 10"/>
+  </g>
+  <!-- the fraud ring: same device (center square node) linked to identities and merchants -->
+  <g stroke="#e5484d" stroke-width="2" stroke-dasharray="6 5" fill="none" opacity="0.9">
+    <path d="M 240 330 L 240 240"/>
+    <path d="M 240 330 L 322 380"/>
+    <path d="M 240 330 L 158 380"/>
+    <path d="M 240 330 L 320 262"/>
+  </g>
+  <g fill="none" stroke="#8fb8d8" stroke-width="2.5">
+    <rect x="226" y="226" width="28" height="28" rx="6"/>
+    <rect x="308" y="366" width="28" height="28" rx="6"/>
+    <rect x="144" y="366" width="28" height="28" rx="6"/>
+  </g>
+  <g fill="none" stroke="#6fbfa8" stroke-width="2.5">
+    <circle cx="320" cy="262" r="14"/>
+    <circle cx="240" cy="330" r="16"/>
+  </g>
+  <circle cx="240" cy="330" r="6" fill="#e8a33d"/>
+  <line x1="240" y1="330" x2="392" y2="196" stroke="#e8a33d" stroke-opacity="0.45" stroke-width="2.5"/>
+
+  <!-- headline -->
+  <text x="470" y="240" font-family="Georgia, 'Times New Roman', serif" font-size="66" fill="#e8e3d5">Fraud rings cross</text>
+  <text x="470" y="318" font-family="Georgia, 'Times New Roman', serif" font-size="66" fill="#e8e3d5">merchants. We graph</text>
+  <text x="470" y="396" font-family="Georgia, 'Times New Roman', serif" font-size="66" fill="#e8a33d">the memory.</text>
+
+  <!-- metrics strip -->
+  <g font-family="Consolas, 'Courier New', monospace" font-size="20" fill="#e8e3d5">
+    <text x="472" y="470">precision 0.833</text>
+    <text x="700" y="470" fill="#8b8574">recall 0.882</text>
+    <text x="896" y="470" fill="#8b8574">2/2 rings</text>
+  </g>
+  <g font-family="Consolas, 'Courier New', monospace" font-size="15" fill="#565246">
+    <text x="472" y="502">held-out test set, 95% Wilson CIs, false-positive cost priced in rupees</text>
+  </g>
+
+  <!-- footer rule and wordmark -->
+  <line x1="470" y1="540" x2="1130" y2="540" stroke="#262a32"/>
+  <text x="470" y="584" font-family="Consolas, 'Courier New', monospace" font-size="16" letter-spacing="4" fill="#8b8574">SENTINEL</text>
+  <text x="600" y="584" font-family="Consolas, 'Courier New', monospace" font-size="16" fill="#565246">abuse-ring watchroom · engineering deep dive</text>
+
+  <!-- verdict triad bottom right -->
+  <g font-family="Consolas, monospace" font-size="14">
+    <rect x="1020" y="80" width="14" height="14" rx="3" fill="none" stroke="#4cc38a" stroke-width="2"/>
+    <text x="1044" y="92" fill="#8b8574">ALLOW</text>
+    <rect x="1020" y="110" width="14" height="14" rx="3" fill="none" stroke="#e8a33d" stroke-width="2"/>
+    <text x="1044" y="122" fill="#8b8574">REVIEW</text>
+    <rect x="1020" y="140" width="14" height="14" rx="3" fill="none" stroke="#e5484d" stroke-width="2"/>
+    <text x="1044" y="152" fill="#8b8574">BLOCK REC</text>
+  </g>
+</svg>

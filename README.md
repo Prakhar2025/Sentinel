@@ -145,7 +145,7 @@ The full log lives in [`docs/what-broke.md`](docs/what-broke.md), twenty genuine
 
 ## Documentation and repository
 
-The complete design suite (problem and loss model, architecture, data design, ML and evaluation protocol with the rupee cost model, API specification, security and DPDP/PCI alignment, and the phase-gated roadmap) is in [`docs/`](docs/README.md).
+The complete design suite (problem and loss model, architecture, data design, ML and evaluation protocol with the rupee cost model, API specification, security and DPDP/PCI alignment, and the phase-gated roadmap) is in [`docs/`](docs/README.md). The full engineering story is told in the deep-dive article: **[Sentinel: Catching Fraud Rings That Cross Merchants](docs/blog/engineering-deep-dive.md)**.
 
 ```
 src/sentinel/    detection engine: normalization, identity graph, features,

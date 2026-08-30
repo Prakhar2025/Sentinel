@@ -27,6 +27,7 @@
 | 17 | [Runbook](./17-runbook.md) | Deploy, rollback, and 3 AM incident procedures |
 | 18 | [ADRs](./18-adrs.md) | The six decisions that define the system |
 | 19 | [Deployment Kit](./19-deployment-kit.md) | Click-level all-AWS deployment steps |
+| — | [Engineering Deep Dive](./blog/engineering-deep-dive.md) | The full story as a long-form article |
 
 ---
 
