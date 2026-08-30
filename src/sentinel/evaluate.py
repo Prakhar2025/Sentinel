@@ -28,6 +28,7 @@ from typing import Any
 
 from .adversary import Strategy, evasion_rates, generate_evasion_events
 from .baselines import Row, evaluate_baselines
+from .challenger import ChallengerModel
 from .data.generate import WINDOW_DAYS, WINDOW_START, generate_dataset
 from .data.models import Split
 from .features import extract_features
@@ -85,7 +86,12 @@ def run_evaluation(seed: int = 42, config_path: Path | None = None) -> dict[str,
         features = extract_features(event, store)
         if features is not None:
             group = label.ring_id or f"cust:{event.customer_id}"
-            row = Row(features=features, is_fraud=label.is_fraud, group=group)
+            row = Row(
+                features=features,
+                is_fraud=label.is_fraud,
+                group=group,
+                event_id=event.event_id,
+            )
             (test_rows if label.split is Split.TEST else train_rows).append(row)
         if label.split is Split.TEST:
             started = time.perf_counter()
@@ -101,8 +107,9 @@ def run_evaluation(seed: int = 42, config_path: Path | None = None) -> dict[str,
                 )
             )
 
+    challenger = ChallengerModel.load(Path("evaluation/challenger.pkl"))
     metrics = _assemble_metrics(
-        config, test_outcomes, review_at, block_at, seed, train_rows, test_rows
+        config, test_outcomes, review_at, block_at, seed, train_rows, test_rows, challenger
     )
     evasion = _run_evasion(engine, store, seed, review_at, block_at)
     metrics["evasion_pack"] = evasion
@@ -123,6 +130,7 @@ def _assemble_metrics(
     seed: int,
     train_rows: list[Row],
     test_rows: list[Row],
+    challenger: ChallengerModel | None = None,
 ) -> dict[str, Any]:
     table = confusion(outcomes, review_at, block_at)
     counts = counts_from_confusion(table)
@@ -164,9 +172,54 @@ def _assemble_metrics(
         "threshold_sensitivity": sensitivity_table(outcomes, block_at),
         "calibration_deciles": calibration_deciles(outcomes),
         "baselines": evaluate_baselines(train_rows, test_rows),
+        "champion_challenger": _shadow_agreement(outcomes, test_rows, block_at, challenger),
         "design_point_on_test": bool(
             event_metrics["precision"] >= 0.80 and event_metrics["recall"] >= 0.70
         ),
+    }
+
+
+def _shadow_agreement(
+    outcomes: list[Outcome],
+    test_rows: list[Row],
+    block_at: int,
+    challenger: ChallengerModel | None,
+) -> dict[str, Any]:
+    """Champion vs shadow-challenger agreement on the held-out set.
+
+    The challenger never decides; this block is the promotion evidence
+    (criteria in docs/14), not a leaderboard.
+    """
+    if challenger is None:
+        return {
+            "active": False,
+            "note": "no challenger artifact; run `make challenger` to enable shadow mode",
+        }
+    by_event = {row.event_id: row for row in test_rows if row.event_id}
+    both = champ_only = chall_only = total = 0
+    for outcome in outcomes:
+        row = by_event.get(outcome.event_id)
+        if row is None:
+            continue
+        total += 1
+        champ_flag = outcome.score >= block_at
+        chall_flag = bool(challenger.predict(row.features)["flag"])
+        if champ_flag and chall_flag:
+            both += 1
+        elif champ_flag:
+            champ_only += 1
+        elif chall_flag:
+            chall_only += 1
+    return {
+        "active": True,
+        "version": challenger.version,
+        "events": total,
+        "both_flag": both,
+        "champion_only": champ_only,
+        "challenger_only": chall_only,
+        "neither": total - both - champ_only - chall_only,
+        "agreement_rate": round((total - champ_only - chall_only) / total, 4) if total else 0.0,
+        "note": "shadow opinion only; promotion criteria in docs/14",
     }
 
 
@@ -208,6 +261,7 @@ def _render_report(metrics: dict[str, Any], latency: dict[str, Any]) -> str:
     event = metrics["event_metrics"]
     cost = metrics["fp_cost_per_1000"]
     rings = metrics["ring_recall"]
+    cc = metrics.get("champion_challenger", {"active": False, "note": ""})
     lines = [
         "# Abuse-Ring Sentinel, Evaluation Report",
         "",
@@ -291,6 +345,17 @@ def _render_report(metrics: dict[str, Any], latency: dict[str, Any]) -> str:
             f"| {name} | {result['precision']:.3f} | {result['recall']:.3f} | {result['f1']:.3f} |"
         )
     lines += [
+        "",
+        "## Champion/challenger (shadow)",
+        "",
+        f"Challenger active: **{cc['active']}**"
+        + (
+            f" ({cc['version']}, agreement {cc['agreement_rate']:.1%} on {cc['events']} events; "
+            f"champion-only flags {cc['champion_only']}, challenger-only {cc['challenger_only']})"
+            if cc["active"]
+            else f" ({cc['note']})"
+        )
+        + ". The challenger records opinions and never decides; promotion criteria in docs/14.",
         "",
         "## Adversarial evasion pack",
         "",

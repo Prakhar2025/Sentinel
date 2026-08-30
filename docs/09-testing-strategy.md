@@ -37,6 +37,6 @@ flowchart BT
 
 1. ruff lint+format clean → 2. mypy strict (core modules) → 3. pytest with coverage ≥ 90% on core → 4. gitleaks (no secrets) → 5. evaluate-on-calibration regression check.
 
-## "What Broke" Log (buildathon deliverable)
+## "What Broke" Log (project deliverable)
 
 A living `docs/what-broke.md`: every genuine failure during development, root cause, and fix, appended in real time, not written retrospectively. This is both an honesty artifact and pitch material (4:00–4:30 slot).

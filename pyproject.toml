@@ -58,6 +58,7 @@ ignore = [
 
 [tool.ruff.lint.per-file-ignores]
 "tests/*" = ["S101"]
+"src/sentinel/service.py" = ["B008"]  # Depends() in defaults is idiomatic FastAPI
 
 [tool.mypy]
 python_version = "3.12"
@@ -88,7 +89,13 @@ addopts = "--cov=sentinel --cov-report=term-missing --cov-fail-under=90"
 markers = [
     "slow: long-running integration tests (full calibration; excluded in CI)",
     "bedrock: live AWS Bedrock calls that cost money (manual only, never CI)",
+    "postgres: Postgres integration tests (CI service container; need SENTINEL_TEST_DATABASE_URL)",
 ]
 
 [tool.coverage.run]
 source = ["sentinel"]
+omit = [
+    "src/sentinel/challenger_train.py",
+    "src/sentinel/merchant_token.py",
+    "src/sentinel/generate.py",
+]

@@ -1,0 +1,33 @@
+# One-command full stack: docker compose up --build
+# API on http://localhost:8000, console on http://localhost:3000.
+services:
+  api:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      SENTINEL_API_KEY: ${SENTINEL_API_KEY:-dev-sentinel-key}
+      SENTINEL_ADMIN_API_KEY: ${SENTINEL_ADMIN_API_KEY:-dev-admin-key}
+      JWT_SECRET: ${JWT_SECRET:-dev-jwt-secret}
+    volumes:
+      - api-data:/app/data
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/healthz', timeout=2)"]
+      interval: 10s
+      timeout: 3s
+      retries: 6
+
+  console:
+    build:
+      context: ./console
+      args:
+        NEXT_PUBLIC_API_URL: http://localhost:8000
+        NEXT_PUBLIC_API_KEY: ${SENTINEL_API_KEY:-dev-sentinel-key}
+    ports:
+      - "3000:3000"
+    depends_on:
+      api:
+        condition: service_healthy
+
+volumes:
+  api-data:

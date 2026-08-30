@@ -71,6 +71,7 @@ class VerdictRow(Base):
     schema_version: Mapped[str] = mapped_column(default=SCHEMA_VERSION)
     explanation: Mapped[str | None] = mapped_column(default=None)
     explanation_status: Mapped[str] = mapped_column(default="PENDING")
+    challenger: Mapped[dict[str, Any] | None] = mapped_column(JSON, default=None)
     created_at: Mapped[str] = mapped_column(default=_utcnow)
 
 
@@ -105,34 +106,68 @@ class StoreUnavailableError(RuntimeError):
 class AuditStore:
     """Typed wrapper over the SQLite audit schema."""
 
-    def __init__(self, path: Path) -> None:
-        path.parent.mkdir(parents=True, exist_ok=True)
-        self._engine: Engine = create_engine(
-            f"sqlite:///{path}",
-            connect_args={"check_same_thread": False},
-        )
+    def __init__(self, path: Path | None = None, url: str | None = None) -> None:
+        if url is not None:
+            self._engine: Engine = create_engine(url)
+        elif path is not None:
+            path.parent.mkdir(parents=True, exist_ok=True)
+            self._engine = create_engine(
+                f"sqlite:///{path}",
+                connect_args={"check_same_thread": False},
+            )
+        else:
+            raise ValueError("provide either a sqlite path or a database url")
 
-        @event.listens_for(self._engine, "connect")
-        def _set_pragmas(dbapi_connection: object, _record: object) -> None:
-            cursor = dbapi_connection.cursor()  # type: ignore[attr-defined]
-            cursor.execute("PRAGMA journal_mode=WAL")
-            cursor.execute("PRAGMA foreign_keys=ON")
-            cursor.close()
+        if self._engine.dialect.name == "sqlite":
+
+            @event.listens_for(self._engine, "connect")
+            def _set_pragmas(dbapi_connection: object, _record: object) -> None:
+                cursor = dbapi_connection.cursor()  # type: ignore[attr-defined]
+                cursor.execute("PRAGMA journal_mode=WAL")
+                cursor.execute("PRAGMA foreign_keys=ON")
+                cursor.close()
 
         Base.metadata.create_all(self._engine)
+        self._migrate_verdicts_challenger()
+
+    def _migrate_verdicts_challenger(self) -> None:
+        """Add the shadow-opinion column to pre-v2 verdicts tables."""
+        from sqlalchemy import inspect, text
+
+        inspector = inspect(self._engine)
+        columns = {column["name"] for column in inspector.get_columns("verdicts")}
+        if "challenger" not in columns:
+            with self._engine.begin() as connection:
+                connection.execute(text("ALTER TABLE verdicts ADD COLUMN challenger JSON"))
 
     # ------------------------------------------------------------------ write
 
     def insert_event(self, payload: dict[str, Any]) -> bool:
-        """Insert an event; False when the event_id already exists."""
-        from sqlalchemy import insert
+        """Insert an event; False when the event_id already exists.
 
+        Conflict handling is dialect-aware: SQLite takes OR IGNORE with
+        rowcount, Postgres takes ON CONFLICT DO NOTHING with RETURNING
+        (psycopg3 rowcount is unreliable through the cursor result).
+        """
         try:
             with self._engine.begin() as connection:
-                result = connection.execute(
-                    insert(EventRow).values(**payload).prefix_with("OR IGNORE")
-                )
-                return result.rowcount > 0
+                if self._engine.dialect.name == "postgresql":
+                    from sqlalchemy.dialects.postgresql import insert as pg_insert
+
+                    result = connection.execute(
+                        pg_insert(EventRow)
+                        .values(**payload)
+                        .on_conflict_do_nothing(index_elements=["event_id"])
+                        .returning(EventRow.event_id)
+                    )
+                    return result.scalar_one_or_none() is not None
+                else:
+                    from sqlalchemy.dialects.sqlite import insert as sqlite_insert
+
+                    result = connection.execute(
+                        sqlite_insert(EventRow).values(**payload).prefix_with("OR IGNORE")
+                    )
+                    return result.rowcount > 0
         except OperationalError as exc:
             raise StoreUnavailableError(str(exc)) from exc
 
@@ -286,6 +321,7 @@ class AuditStore:
             "schema_version": row["schema_version"],
             "explanation": row.get("explanation"),
             "explanation_status": row["explanation_status"],
+            "challenger": row.get("challenger"),
             "created_at": row["created_at"],
         }
 

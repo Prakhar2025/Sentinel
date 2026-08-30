@@ -19,7 +19,7 @@
 
 Fraud rings in Indian digital payments do not invent new identities, they **recycle** them: the same device, VPA, and phone hit merchant after merchant until each one individually blocks them. Every merchant sees a clean first-time customer; the fraud only exists *between* merchants. Sentinel builds the identity link graph across the whole population, scores every payment event against it deterministically, and hands the analyst an evidence bundle, not a black-box number.
 
-> Razorpay AI Buildathon, Track 02 (AI Risk Manager). The system recommends, never acts: no autonomous blocking, no money movement, strictly defense-only.
+> Designed in response to a public fraud-detection problem statement on cross-merchant identity reuse. The system recommends, never acts: no autonomous blocking, no money movement, strictly defense-only.
 
 ## Measured results (held-out test set, seed 42, single pass)
 
@@ -63,6 +63,10 @@ make evaluate     # calibrates on first run, then: held-out metrics + report
 make backfill     # seed 1,000 verdicts + top-20 LLM narratives (bounded spend)
 make serve        # API on http://localhost:8000  (OpenAPI docs at /docs)
 make console-setup && make console   # analyst console on http://localhost:3000
+docker compose up --build            # the whole stack in containers (CI-verified)
+make challenger   # train the shadow challenger; agreement lands in the report
+make loadtest     # measured throughput/latency of the verdict pipeline
+make snapshot     # zero-backend static demo into console/out/ (host anywhere)
 ```
 
 AWS credentials come only from the default credential chain (needed for the Bedrock narrative step and `make models`); everything else runs offline.
@@ -118,6 +122,16 @@ The queue triages three bands (BLOCK_REC / REVIEW / ALLOW, shown above), every v
 
 Two-key model throughout: a standard key for analyst views and a separate admin key for anything exposing raw identities, with every privileged action written to the audit store under a scope label (never the key value).
 
+## Production hardening (v2)
+
+- **Champion/challenger shadow scoring**: a GBDT challenger records its opinion next to every verdict and never decides; held-out agreement 96.45 percent, promotion gated by four written criteria ([docs/14](docs/14-champion-challenger.md)).
+- **Per-merchant JWT authn**: HS256 bearer tokens; a merchant can ingest and read only its own traffic (403 on cross-merchant ingest), enforcing federated privacy at the identity layer.
+- **Observability**: `/metrics` in Prometheus text format (request counters, verdict bands, latency histograms, warm-up-aware score-drift gauges) plus `X-Request-Id` correlation on every response.
+- **Containers and engines**: multi-stage Dockerfiles and compose for the full stack, built and booted by CI on every push; the same store code runs unchanged on Postgres 16 in a CI service container (SQLite pragmas gated by dialect).
+- **Measured capacity**: 178 events/s per worker at p95 15.2 ms; the threaded probe proves process sharding, not threads, is the scale path. The [productionization RFC](docs/15-productionization-rfc.md) derives the 10k events/s plan from these numbers.
+- **Zero-backend demo snapshot**: `make snapshot` bakes the whole console into static files, labeled as a recorded run, hostable on any bucket for free.
+- Also in /docs: [threat model](docs/16-threat-model.md), [operations runbook](docs/17-runbook.md), and [six ADRs](docs/18-adrs.md).
+
 ## Security and defense-only posture
 
 - No real PII anywhere: all data is synthetic by construction, and labels never cross the serving boundary.
@@ -131,17 +145,18 @@ The full log lives in [`docs/what-broke.md`](docs/what-broke.md), twenty genuine
 
 ## Documentation and repository
 
-The complete design suite (problem and loss model, architecture, data design, ML and evaluation protocol with the rupee cost model, API specification, security and DPDP/PCI alignment, and the phase-gated roadmap) is in [`docs/`](docs/README.md).
+The complete design suite (problem and loss model, architecture, data design, ML and evaluation protocol with the rupee cost model, API specification, security and DPDP/PCI alignment, and the phase-gated roadmap) is in [`docs/`](docs/README.md). The full engineering story is told in the deep-dive article: **[Sentinel: Catching Fraud Rings That Cross Merchants](docs/blog/engineering-deep-dive.md)**.
 
 ```
 src/sentinel/    detection engine: normalization, identity graph, features,
-                 scorer, verdicts, calibration, evaluation, LLM layer,
-                 FastAPI service, SQLite audit store
+                 scorer, verdicts, calibration, evaluation, challenger,
+                 auth, observability, LLM layer, FastAPI service, audit store
 console/         Next.js analyst console (the watchroom design system)
-tests/           160 tests, 91% coverage, strict mypy, CI-gated
-docs/            design suite, what-broke log, screenshots, banner
-.github/         CI: lint, strict types, coverage gate, secret scan
-scripts/         bounded Bedrock verification, git hooks
+tests/           194 tests, 91% coverage, strict mypy, CI-gated
+docs/            design suite, RFC, threat model, runbook, ADRs, what-broke log
+.github/         CI: lint, types, coverage, secret scan, docker build, postgres
+Dockerfile       multi-stage api + console images and compose stack
+scripts/         Bedrock verification, demo fixtures, git hooks
 ```
 
 ## License

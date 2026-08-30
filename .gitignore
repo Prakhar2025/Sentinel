@@ -41,7 +41,9 @@ Thumbs.db
 node_modules/
 .next/
 out/
+console/out/
 
 # Spool files from degraded-mode ingestion
 *.spool
 console/tsconfig.tsbuildinfo
+CLAUDE.md

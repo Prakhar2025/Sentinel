@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { ClusterGraph, type ClusterData } from "@/components/ClusterGraph";
 import { ReasonChip, ScoreMeter, VerdictBadge } from "@/components/Verdict";
-import { fetchCluster, ingestEvent, useApi, type Verdict } from "@/lib/api";
+import { explainLive, fetchCluster, ingestEvent, useApi, type Verdict } from "@/lib/api";
 import { factorLabel, shortId } from "@/lib/format";
 
 const FEATURE_KEYS = [
@@ -26,16 +26,34 @@ const NORM_KEYS: Record<string, string> = {
   new_identity_burst: "n_f7",
 };
 
-function Narrative({ verdict }: { verdict: Verdict }) {
+function Narrative({
+  verdict,
+  onGenerate,
+  generating,
+  cap,
+}: {
+  verdict: Verdict;
+  onGenerate: () => void;
+  generating: boolean;
+  cap: string | null;
+}) {
   if (verdict.explanation_status !== "DONE" || !verdict.explanation) {
     return (
       <div className="rounded-lg border border-hairline bg-panel p-4">
         <span className="micro">analyst narrative</span>
         <p className="mt-2 text-sm text-faint">
-          {verdict.explanation_status === "PENDING"
-            ? "Narrative generating (async LLM pass; run make backfill)."
-            : "Narrative unavailable for this verdict."}
+          {verdict.explanation_status === "CAP_REACHED"
+            ? "Daily live-generation cap reached; stored narrative shown."
+            : "No narrative yet. Generate one live with the real model."}
         </p>
+        <button
+          onClick={onGenerate}
+          disabled={generating}
+          className="data mt-3 rounded-md border border-amber/50 bg-amber/10 px-3 py-1.5 text-[11px] text-amber transition-colors hover:bg-amber/20 disabled:opacity-50"
+        >
+          {generating ? "generating with gpt-oss..." : "generate explanation live"}
+        </button>
+        {cap && <p className="micro mt-2 text-faint">{cap}</p>}
       </div>
     );
   }
@@ -77,6 +95,29 @@ function Narrative({ verdict }: { verdict: Verdict }) {
 export function EvidencePanel({ verdict, reviewAt, blockAt }: { verdict: Verdict; reviewAt: number; blockAt: number }) {
   const { base, key } = useApi();
   const [cluster, setCluster] = useState<ClusterData | null>(null);
+  const [generating, setGenerating] = useState(false);
+  const [cap, setCap] = useState<string | null>(null);
+  const [live, setLive] = useState<Verdict | null>(null);
+  const shown = live ?? verdict;
+
+  const generate = async () => {
+    setGenerating(true);
+    try {
+      const result = await explainLive(base, key, shown.event_id);
+      setLive({
+        ...shown,
+        explanation: result.explanation,
+        explanation_status: result.explanation_status as Verdict["explanation_status"],
+      });
+      setCap(
+        `live generation ${result.cap.used}/${result.cap.cap} today (UTC)`
+      );
+    } catch (err) {
+      setCap(err instanceof Error ? err.message : "generation failed");
+    } finally {
+      setGenerating(false);
+    }
+  };
 
   useEffect(() => {
     let cancelled = false;
@@ -175,7 +216,7 @@ export function EvidencePanel({ verdict, reviewAt, blockAt }: { verdict: Verdict
               <span className="micro">cluster unavailable</span>
             </div>
           )}
-          <Narrative verdict={verdict} />
+          <Narrative verdict={shown} onGenerate={generate} generating={generating} cap={cap} />
         </div>
       </div>
     </section>

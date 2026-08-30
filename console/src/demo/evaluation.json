@@ -1,0 +1,242 @@
+{
+ "metrics": {
+  "baselines": {
+   "gradient_boosting": {
+    "f1": 0.9091,
+    "precision": 0.9375,
+    "recall": 0.8824
+   },
+   "logistic_regression": {
+    "f1": 0.7586,
+    "precision": 0.9167,
+    "recall": 0.6471
+   }
+  },
+  "calibration_deciles": [
+   {
+    "events": 9,
+    "fraud": 0,
+    "fraud_rate": 0.0,
+    "score_range": "5-7"
+   },
+   {
+    "events": 18,
+    "fraud": 0,
+    "fraud_rate": 0.0,
+    "score_range": "8-12"
+   },
+   {
+    "events": 86,
+    "fraud": 0,
+    "fraud_rate": 0.0,
+    "score_range": "25-40"
+   },
+   {
+    "events": 66,
+    "fraud": 2,
+    "fraud_rate": 0.0303,
+    "score_range": "42-47"
+   },
+   {
+    "events": 3,
+    "fraud": 3,
+    "fraud_rate": 1.0,
+    "score_range": "49-50"
+   },
+   {
+    "events": 2,
+    "fraud": 2,
+    "fraud_rate": 1.0,
+    "score_range": "51-55"
+   },
+   {
+    "events": 3,
+    "fraud": 1,
+    "fraud_rate": 0.3333,
+    "score_range": "57-60"
+   },
+   {
+    "events": 4,
+    "fraud": 3,
+    "fraud_rate": 0.75,
+    "score_range": "64-71"
+   },
+   {
+    "events": 2,
+    "fraud": 2,
+    "fraud_rate": 1.0,
+    "score_range": "77-83"
+   },
+   {
+    "events": 4,
+    "fraud": 4,
+    "fraud_rate": 1.0,
+    "score_range": "97-100"
+   }
+  ],
+  "champion_challenger": {
+   "active": true,
+   "agreement_rate": 0.9645,
+   "both_flag": 11,
+   "challenger_only": 0,
+   "champion_only": 7,
+   "events": 197,
+   "neither": 179,
+   "note": "shadow opinion only; promotion criteria in docs/14",
+   "version": "gbdt-challenger-1.0"
+  },
+  "confusion": {
+   "ALLOW": {
+    "clean": 113,
+    "fraud": 0
+   },
+   "BLOCK_REC": {
+    "clean": 3,
+    "fraud": 15
+   },
+   "REVIEW": {
+    "clean": 64,
+    "fraud": 2
+   }
+  },
+  "design_point_on_test": true,
+  "evasion_pack": {
+   "note": "adversarial rings are evaluation-only; never used for calibration",
+   "strategies": {
+    "benign_mimicry": {
+     "events": 20,
+     "missed_entirely": 1,
+     "missed_entirely_rate": 0.05,
+     "not_blocked": 3,
+     "not_blocked_rate": 0.15
+    },
+    "partitioned": {
+     "events": 18,
+     "missed_entirely": 0,
+     "missed_entirely_rate": 0.0,
+     "not_blocked": 2,
+     "not_blocked_rate": 0.1111
+    },
+    "rotation": {
+     "events": 20,
+     "missed_entirely": 0,
+     "missed_entirely_rate": 0.0,
+     "not_blocked": 6,
+     "not_blocked_rate": 0.3
+    },
+    "slow_rate": {
+     "events": 20,
+     "missed_entirely": 18,
+     "missed_entirely_rate": 0.9,
+     "not_blocked": 20,
+     "not_blocked_rate": 1.0
+    }
+   }
+  },
+  "event_metrics": {
+   "f1": 0.8571,
+   "precision": 0.8333,
+   "recall": 0.8824
+  },
+  "fp_cost_per_1000": {
+   "fp_cost_inr": 4888.32,
+   "gross_saved_inr": 83756.35,
+   "net_saved_inr": 38664.97,
+   "review_cost_inr": 40203.05
+  },
+  "latency_note": "timings in evaluation/latency.json (non-deterministic)",
+  "model_version": "rules-v1.1",
+  "precision_ci95": [
+   0.6078,
+   0.9416
+  ],
+  "recall_ci95": [
+   0.6566,
+   0.9671
+  ],
+  "review_abstentions": {
+   "clean": 64,
+   "fraud": 2
+  },
+  "ring_recall": {
+   "missed_rings": [],
+   "per_ring": {
+    "ring_001": {
+     "caught": true,
+     "event_recall": 0.8889,
+     "events": 9,
+     "flagged": 8,
+     "strategy": "sophisticated"
+    },
+    "ring_004": {
+     "caught": true,
+     "event_recall": 0.875,
+     "events": 8,
+     "flagged": 7,
+     "strategy": "standard"
+    }
+   },
+   "rings_caught": 2,
+   "rings_total": 2,
+   "sophisticated": {
+    "ring_001": {
+     "caught": true,
+     "event_recall": 0.8889,
+     "events": 9,
+     "flagged": 8,
+     "strategy": "sophisticated"
+    }
+   }
+  },
+  "seed": 42,
+  "test_events": 197,
+  "test_fraud_events": 17,
+  "threshold_sensitivity": [
+   {
+    "f1": 0.1838,
+    "fn": 0,
+    "fp": 151,
+    "precision": 0.1012,
+    "recall": 1.0,
+    "threshold": 39,
+    "tp": 17
+   },
+   {
+    "f1": 0.8571,
+    "fn": 2,
+    "fp": 3,
+    "precision": 0.8333,
+    "recall": 0.8824,
+    "threshold": 49,
+    "tp": 15
+   },
+   {
+    "f1": 0.6207,
+    "fn": 8,
+    "fp": 3,
+    "precision": 0.75,
+    "recall": 0.5294,
+    "threshold": 59,
+    "tp": 9
+   }
+  ],
+  "thresholds": {
+   "block": 49,
+   "review": 42
+  },
+  "weights": {
+   "amount_pattern": 7,
+   "burn_rotate": 8,
+   "cross_merchant_fanout": 5,
+   "device_identity_ratio": 13,
+   "new_identity_burst": 35,
+   "taint_propagation": 20,
+   "velocity_72h": 12
+  }
+ },
+ "latency": {
+  "events": 197,
+  "p50_ms": 1.507,
+  "p95_ms": 2.684
+ }
+}

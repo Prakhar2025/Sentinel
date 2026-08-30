@@ -9,7 +9,9 @@ v2 GNN case honestly.
 
 from __future__ import annotations
 
+from collections.abc import Sequence
 from dataclasses import dataclass
+from typing import Protocol
 
 from sklearn.ensemble import GradientBoostingClassifier
 from sklearn.linear_model import LogisticRegression
@@ -26,9 +28,18 @@ class Row:
     features: FeatureVector
     is_fraud: bool
     group: str
+    event_id: str | None = None
 
 
-def _matrix(rows: list[Row]) -> tuple[list[list[float]], list[int], list[str]]:
+class RowLike(Protocol):
+    """Structural shape of a feature row (calibrate.ScoredRow qualifies)."""
+
+    features: FeatureVector
+    is_fraud: bool
+    group: str
+
+
+def _matrix(rows: Sequence[RowLike]) -> tuple[list[list[float]], list[int], list[str]]:
     return (
         [row.features.normalized() for row in rows],
         [int(row.is_fraud) for row in rows],
@@ -49,7 +60,7 @@ def _at_threshold(scores: list[float], labels: list[int], threshold: float) -> d
     return precision_recall_f1(tp, fp, fn)
 
 
-def fit_logistic(train: list[Row]) -> LogisticRegression:
+def fit_logistic(train: Sequence[RowLike]) -> LogisticRegression:
     """LR with ring-grouped 3-fold CV over the regularization strength."""
     x, y, groups = _matrix(train)
     best_c, best_f1 = 1.0, -1.0
@@ -84,7 +95,7 @@ def fit_logistic(train: list[Row]) -> LogisticRegression:
     return model
 
 
-def fit_gbm(train: list[Row]) -> GradientBoostingClassifier:
+def fit_gbm(train: Sequence[RowLike]) -> GradientBoostingClassifier:
     """Small-depth GBDT to limit overfit at this sample size."""
     x, y, _groups = _matrix(train)
     model = GradientBoostingClassifier(max_depth=3, n_estimators=100, random_state=42)
@@ -92,7 +103,9 @@ def fit_gbm(train: list[Row]) -> GradientBoostingClassifier:
     return model
 
 
-def evaluate_baselines(train: list[Row], test: list[Row]) -> dict[str, dict[str, float]]:
+def evaluate_baselines(
+    train: Sequence[RowLike], test: Sequence[RowLike]
+) -> dict[str, dict[str, float]]:
     """Side-by-side test metrics for both baselines at p >= 0.5."""
     x_test, y_test, _groups = _matrix(test)
     results: dict[str, dict[str, float]] = {}
@@ -105,4 +118,4 @@ def evaluate_baselines(train: list[Row], test: list[Row]) -> dict[str, dict[str,
     return results
 
 
-__all__ = ["Row", "evaluate_baselines", "fit_gbm", "fit_logistic"]
+__all__ = ["Row", "RowLike", "evaluate_baselines", "fit_gbm", "fit_logistic"]

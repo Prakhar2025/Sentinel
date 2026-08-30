@@ -99,6 +99,18 @@ body {
   animation: row-arrival 1.2s ease-out;
 }
 
+@keyframes spine-flow {
+  from {
+    stroke-dashoffset: 100;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+.spine-flow {
+  animation: spine-flow 1.6s linear infinite;
+}
+
 @keyframes sweep {
   from {
     transform: rotate(0deg);

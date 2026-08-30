@@ -1,0 +1,3740 @@
+[
+ {
+  "verdict_id": "f500a90f-b834-4f03-8874-06a24c03bbe7",
+  "event_id": "2f72bd3f-41db-5733-a98b-afcd43246409",
+  "score": 100,
+  "verdict": "BLOCK_REC",
+  "reason_codes": [
+   "RNG_DEVICE_FANOUT",
+   "RNG_IDENTITY_FARM",
+   "RNG_TAINT_LINK",
+   "RNG_VELOCITY",
+   "RNG_BURN_ROTATE",
+   "RNG_AMOUNT_PATTERN"
+  ],
+  "evidence": {
+   "linked_merchants": [
+    "mcht_00007",
+    "mcht_00015",
+    "mcht_00017",
+    "mcht_00030",
+    "mcht_00032",
+    "mcht_00045"
+   ],
+   "shared_devices": [
+    {
+     "device_id": "dev_b7cfe871",
+     "linked_identities": 6,
+     "merchant_count": 6
+    }
+   ],
+   "taint": 1.0,
+   "taint_path": [
+    "cust_ce923c",
+    "+916733854027",
+    "cust_752832"
+   ],
+   "cluster": {
+    "customers": 6,
+    "truncated": false
+   },
+   "customer_id": "cust_ce923c",
+   "merchant_id": "mcht_00007"
+  },
+  "features": {
+   "device_identity_ratio": 6.0,
+   "cross_merchant_fanout": 6,
+   "taint": 1.0,
+   "velocity_merchants_72h": 5,
+   "burn_rotate": 1,
+   "amount_band_hit": 1.0,
+   "new_identity_fraction": 1.0,
+   "n_f1": 1.0,
+   "n_f2": 1.0,
+   "n_f3": 1.0,
+   "n_f4": 1.0,
+   "n_f5": 1.0,
+   "n_f6": 1.0,
+   "n_f7": 1.0
+  },
+  "contributions": {
+   "device_identity_ratio": 14.0,
+   "cross_merchant_fanout": 20.0,
+   "taint_propagation": 24.0,
+   "velocity_72h": 14.0,
+   "burn_rotate": 10.0,
+   "amount_pattern": 4.0,
+   "new_identity_burst": 14.0
+  },
+  "model_version": "rules-v1.0",
+  "schema_version": "1",
+  "explanation": null,
+  "explanation_status": "PENDING",
+  "challenger": null,
+  "created_at": "2026-08-30T17:43:28.360766+00:00"
+ },
+ {
+  "verdict_id": "a9fbcd9e-7d2c-47c9-b2ce-bc3efe27d3ca",
+  "event_id": "e1fe9187-b4a7-5c91-ae22-154be7095ef1",
+  "score": 100,
+  "verdict": "BLOCK_REC",
+  "reason_codes": [
+   "RNG_DEVICE_FANOUT",
+   "RNG_IDENTITY_FARM",
+   "RNG_TAINT_LINK",
+   "RNG_VELOCITY",
+   "RNG_BURN_ROTATE",
+   "RNG_AMOUNT_PATTERN"
+  ],
+  "evidence": {
+   "linked_merchants": [
+    "mcht_00007",
+    "mcht_00015",
+    "mcht_00017",
+    "mcht_00030",
+    "mcht_00032",
+    "mcht_00045"
+   ],
+   "shared_devices": [
+    {
+     "device_id": "dev_b7cfe871",
+     "linked_identities": 7,
+     "merchant_count": 6
+    }
+   ],
+   "taint": 1.0,
+   "taint_path": [
+    "cust_1258b0",
+    "dev_b7cfe871",
+    "cust_752832"
+   ],
+   "cluster": {
+    "customers": 7,
+    "truncated": false
+   },
+   "customer_id": "cust_1258b0",
+   "merchant_id": "mcht_00017"
+  },
+  "features": {
+   "device_identity_ratio": 7.0,
+   "cross_merchant_fanout": 6,
+   "taint": 1.0,
+   "velocity_merchants_72h": 5,
+   "burn_rotate": 1,
+   "amount_band_hit": 1.0,
+   "new_identity_fraction": 1.0,
+   "n_f1": 1.0,
+   "n_f2": 1.0,
+   "n_f3": 1.0,
+   "n_f4": 1.0,
+   "n_f5": 1.0,
+   "n_f6": 1.0,
+   "n_f7": 1.0
+  },
+  "contributions": {
+   "device_identity_ratio": 14.0,
+   "cross_merchant_fanout": 20.0,
+   "taint_propagation": 24.0,
+   "velocity_72h": 14.0,
+   "burn_rotate": 10.0,
+   "amount_pattern": 4.0,
+   "new_identity_burst": 14.0
+  },
+  "model_version": "rules-v1.0",
+  "schema_version": "1",
+  "explanation": null,
+  "explanation_status": "PENDING",
+  "challenger": null,
+  "created_at": "2026-08-30T17:43:28.367285+00:00"
+ },
+ {
+  "verdict_id": "62feaa6f-433d-428c-bccc-ce6052a1afd4",
+  "event_id": "999afc26-106d-5090-8809-7541b982faed",
+  "score": 100,
+  "verdict": "BLOCK_REC",
+  "reason_codes": [
+   "RNG_DEVICE_FANOUT",
+   "RNG_IDENTITY_FARM",
+   "RNG_TAINT_LINK",
+   "RNG_VELOCITY",
+   "RNG_BURN_ROTATE",
+   "RNG_AMOUNT_PATTERN"
+  ],
+  "evidence": {
+   "linked_merchants": [
+    "mcht_00007",
+    "mcht_00015",
+    "mcht_00017",
+    "mcht_00030",
+    "mcht_00032",
+    "mcht_00045"
+   ],
+   "shared_devices": [
+    {
+     "device_id": "dev_b7cfe871",
+     "linked_identities": 8,
+     "merchant_count": 6
+    }
+   ],
+   "taint": 1.0,
+   "taint_path": [
+    "cust_0ad023",
+    "+916733854027",
+    "cust_752832"
+   ],
+   "cluster": {
+    "customers": 8,
+    "truncated": false
+   },
+   "customer_id": "cust_0ad023",
+   "merchant_id": "mcht_00032"
+  },
+  "features": {
+   "device_identity_ratio": 8.0,
+   "cross_merchant_fanout": 6,
+   "taint": 1.0,
+   "velocity_merchants_72h": 5,
+   "burn_rotate": 1,
+   "amount_band_hit": 1.0,
+   "new_identity_fraction": 1.0,
+   "n_f1": 1.0,
+   "n_f2": 1.0,
+   "n_f3": 1.0,
+   "n_f4": 1.0,
+   "n_f5": 1.0,
+   "n_f6": 1.0,
+   "n_f7": 1.0
+  },
+  "contributions": {
+   "device_identity_ratio": 14.0,
+   "cross_merchant_fanout": 20.0,
+   "taint_propagation": 24.0,
+   "velocity_72h": 14.0,
+   "burn_rotate": 10.0,
+   "amount_pattern": 4.0,
+   "new_identity_burst": 14.0
+  },
+  "model_version": "rules-v1.0",
+  "schema_version": "1",
+  "explanation": null,
+  "explanation_status": "PENDING",
+  "challenger": null,
+  "created_at": "2026-08-30T17:43:28.409576+00:00"
+ },
+ {
+  "verdict_id": "984c4abe-0e03-45e4-87d3-97a29c5389a0",
+  "event_id": "284cfc5f-c508-5d96-86f5-c62ac40d5756",
+  "score": 100,
+  "verdict": "BLOCK_REC",
+  "reason_codes": [
+   "RNG_DEVICE_FANOUT",
+   "RNG_IDENTITY_FARM",
+   "RNG_TAINT_LINK",
+   "RNG_VELOCITY",
+   "RNG_BURN_ROTATE",
+   "RNG_AMOUNT_PATTERN"
+  ],
+  "evidence": {
+   "linked_merchants": [
+    "mcht_00027",
+    "mcht_00028",
+    "mcht_00036",
+    "mcht_00037",
+    "mcht_00040",
+    "mcht_00043"
+   ],
+   "shared_devices": [
+    {
+     "device_id": "dev_23f76327",
+     "linked_identities": 8,
+     "merchant_count": 4
+    },
+    {
+     "device_id": "dev_3a439f3f",
+     "linked_identities": 5,
+     "merchant_count": 3
+    }
+   ],
+   "taint": 1.0,
+   "taint_path": [
+    "cust_80b372",
+    "varun.250@gmail.com",
+    "cust_e79449"
+   ],
+   "cluster": {
+    "customers": 12,
+    "truncated": false
+   },
+   "customer_id": "cust_80b372",
+   "merchant_id": "mcht_00028"
+  },
+  "features": {
+   "device_identity_ratio": 6.0,
+   "cross_merchant_fanout": 6,
+   "taint": 1.0,
+   "velocity_merchants_72h": 6,
+   "burn_rotate": 1,
+   "amount_band_hit": 1.0,
+   "new_identity_fraction": 1.0,
+   "n_f1": 1.0,
+   "n_f2": 1.0,
+   "n_f3": 1.0,
+   "n_f4": 1.0,
+   "n_f5": 1.0,
+   "n_f6": 1.0,
+   "n_f7": 1.0
+  },
+  "contributions": {
+   "device_identity_ratio": 14.0,
+   "cross_merchant_fanout": 20.0,
+   "taint_propagation": 24.0,
+   "velocity_72h": 14.0,
+   "burn_rotate": 10.0,
+   "amount_pattern": 4.0,
+   "new_identity_burst": 14.0
+  },
+  "model_version": "rules-v1.0",
+  "schema_version": "1",
+  "explanation": null,
+  "explanation_status": "PENDING",
+  "challenger": null,
+  "created_at": "2026-08-30T17:43:32.035253+00:00"
+ },
+ {
+  "verdict_id": "495a1b9b-3930-4160-a227-23d67587e03c",
+  "event_id": "12d7acd0-cf33-5ca7-a684-14641b9c7cc2",
+  "score": 99,
+  "verdict": "BLOCK_REC",
+  "reason_codes": [
+   "RNG_DEVICE_FANOUT",
+   "RNG_IDENTITY_FARM",
+   "RNG_TAINT_LINK",
+   "RNG_VELOCITY",
+   "RNG_BURN_ROTATE",
+   "RNG_AMOUNT_PATTERN"
+  ],
+  "evidence": {
+   "linked_merchants": [
+    "mcht_00027",
+    "mcht_00028",
+    "mcht_00036",
+    "mcht_00037",
+    "mcht_00040",
+    "mcht_00043"
+   ],
+   "shared_devices": [
+    {
+     "device_id": "dev_23f76327",
+     "linked_identities": 7,
+     "merchant_count": 4
+    },
+    {
+     "device_id": "dev_3a439f3f",
+     "linked_identities": 5,
+     "merchant_count": 3
+    }
+   ],
+   "taint": 1.0,
+   "taint_path": [
+    "cust_3616cf",
+    "+917907457079",
+    "cust_1610b8"
+   ],
+   "cluster": {
+    "customers": 11,
+    "truncated": false
+   },
+   "customer_id": "cust_3616cf",
+   "merchant_id": "mcht_00036"
+  },
+  "features": {
+   "device_identity_ratio": 5.5,
+   "cross_merchant_fanout": 6,
+   "taint": 1.0,
+   "velocity_merchants_72h": 6,
+   "burn_rotate": 1,
+   "amount_band_hit": 1.0,
+   "new_identity_fraction": 1.0,
+   "n_f1": 0.916667,
+   "n_f2": 1.0,
+   "n_f3": 1.0,
+   "n_f4": 1.0,
+   "n_f5": 1.0,
+   "n_f6": 1.0,
+   "n_f7": 1.0
+  },
+  "contributions": {
+   "device_identity_ratio": 12.8333,
+   "cross_merchant_fanout": 20.0,
+   "taint_propagation": 24.0,
+   "velocity_72h": 14.0,
+   "burn_rotate": 10.0,
+   "amount_pattern": 4.0,
+   "new_identity_burst": 14.0
+  },
+  "model_version": "rules-v1.0",
+  "schema_version": "1",
+  "explanation": null,
+  "explanation_status": "PENDING",
+  "challenger": null,
+  "created_at": "2026-08-30T17:43:32.028199+00:00"
+ },
+ {
+  "verdict_id": "48de262e-5eaf-4665-a511-cf6c8b5e37af",
+  "event_id": "5a173f37-b9a2-5557-9110-7a8a95ad25bf",
+  "score": 94,
+  "verdict": "BLOCK_REC",
+  "reason_codes": [
+   "RNG_DEVICE_FANOUT",
+   "RNG_IDENTITY_FARM",
+   "RNG_TAINT_LINK",
+   "RNG_VELOCITY",
+   "RNG_BURN_ROTATE",
+   "RNG_AMOUNT_PATTERN"
+  ],
+  "evidence": {
+   "linked_merchants": [
+    "mcht_00027",
+    "mcht_00028",
+    "mcht_00036",
+    "mcht_00037",
+    "mcht_00040",
+    "mcht_00043"
+   ],
+   "shared_devices": [
+    {
+     "device_id": "dev_23f76327",
+     "linked_identities": 6,
+     "merchant_count": 4
+    },
+    {
+     "device_id": "dev_3a439f3f",
+     "linked_identities": 5,
+     "merchant_count": 3
+    }
+   ],
+   "taint": 1.0,
+   "taint_path": [
+    "cust_c36876",
+    "varun.250@gmail.com",
+    "cust_e79449"
+   ],
+   "cluster": {
+    "customers": 11,
+    "truncated": false
+   },
+   "customer_id": "cust_c36876",
+   "merchant_id": "mcht_00040"
+  },
+  "features": {
+   "device_identity_ratio": 5.5,
+   "cross_merchant_fanout": 5,
+   "taint": 1.0,
+   "velocity_merchants_72h": 6,
+   "burn_rotate": 1,
+   "amount_band_hit": 1.0,
+   "new_identity_fraction": 1.0,
+   "n_f1": 0.916667,
+   "n_f2": 0.75,
+   "n_f3": 1.0,
+   "n_f4": 1.0,
+   "n_f5": 1.0,
+   "n_f6": 1.0,
+   "n_f7": 1.0
+  },
+  "contributions": {
+   "device_identity_ratio": 12.8333,
+   "cross_merchant_fanout": 15.0,
+   "taint_propagation": 24.0,
+   "velocity_72h": 14.0,
+   "burn_rotate": 10.0,
+   "amount_pattern": 4.0,
+   "new_identity_burst": 14.0
+  },
+  "model_version": "rules-v1.0",
+  "schema_version": "1",
+  "explanation": null,
+  "explanation_status": "PENDING",
+  "challenger": null,
+  "created_at": "2026-08-30T17:43:31.612407+00:00"
+ },
+ {
+  "verdict_id": "ad514623-cedc-407f-93d6-2cec4d3cbc7e",
+  "event_id": "84b92754-505c-5941-8732-611bddbca80e",
+  "score": 93,
+  "verdict": "BLOCK_REC",
+  "reason_codes": [
+   "RNG_DEVICE_FANOUT",
+   "RNG_IDENTITY_FARM",
+   "RNG_TAINT_LINK",
+   "RNG_VELOCITY",
+   "RNG_BURN_ROTATE",
+   "RNG_AMOUNT_PATTERN"
+  ],
+  "evidence": {
+   "linked_merchants": [
+    "mcht_00015",
+    "mcht_00017",
+    "mcht_00030",
+    "mcht_00032",
+    "mcht_00045"
+   ],
+   "shared_devices": [
+    {
+     "device_id": "dev_b7cfe871",
+     "linked_identities": 5,
+     "merchant_count": 5
+    }
+   ],
+   "taint": 1.0,
+   "taint_path": [
+    "cust_dcfc81",
+    "+916733854027",
+    "cust_752832"
+   ],
+   "cluster": {
+    "customers": 5,
+    "truncated": false
+   },
+   "customer_id": "cust_dcfc81",
+   "merchant_id": "mcht_00045"
+  },
+  "features": {
+   "device_identity_ratio": 5.0,
+   "cross_merchant_fanout": 5,
+   "taint": 1.0,
+   "velocity_merchants_72h": 5,
+   "burn_rotate": 1,
+   "amount_band_hit": 1.0,
+   "new_identity_fraction": 1.0,
+   "n_f1": 0.833333,
+   "n_f2": 0.75,
+   "n_f3": 1.0,
+   "n_f4": 1.0,
+   "n_f5": 1.0,
+   "n_f6": 1.0,
+   "n_f7": 1.0
+  },
+  "contributions": {
+   "device_identity_ratio": 11.6667,
+   "cross_merchant_fanout": 15.0,
+   "taint_propagation": 24.0,
+   "velocity_72h": 14.0,
+   "burn_rotate": 10.0,
+   "amount_pattern": 4.0,
+   "new_identity_burst": 14.0
+  },
+  "model_version": "rules-v1.0",
+  "schema_version": "1",
+  "explanation": null,
+  "explanation_status": "PENDING",
+  "challenger": null,
+  "created_at": "2026-08-30T17:43:28.219053+00:00"
+ },
+ {
+  "verdict_id": "7c7a69e2-28a4-4c2e-9efb-d24cb5c46d7d",
+  "event_id": "10ebea66-ea56-5010-93a7-28f3073a676d",
+  "score": 93,
+  "verdict": "BLOCK_REC",
+  "reason_codes": [
+   "RNG_DEVICE_FANOUT",
+   "RNG_IDENTITY_FARM",
+   "RNG_TAINT_LINK",
+   "RNG_VELOCITY",
+   "RNG_BURN_ROTATE",
+   "RNG_AMOUNT_PATTERN"
+  ],
+  "evidence": {
+   "linked_merchants": [
+    "mcht_00027",
+    "mcht_00028",
+    "mcht_00036",
+    "mcht_00037",
+    "mcht_00040",
+    "mcht_00043"
+   ],
+   "shared_devices": [
+    {
+     "device_id": "dev_23f76327",
+     "linked_identities": 6,
+     "merchant_count": 4
+    },
+    {
+     "device_id": "dev_3a439f3f",
+     "linked_identities": 4,
+     "merchant_count": 3
+    }
+   ],
+   "taint": 1.0,
+   "taint_path": [
+    "cust_76f685",
+    "varun.250@gmail.com",
+    "cust_e79449"
+   ],
+   "cluster": {
+    "customers": 10,
+    "truncated": false
+   },
+   "customer_id": "cust_76f685",
+   "merchant_id": "mcht_00027"
+  },
+  "features": {
+   "device_identity_ratio": 5.0,
+   "cross_merchant_fanout": 5,
+   "taint": 1.0,
+   "velocity_merchants_72h": 6,
+   "burn_rotate": 1,
+   "amount_band_hit": 1.0,
+   "new_identity_fraction": 1.0,
+   "n_f1": 0.833333,
+   "n_f2": 0.75,
+   "n_f3": 1.0,
+   "n_f4": 1.0,
+   "n_f5": 1.0,
+   "n_f6": 1.0,
+   "n_f7": 1.0
+  },
+  "contributions": {
+   "device_identity_ratio": 11.6667,
+   "cross_merchant_fanout": 15.0,
+   "taint_propagation": 24.0,
+   "velocity_72h": 14.0,
+   "burn_rotate": 10.0,
+   "amount_pattern": 4.0,
+   "new_identity_burst": 14.0
+  },
+  "model_version": "rules-v1.0",
+  "schema_version": "1",
+  "explanation": null,
+  "explanation_status": "PENDING",
+  "challenger": null,
+  "created_at": "2026-08-30T17:43:31.504882+00:00"
+ },
+ {
+  "verdict_id": "c8ece011-e5a2-443c-804a-7004bd4bedb7",
+  "event_id": "3ac159eb-e07f-5353-b39c-dd5a4f5d451d",
+  "score": 87,
+  "verdict": "BLOCK_REC",
+  "reason_codes": [
+   "RNG_DEVICE_FANOUT",
+   "RNG_IDENTITY_FARM",
+   "RNG_TAINT_LINK",
+   "RNG_VELOCITY",
+   "RNG_BURN_ROTATE",
+   "RNG_AMOUNT_PATTERN"
+  ],
+  "evidence": {
+   "linked_merchants": [
+    "mcht_00027",
+    "mcht_00030",
+    "mcht_00036",
+    "mcht_00037"
+   ],
+   "shared_devices": [
+    {
+     "device_id": "dev_9bd4ad04",
+     "linked_identities": 7,
+     "merchant_count": 4
+    }
+   ],
+   "taint": 1.0,
+   "taint_path": [
+    "cust_104403",
+    "dev_9bd4ad04",
+    "cust_0236ba"
+   ],
+   "cluster": {
+    "customers": 7,
+    "truncated": false
+   },
+   "customer_id": "cust_104403",
+   "merchant_id": "mcht_00030"
+  },
+  "features": {
+   "device_identity_ratio": 7.0,
+   "cross_merchant_fanout": 4,
+   "taint": 1.0,
+   "velocity_merchants_72h": 4,
+   "burn_rotate": 1,
+   "amount_band_hit": 1.0,
+   "new_identity_fraction": 1.0,
+   "n_f1": 1.0,
+   "n_f2": 0.5,
+   "n_f3": 1.0,
+   "n_f4": 0.8,
+   "n_f5": 1.0,
+   "n_f6": 1.0,
+   "n_f7": 1.0
+  },
+  "contributions": {
+   "device_identity_ratio": 14.0,
+   "cross_merchant_fanout": 10.0,
+   "taint_propagation": 24.0,
+   "velocity_72h": 11.2,
+   "burn_rotate": 10.0,
+   "amount_pattern": 4.0,
+   "new_identity_burst": 14.0
+  },
+  "model_version": "rules-v1.0",
+  "schema_version": "1",
+  "explanation": null,
+  "explanation_status": "PENDING",
+  "challenger": null,
+  "created_at": "2026-08-30T17:43:25.547646+00:00"
+ },
+ {
+  "verdict_id": "908a7c1d-a8e6-4643-9a01-8869bad03d45",
+  "event_id": "9711a044-f5c6-5a78-8468-ab745894a65d",
+  "score": 87,
+  "verdict": "BLOCK_REC",
+  "reason_codes": [
+   "RNG_DEVICE_FANOUT",
+   "RNG_IDENTITY_FARM",
+   "RNG_TAINT_LINK",
+   "RNG_VELOCITY",
+   "RNG_BURN_ROTATE",
+   "RNG_AMOUNT_PATTERN"
+  ],
+  "evidence": {
+   "linked_merchants": [
+    "mcht_00027",
+    "mcht_00030",
+    "mcht_00036",
+    "mcht_00037"
+   ],
+   "shared_devices": [
+    {
+     "device_id": "dev_9bd4ad04",
+     "linked_identities": 8,
+     "merchant_count": 4
+    }
+   ],
+   "taint": 1.0,
+   "taint_path": [
+    "cust_91ef29",
+    "dev_9bd4ad04",
+    "cust_0236ba"
+   ],
+   "cluster": {
+    "customers": 8,
+    "truncated": false
+   },
+   "customer_id": "cust_91ef29",
+   "merchant_id": "mcht_00027"
+  },
+  "features": {
+   "device_identity_ratio": 8.0,
+   "cross_merchant_fanout": 4,
+   "taint": 1.0,
+   "velocity_merchants_72h": 4,
+   "burn_rotate": 1,
+   "amount_band_hit": 1.0,
+   "new_identity_fraction": 1.0,
+   "n_f1": 1.0,
+   "n_f2": 0.5,
+   "n_f3": 1.0,
+   "n_f4": 0.8,
+   "n_f5": 1.0,
+   "n_f6": 1.0,
+   "n_f7": 1.0
+  },
+  "contributions": {
+   "device_identity_ratio": 14.0,
+   "cross_merchant_fanout": 10.0,
+   "taint_propagation": 24.0,
+   "velocity_72h": 11.2,
+   "burn_rotate": 10.0,
+   "amount_pattern": 4.0,
+   "new_identity_burst": 14.0
+  },
+  "model_version": "rules-v1.0",
+  "schema_version": "1",
+  "explanation": null,
+  "explanation_status": "PENDING",
+  "challenger": null,
+  "created_at": "2026-08-30T17:43:25.558076+00:00"
+ },
+ {
+  "verdict_id": "70421f5a-959c-4419-83a8-c5fcb5d0b145",
+  "event_id": "390b3a5e-a3f4-533b-85f0-9c8b84f179a8",
+  "score": 87,
+  "verdict": "BLOCK_REC",
+  "reason_codes": [
+   "RNG_DEVICE_FANOUT",
+   "RNG_IDENTITY_FARM",
+   "RNG_TAINT_LINK",
+   "RNG_VELOCITY",
+   "RNG_BURN_ROTATE",
+   "RNG_AMOUNT_PATTERN"
+  ],
+  "evidence": {
+   "linked_merchants": [
+    "mcht_00027",
+    "mcht_00030",
+    "mcht_00036",
+    "mcht_00037"
+   ],
+   "shared_devices": [
+    {
+     "device_id": "dev_9bd4ad04",
+     "linked_identities": 9,
+     "merchant_count": 4
+    }
+   ],
+   "taint": 1.0,
+   "taint_path": [
+    "cust_79a96d",
+    "dev_9bd4ad04",
+    "cust_91ef29"
+   ],
+   "cluster": {
+    "customers": 9,
+    "truncated": false
+   },
+   "customer_id": "cust_79a96d",
+   "merchant_id": "mcht_00037"
+  },
+  "features": {
+   "device_identity_ratio": 9.0,
+   "cross_merchant_fanout": 4,
+   "taint": 1.0,
+   "velocity_merchants_72h": 4,
+   "burn_rotate": 1,
+   "amount_band_hit": 1.0,
+   "new_identity_fraction": 1.0,
+   "n_f1": 1.0,
+   "n_f2": 0.5,
+   "n_f3": 1.0,
+   "n_f4": 0.8,
+   "n_f5": 1.0,
+   "n_f6": 1.0,
+   "n_f7": 1.0
+  },
+  "contributions": {
+   "device_identity_ratio": 14.0,
+   "cross_merchant_fanout": 10.0,
+   "taint_propagation": 24.0,
+   "velocity_72h": 11.2,
+   "burn_rotate": 10.0,
+   "amount_pattern": 4.0,
+   "new_identity_burst": 14.0
+  },
+  "model_version": "rules-v1.0",
+  "schema_version": "1",
+  "explanation": null,
+  "explanation_status": "PENDING",
+  "challenger": null,
+  "created_at": "2026-08-30T17:43:25.586164+00:00"
+ },
+ {
+  "verdict_id": "94f59adc-b102-43d6-9486-461a32318e52",
+  "event_id": "efdb048b-660e-5e97-9448-08cc1b10216d",
+  "score": 87,
+  "verdict": "BLOCK_REC",
+  "reason_codes": [
+   "RNG_DEVICE_FANOUT",
+   "RNG_IDENTITY_FARM",
+   "RNG_TAINT_LINK",
+   "RNG_VELOCITY",
+   "RNG_BURN_ROTATE",
+   "RNG_AMOUNT_PATTERN"
+  ],
+  "evidence": {
+   "linked_merchants": [
+    "mcht_00010",
+    "mcht_00020",
+    "mcht_00023",
+    "mcht_00031"
+   ],
+   "shared_devices": [
+    {
+     "device_id": "dev_454ad3f1",
+     "linked_identities": 6,
+     "merchant_count": 4
+    }
+   ],
+   "taint": 1.0,
+   "taint_path": [
+    "cust_2a7e28",
+    "dev_454ad3f1",
+    "cust_65ff58"
+   ],
+   "cluster": {
+    "customers": 6,
+    "truncated": false
+   },
+   "customer_id": "cust_2a7e28",
+   "merchant_id": "mcht_00031"
+  },
+  "features": {
+   "device_identity_ratio": 6.0,
+   "cross_merchant_fanout": 4,
+   "taint": 1.0,
+   "velocity_merchants_72h": 4,
+   "burn_rotate": 1,
+   "amount_band_hit": 1.0,
+   "new_identity_fraction": 1.0,
+   "n_f1": 1.0,
+   "n_f2": 0.5,
+   "n_f3": 1.0,
+   "n_f4": 0.8,
+   "n_f5": 1.0,
+   "n_f6": 1.0,
+   "n_f7": 1.0
+  },
+  "contributions": {
+   "device_identity_ratio": 14.0,
+   "cross_merchant_fanout": 10.0,
+   "taint_propagation": 24.0,
+   "velocity_72h": 11.2,
+   "burn_rotate": 10.0,
+   "amount_pattern": 4.0,
+   "new_identity_burst": 14.0
+  },
+  "model_version": "rules-v1.0",
+  "schema_version": "1",
+  "explanation": null,
+  "explanation_status": "PENDING",
+  "challenger": null,
+  "created_at": "2026-08-30T17:43:25.619840+00:00"
+ },
+ {
+  "verdict_id": "5f4d1784-2773-4be1-be4b-8174dd915584",
+  "event_id": "41e73565-1516-586f-9683-603e3642f27a",
+  "score": 87,
+  "verdict": "BLOCK_REC",
+  "reason_codes": [
+   "RNG_DEVICE_FANOUT",
+   "RNG_IDENTITY_FARM",
+   "RNG_TAINT_LINK",
+   "RNG_VELOCITY",
+   "RNG_BURN_ROTATE",
+   "RNG_AMOUNT_PATTERN"
+  ],
+  "evidence": {
+   "linked_merchants": [
+    "mcht_00010",
+    "mcht_00020",
+    "mcht_00023",
+    "mcht_00031"
+   ],
+   "shared_devices": [
+    {
+     "device_id": "dev_454ad3f1",
+     "linked_identities": 7,
+     "merchant_count": 4
+    }
+   ],
+   "taint": 1.0,
+   "taint_path": [
+    "cust_a6a009",
+    "+916184322974",
+    "cust_65ff58"
+   ],
+   "cluster": {
+    "customers": 7,
+    "truncated": false
+   },
+   "customer_id": "cust_a6a009",
+   "merchant_id": "mcht_00020"
+  },
+  "features": {
+   "device_identity_ratio": 7.0,
+   "cross_merchant_fanout": 4,
+   "taint": 1.0,
+   "velocity_merchants_72h": 4,
+   "burn_rotate": 1,
+   "amount_band_hit": 1.0,
+   "new_identity_fraction": 1.0,
+   "n_f1": 1.0,
+   "n_f2": 0.5,
+   "n_f3": 1.0,
+   "n_f4": 0.8,
+   "n_f5": 1.0,
+   "n_f6": 1.0,
+   "n_f7": 1.0
+  },
+  "contributions": {
+   "device_identity_ratio": 14.0,
+   "cross_merchant_fanout": 10.0,
+   "taint_propagation": 24.0,
+   "velocity_72h": 11.2,
+   "burn_rotate": 10.0,
+   "amount_pattern": 4.0,
+   "new_identity_burst": 14.0
+  },
+  "model_version": "rules-v1.0",
+  "schema_version": "1",
+  "explanation": null,
+  "explanation_status": "PENDING",
+  "challenger": null,
+  "created_at": "2026-08-30T17:43:25.623736+00:00"
+ },
+ {
+  "verdict_id": "51a92a4c-398b-4618-99f0-3316fef9a3a4",
+  "event_id": "ab573da2-4cca-51c7-8638-8e9c10dc19d5",
+  "score": 87,
+  "verdict": "BLOCK_REC",
+  "reason_codes": [
+   "RNG_DEVICE_FANOUT",
+   "RNG_IDENTITY_FARM",
+   "RNG_TAINT_LINK",
+   "RNG_VELOCITY",
+   "RNG_BURN_ROTATE",
+   "RNG_AMOUNT_PATTERN"
+  ],
+  "evidence": {
+   "linked_merchants": [
+    "mcht_00010",
+    "mcht_00020",
+    "mcht_00023",
+    "mcht_00031"
+   ],
+   "shared_devices": [
+    {
+     "device_id": "dev_454ad3f1",
+     "linked_identities": 8,
+     "merchant_count": 4
+    }
+   ],
+   "taint": 1.0,
+   "taint_path": [
+    "cust_5fc0cf",
+    "+916184322974",
+    "cust_65ff58"
+   ],
+   "cluster": {
+    "customers": 8,
+    "truncated": false
+   },
+   "customer_id": "cust_5fc0cf",
+   "merchant_id": "mcht_00023"
+  },
+  "features": {
+   "device_identity_ratio": 8.0,
+   "cross_merchant_fanout": 4,
+   "taint": 1.0,
+   "velocity_merchants_72h": 4,
+   "burn_rotate": 1,
+   "amount_band_hit": 1.0,
+   "new_identity_fraction": 1.0,
+   "n_f1": 1.0,
+   "n_f2": 0.5,
+   "n_f3": 1.0,
+   "n_f4": 0.8,
+   "n_f5": 1.0,
+   "n_f6": 1.0,
+   "n_f7": 1.0
+  },
+  "contributions": {
+   "device_identity_ratio": 14.0,
+   "cross_merchant_fanout": 10.0,
+   "taint_propagation": 24.0,
+   "velocity_72h": 11.2,
+   "burn_rotate": 10.0,
+   "amount_pattern": 4.0,
+   "new_identity_burst": 14.0
+  },
+  "model_version": "rules-v1.0",
+  "schema_version": "1",
+  "explanation": null,
+  "explanation_status": "PENDING",
+  "challenger": null,
+  "created_at": "2026-08-30T17:43:25.636949+00:00"
+ },
+ {
+  "verdict_id": "dbb54a1f-97ae-4cd0-b905-31cad7a010e0",
+  "event_id": "05c53736-7a07-5b9a-bdd6-70b48fd3d06c",
+  "score": 87,
+  "verdict": "BLOCK_REC",
+  "reason_codes": [
+   "RNG_DEVICE_FANOUT",
+   "RNG_IDENTITY_FARM",
+   "RNG_TAINT_LINK",
+   "RNG_VELOCITY",
+   "RNG_BURN_ROTATE",
+   "RNG_AMOUNT_PATTERN"
+  ],
+  "evidence": {
+   "linked_merchants": [
+    "mcht_00027",
+    "mcht_00030",
+    "mcht_00036",
+    "mcht_00037"
+   ],
+   "shared_devices": [
+    {
+     "device_id": "dev_9bd4ad04",
+     "linked_identities": 10,
+     "merchant_count": 4
+    }
+   ],
+   "taint": 1.0,
+   "taint_path": [
+    "cust_c24f8c",
+    "dev_9bd4ad04",
+    "cust_91ef29"
+   ],
+   "cluster": {
+    "customers": 10,
+    "truncated": false
+   },
+   "customer_id": "cust_c24f8c",
+   "merchant_id": "mcht_00036"
+  },
+  "features": {
+   "device_identity_ratio": 10.0,
+   "cross_merchant_fanout": 4,
+   "taint": 1.0,
+   "velocity_merchants_72h": 4,
+   "burn_rotate": 1,
+   "amount_band_hit": 1.0,
+   "new_identity_fraction": 1.0,
+   "n_f1": 1.0,
+   "n_f2": 0.5,
+   "n_f3": 1.0,
+   "n_f4": 0.8,
+   "n_f5": 1.0,
+   "n_f6": 1.0,
+   "n_f7": 1.0
+  },
+  "contributions": {
+   "device_identity_ratio": 14.0,
+   "cross_merchant_fanout": 10.0,
+   "taint_propagation": 24.0,
+   "velocity_72h": 11.2,
+   "burn_rotate": 10.0,
+   "amount_pattern": 4.0,
+   "new_identity_burst": 14.0
+  },
+  "model_version": "rules-v1.0",
+  "schema_version": "1",
+  "explanation": null,
+  "explanation_status": "PENDING",
+  "challenger": null,
+  "created_at": "2026-08-30T17:43:25.636949+00:00"
+ },
+ {
+  "verdict_id": "31baba51-f225-4ac3-9887-b816ffb59535",
+  "event_id": "3eccd50c-7db3-50f6-9d2f-c6367da2a744",
+  "score": 87,
+  "verdict": "BLOCK_REC",
+  "reason_codes": [
+   "RNG_DEVICE_FANOUT",
+   "RNG_IDENTITY_FARM",
+   "RNG_TAINT_LINK",
+   "RNG_VELOCITY",
+   "RNG_BURN_ROTATE",
+   "RNG_AMOUNT_PATTERN"
+  ],
+  "evidence": {
+   "linked_merchants": [
+    "mcht_00027",
+    "mcht_00030",
+    "mcht_00036",
+    "mcht_00037"
+   ],
+   "shared_devices": [
+    {
+     "device_id": "dev_9bd4ad04",
+     "linked_identities": 11,
+     "merchant_count": 4
+    }
+   ],
+   "taint": 1.0,
+   "taint_path": [
+    "cust_bb3ee9",
+    "+919857644509",
+    "cust_91ef29"
+   ],
+   "cluster": {
+    "customers": 11,
+    "truncated": false
+   },
+   "customer_id": "cust_bb3ee9",
+   "merchant_id": "mcht_00030"
+  },
+  "features": {
+   "device_identity_ratio": 11.0,
+   "cross_merchant_fanout": 4,
+   "taint": 1.0,
+   "velocity_merchants_72h": 4,
+   "burn_rotate": 1,
+   "amount_band_hit": 1.0,
+   "new_identity_fraction": 1.0,
+   "n_f1": 1.0,
+   "n_f2": 0.5,
+   "n_f3": 1.0,
+   "n_f4": 0.8,
+   "n_f5": 1.0,
+   "n_f6": 1.0,
+   "n_f7": 1.0
+  },
+  "contributions": {
+   "device_identity_ratio": 14.0,
+   "cross_merchant_fanout": 10.0,
+   "taint_propagation": 24.0,
+   "velocity_72h": 11.2,
+   "burn_rotate": 10.0,
+   "amount_pattern": 4.0,
+   "new_identity_burst": 14.0
+  },
+  "model_version": "rules-v1.0",
+  "schema_version": "1",
+  "explanation": null,
+  "explanation_status": "PENDING",
+  "challenger": null,
+  "created_at": "2026-08-30T17:43:25.702791+00:00"
+ },
+ {
+  "verdict_id": "d568eb72-e56e-4bbd-97be-cc4928109433",
+  "event_id": "b77d019a-acab-5582-a1b5-5c3d082a12a5",
+  "score": 87,
+  "verdict": "BLOCK_REC",
+  "reason_codes": [
+   "RNG_DEVICE_FANOUT",
+   "RNG_IDENTITY_FARM",
+   "RNG_TAINT_LINK",
+   "RNG_VELOCITY",
+   "RNG_BURN_ROTATE",
+   "RNG_AMOUNT_PATTERN"
+  ],
+  "evidence": {
+   "linked_merchants": [
+    "mcht_00010",
+    "mcht_00020",
+    "mcht_00023",
+    "mcht_00031"
+   ],
+   "shared_devices": [
+    {
+     "device_id": "dev_454ad3f1",
+     "linked_identities": 9,
+     "merchant_count": 4
+    }
+   ],
+   "taint": 1.0,
+   "taint_path": [
+    "cust_627642",
+    "+916184322974",
+    "cust_65ff58"
+   ],
+   "cluster": {
+    "customers": 9,
+    "truncated": false
+   },
+   "customer_id": "cust_627642",
+   "merchant_id": "mcht_00010"
+  },
+  "features": {
+   "device_identity_ratio": 9.0,
+   "cross_merchant_fanout": 4,
+   "taint": 1.0,
+   "velocity_merchants_72h": 4,
+   "burn_rotate": 1,
+   "amount_band_hit": 1.0,
+   "new_identity_fraction": 1.0,
+   "n_f1": 1.0,
+   "n_f2": 0.5,
+   "n_f3": 1.0,
+   "n_f4": 0.8,
+   "n_f5": 1.0,
+   "n_f6": 1.0,
+   "n_f7": 1.0
+  },
+  "contributions": {
+   "device_identity_ratio": 14.0,
+   "cross_merchant_fanout": 10.0,
+   "taint_propagation": 24.0,
+   "velocity_72h": 11.2,
+   "burn_rotate": 10.0,
+   "amount_pattern": 4.0,
+   "new_identity_burst": 14.0
+  },
+  "model_version": "rules-v1.0",
+  "schema_version": "1",
+  "explanation": null,
+  "explanation_status": "PENDING",
+  "challenger": null,
+  "created_at": "2026-08-30T17:43:25.727930+00:00"
+ },
+ {
+  "verdict_id": "55b1b80a-8e44-4575-8601-55b890f4c1ca",
+  "event_id": "3e066db5-811d-55b3-a6ea-c1b9acd08c0f",
+  "score": 87,
+  "verdict": "BLOCK_REC",
+  "reason_codes": [
+   "RNG_DEVICE_FANOUT",
+   "RNG_IDENTITY_FARM",
+   "RNG_TAINT_LINK",
+   "RNG_VELOCITY",
+   "RNG_BURN_ROTATE",
+   "RNG_AMOUNT_PATTERN"
+  ],
+  "evidence": {
+   "linked_merchants": [
+    "mcht_00027",
+    "mcht_00030",
+    "mcht_00036",
+    "mcht_00037"
+   ],
+   "shared_devices": [
+    {
+     "device_id": "dev_9bd4ad04",
+     "linked_identities": 12,
+     "merchant_count": 4
+    }
+   ],
+   "taint": 1.0,
+   "taint_path": [
+    "cust_8eb37c",
+    "kalpanashruti38@gmail.com",
+    "cust_0236ba"
+   ],
+   "cluster": {
+    "customers": 12,
+    "truncated": false
+   },
+   "customer_id": "cust_8eb37c",
+   "merchant_id": "mcht_00027"
+  },
+  "features": {
+   "device_identity_ratio": 12.0,
+   "cross_merchant_fanout": 4,
+   "taint": 1.0,
+   "velocity_merchants_72h": 4,
+   "burn_rotate": 1,
+   "amount_band_hit": 1.0,
+   "new_identity_fraction": 1.0,
+   "n_f1": 1.0,
+   "n_f2": 0.5,
+   "n_f3": 1.0,
+   "n_f4": 0.8,
+   "n_f5": 1.0,
+   "n_f6": 1.0,
+   "n_f7": 1.0
+  },
+  "contributions": {
+   "device_identity_ratio": 14.0,
+   "cross_merchant_fanout": 10.0,
+   "taint_propagation": 24.0,
+   "velocity_72h": 11.2,
+   "burn_rotate": 10.0,
+   "amount_pattern": 4.0,
+   "new_identity_burst": 14.0
+  },
+  "model_version": "rules-v1.0",
+  "schema_version": "1",
+  "explanation": null,
+  "explanation_status": "PENDING",
+  "challenger": null,
+  "created_at": "2026-08-30T17:43:25.971205+00:00"
+ },
+ {
+  "verdict_id": "7116ed7c-2b9f-4de8-bee6-d6569b4ddf2b",
+  "event_id": "f325280a-4bd1-56fc-a5cc-170de81b0e96",
+  "score": 87,
+  "verdict": "BLOCK_REC",
+  "reason_codes": [
+   "RNG_DEVICE_FANOUT",
+   "RNG_IDENTITY_FARM",
+   "RNG_TAINT_LINK",
+   "RNG_VELOCITY",
+   "RNG_BURN_ROTATE",
+   "RNG_AMOUNT_PATTERN"
+  ],
+  "evidence": {
+   "linked_merchants": [
+    "mcht_00027",
+    "mcht_00030",
+    "mcht_00036",
+    "mcht_00037"
+   ],
+   "shared_devices": [
+    {
+     "device_id": "dev_9bd4ad04",
+     "linked_identities": 13,
+     "merchant_count": 4
+    }
+   ],
+   "taint": 1.0,
+   "taint_path": [
+    "cust_9cd653",
+    "dev_9bd4ad04",
+    "cust_91ef29"
+   ],
+   "cluster": {
+    "customers": 13,
+    "truncated": false
+   },
+   "customer_id": "cust_9cd653",
+   "merchant_id": "mcht_00037"
+  },
+  "features": {
+   "device_identity_ratio": 13.0,
+   "cross_merchant_fanout": 4,
+   "taint": 1.0,
+   "velocity_merchants_72h": 4,
+   "burn_rotate": 1,
+   "amount_band_hit": 1.0,
+   "new_identity_fraction": 1.0,
+   "n_f1": 1.0,
+   "n_f2": 0.5,
+   "n_f3": 1.0,
+   "n_f4": 0.8,
+   "n_f5": 1.0,
+   "n_f6": 1.0,
+   "n_f7": 1.0
+  },
+  "contributions": {
+   "device_identity_ratio": 14.0,
+   "cross_merchant_fanout": 10.0,
+   "taint_propagation": 24.0,
+   "velocity_72h": 11.2,
+   "burn_rotate": 10.0,
+   "amount_pattern": 4.0,
+   "new_identity_burst": 14.0
+  },
+  "model_version": "rules-v1.0",
+  "schema_version": "1",
+  "explanation": null,
+  "explanation_status": "PENDING",
+  "challenger": null,
+  "created_at": "2026-08-30T17:43:25.979224+00:00"
+ },
+ {
+  "verdict_id": "ebd4c824-2e6f-4b93-8e74-153b1ea18588",
+  "event_id": "2a50dfa4-bd18-5925-9bf0-cee8d0b75810",
+  "score": 87,
+  "verdict": "BLOCK_REC",
+  "reason_codes": [
+   "RNG_DEVICE_FANOUT",
+   "RNG_IDENTITY_FARM",
+   "RNG_TAINT_LINK",
+   "RNG_VELOCITY",
+   "RNG_BURN_ROTATE",
+   "RNG_AMOUNT_PATTERN"
+  ],
+  "evidence": {
+   "linked_merchants": [
+    "mcht_00010",
+    "mcht_00020",
+    "mcht_00023",
+    "mcht_00031"
+   ],
+   "shared_devices": [
+    {
+     "device_id": "dev_454ad3f1",
+     "linked_identities": 10,
+     "merchant_count": 4
+    }
+   ],
+   "taint": 1.0,
+   "taint_path": [
+    "cust_963dba",
+    "pooja.aarti@gmail.com",
+    "cust_558e4a"
+   ],
+   "cluster": {
+    "customers": 10,
+    "truncated": false
+   },
+   "customer_id": "cust_963dba",
+   "merchant_id": "mcht_00031"
+  },
+  "features": {
+   "device_identity_ratio": 10.0,
+   "cross_merchant_fanout": 4,
+   "taint": 1.0,
+   "velocity_merchants_72h": 4,
+   "burn_rotate": 1,
+   "amount_band_hit": 1.0,
+   "new_identity_fraction": 1.0,
+   "n_f1": 1.0,
+   "n_f2": 0.5,
+   "n_f3": 1.0,
+   "n_f4": 0.8,
+   "n_f5": 1.0,
+   "n_f6": 1.0,
+   "n_f7": 1.0
+  },
+  "contributions": {
+   "device_identity_ratio": 14.0,
+   "cross_merchant_fanout": 10.0,
+   "taint_propagation": 24.0,
+   "velocity_72h": 11.2,
+   "burn_rotate": 10.0,
+   "amount_pattern": 4.0,
+   "new_identity_burst": 14.0
+  },
+  "model_version": "rules-v1.0",
+  "schema_version": "1",
+  "explanation": null,
+  "explanation_status": "PENDING",
+  "challenger": null,
+  "created_at": "2026-08-30T17:43:26.060453+00:00"
+ },
+ {
+  "verdict_id": "2a9cf26d-dbe8-4164-97a7-aa1891170be4",
+  "event_id": "9dcb2907-1ac0-5674-9a7a-b8d78220e8b5",
+  "score": 87,
+  "verdict": "BLOCK_REC",
+  "reason_codes": [
+   "RNG_DEVICE_FANOUT",
+   "RNG_IDENTITY_FARM",
+   "RNG_TAINT_LINK",
+   "RNG_VELOCITY",
+   "RNG_BURN_ROTATE",
+   "RNG_AMOUNT_PATTERN"
+  ],
+  "evidence": {
+   "linked_merchants": [
+    "mcht_00010",
+    "mcht_00020",
+    "mcht_00023",
+    "mcht_00031"
+   ],
+   "shared_devices": [
+    {
+     "device_id": "dev_454ad3f1",
+     "linked_identities": 11,
+     "merchant_count": 4
+    }
+   ],
+   "taint": 1.0,
+   "taint_path": [
+    "cust_13a047",
+    "+919599112088",
+    "cust_2a7e28"
+   ],
+   "cluster": {
+    "customers": 11,
+    "truncated": false
+   },
+   "customer_id": "cust_13a047",
+   "merchant_id": "mcht_00020"
+  },
+  "features": {
+   "device_identity_ratio": 11.0,
+   "cross_merchant_fanout": 4,
+   "taint": 1.0,
+   "velocity_merchants_72h": 4,
+   "burn_rotate": 1,
+   "amount_band_hit": 1.0,
+   "new_identity_fraction": 1.0,
+   "n_f1": 1.0,
+   "n_f2": 0.5,
+   "n_f3": 1.0,
+   "n_f4": 0.8,
+   "n_f5": 1.0,
+   "n_f6": 1.0,
+   "n_f7": 1.0
+  },
+  "contributions": {
+   "device_identity_ratio": 14.0,
+   "cross_merchant_fanout": 10.0,
+   "taint_propagation": 24.0,
+   "velocity_72h": 11.2,
+   "burn_rotate": 10.0,
+   "amount_pattern": 4.0,
+   "new_identity_burst": 14.0
+  },
+  "model_version": "rules-v1.0",
+  "schema_version": "1",
+  "explanation": null,
+  "explanation_status": "PENDING",
+  "challenger": null,
+  "created_at": "2026-08-30T17:43:26.068243+00:00"
+ },
+ {
+  "verdict_id": "45a893b2-03d6-48c8-bd12-6891071f9736",
+  "event_id": "e844a293-a236-5e11-af73-8a1878dfbcef",
+  "score": 87,
+  "verdict": "BLOCK_REC",
+  "reason_codes": [
+   "RNG_DEVICE_FANOUT",
+   "RNG_IDENTITY_FARM",
+   "RNG_TAINT_LINK",
+   "RNG_VELOCITY",
+   "RNG_BURN_ROTATE",
+   "RNG_AMOUNT_PATTERN"
+  ],
+  "evidence": {
+   "linked_merchants": [
+    "mcht_00010",
+    "mcht_00020",
+    "mcht_00023",
+    "mcht_00031"
+   ],
+   "shared_devices": [
+    {
+     "device_id": "dev_454ad3f1",
+     "linked_identities": 12,
+     "merchant_count": 4
+    }
+   ],
+   "taint": 1.0,
+   "taint_path": [
+    "cust_8bd6d2",
+    "+916184322974",
+    "cust_65ff58"
+   ],
+   "cluster": {
+    "customers": 12,
+    "truncated": false
+   },
+   "customer_id": "cust_8bd6d2",
+   "merchant_id": "mcht_00023"
+  },
+  "features": {
+   "device_identity_ratio": 12.0,
+   "cross_merchant_fanout": 4,
+   "taint": 1.0,
+   "velocity_merchants_72h": 4,
+   "burn_rotate": 1,
+   "amount_band_hit": 1.0,
+   "new_identity_fraction": 1.0,
+   "n_f1": 1.0,
+   "n_f2": 0.5,
+   "n_f3": 1.0,
+   "n_f4": 0.8,
+   "n_f5": 1.0,
+   "n_f6": 1.0,
+   "n_f7": 1.0
+  },
+  "contributions": {
+   "device_identity_ratio": 14.0,
+   "cross_merchant_fanout": 10.0,
+   "taint_propagation": 24.0,
+   "velocity_72h": 11.2,
+   "burn_rotate": 10.0,
+   "amount_pattern": 4.0,
+   "new_identity_burst": 14.0
+  },
+  "model_version": "rules-v1.0",
+  "schema_version": "1",
+  "explanation": null,
+  "explanation_status": "PENDING",
+  "challenger": null,
+  "created_at": "2026-08-30T17:43:26.099878+00:00"
+ },
+ {
+  "verdict_id": "dd7cb2b1-9965-4caf-af8c-81f6627a473b",
+  "event_id": "de3caabe-a81d-56a4-848d-81b21a3387ab",
+  "score": 87,
+  "verdict": "BLOCK_REC",
+  "reason_codes": [
+   "RNG_DEVICE_FANOUT",
+   "RNG_IDENTITY_FARM",
+   "RNG_TAINT_LINK",
+   "RNG_VELOCITY",
+   "RNG_BURN_ROTATE",
+   "RNG_AMOUNT_PATTERN"
+  ],
+  "evidence": {
+   "linked_merchants": [
+    "mcht_00010",
+    "mcht_00020",
+    "mcht_00023",
+    "mcht_00031"
+   ],
+   "shared_devices": [
+    {
+     "device_id": "dev_454ad3f1",
+     "linked_identities": 13,
+     "merchant_count": 4
+    }
+   ],
+   "taint": 1.0,
+   "taint_path": [
+    "cust_82b30a",
+    "+919599112088",
+    "cust_2a7e28"
+   ],
+   "cluster": {
+    "customers": 13,
+    "truncated": false
+   },
+   "customer_id": "cust_82b30a",
+   "merchant_id": "mcht_00010"
+  },
+  "features": {
+   "device_identity_ratio": 13.0,
+   "cross_merchant_fanout": 4,
+   "taint": 1.0,
+   "velocity_merchants_72h": 4,
+   "burn_rotate": 1,
+   "amount_band_hit": 1.0,
+   "new_identity_fraction": 1.0,
+   "n_f1": 1.0,
+   "n_f2": 0.5,
+   "n_f3": 1.0,
+   "n_f4": 0.8,
+   "n_f5": 1.0,
+   "n_f6": 1.0,
+   "n_f7": 1.0
+  },
+  "contributions": {
+   "device_identity_ratio": 14.0,
+   "cross_merchant_fanout": 10.0,
+   "taint_propagation": 24.0,
+   "velocity_72h": 11.2,
+   "burn_rotate": 10.0,
+   "amount_pattern": 4.0,
+   "new_identity_burst": 14.0
+  },
+  "model_version": "rules-v1.0",
+  "schema_version": "1",
+  "explanation": null,
+  "explanation_status": "PENDING",
+  "challenger": null,
+  "created_at": "2026-08-30T17:43:26.147453+00:00"
+ },
+ {
+  "verdict_id": "719758cc-534d-4f0d-98ec-d60ea3f9da53",
+  "event_id": "17871754-331d-54de-9bd9-f44170f93e5a",
+  "score": 85,
+  "verdict": "BLOCK_REC",
+  "reason_codes": [
+   "RNG_DEVICE_FANOUT",
+   "RNG_IDENTITY_FARM",
+   "RNG_TAINT_LINK",
+   "RNG_VELOCITY",
+   "RNG_BURN_ROTATE",
+   "RNG_AMOUNT_PATTERN"
+  ],
+  "evidence": {
+   "linked_merchants": [
+    "mcht_00010",
+    "mcht_00020",
+    "mcht_00023",
+    "mcht_00031"
+   ],
+   "shared_devices": [
+    {
+     "device_id": "dev_454ad3f1",
+     "linked_identities": 5,
+     "merchant_count": 4
+    }
+   ],
+   "taint": 1.0,
+   "taint_path": [
+    "cust_89b288",
+    "pooja.aarti@gmail.com",
+    "cust_558e4a"
+   ],
+   "cluster": {
+    "customers": 5,
+    "truncated": false
+   },
+   "customer_id": "cust_89b288",
+   "merchant_id": "mcht_00010"
+  },
+  "features": {
+   "device_identity_ratio": 5.0,
+   "cross_merchant_fanout": 4,
+   "taint": 1.0,
+   "velocity_merchants_72h": 4,
+   "burn_rotate": 1,
+   "amount_band_hit": 1.0,
+   "new_identity_fraction": 1.0,
+   "n_f1": 0.833333,
+   "n_f2": 0.5,
+   "n_f3": 1.0,
+   "n_f4": 0.8,
+   "n_f5": 1.0,
+   "n_f6": 1.0,
+   "n_f7": 1.0
+  },
+  "contributions": {
+   "device_identity_ratio": 11.6667,
+   "cross_merchant_fanout": 10.0,
+   "taint_propagation": 24.0,
+   "velocity_72h": 11.2,
+   "burn_rotate": 10.0,
+   "amount_pattern": 4.0,
+   "new_identity_burst": 14.0
+  },
+  "model_version": "rules-v1.0",
+  "schema_version": "1",
+  "explanation": null,
+  "explanation_status": "PENDING",
+  "challenger": null,
+  "created_at": "2026-08-30T17:43:25.613175+00:00"
+ },
+ {
+  "verdict_id": "25f9f76c-f274-4b57-8efc-17acad793236",
+  "event_id": "71e82349-3003-5caf-96b9-63fd3a49ee75",
+  "score": 85,
+  "verdict": "BLOCK_REC",
+  "reason_codes": [
+   "RNG_DEVICE_FANOUT",
+   "RNG_IDENTITY_FARM",
+   "RNG_TAINT_LINK",
+   "RNG_VELOCITY",
+   "RNG_BURN_ROTATE",
+   "RNG_AMOUNT_PATTERN"
+  ],
+  "evidence": {
+   "linked_merchants": [
+    "mcht_00027",
+    "mcht_00028",
+    "mcht_00036",
+    "mcht_00037",
+    "mcht_00040",
+    "mcht_00043"
+   ],
+   "shared_devices": [
+    {
+     "device_id": "dev_23f76327",
+     "linked_identities": 5,
+     "merchant_count": 4
+    },
+    {
+     "device_id": "dev_3a439f3f",
+     "linked_identities": 3,
+     "merchant_count": 3
+    }
+   ],
+   "taint": 1.0,
+   "taint_path": [
+    "cust_b47ae3",
+    "+917907457079",
+    "cust_1610b8"
+   ],
+   "cluster": {
+    "customers": 8,
+    "truncated": false
+   },
+   "customer_id": "cust_b47ae3",
+   "merchant_id": "mcht_00043"
+  },
+  "features": {
+   "device_identity_ratio": 4.0,
+   "cross_merchant_fanout": 4,
+   "taint": 1.0,
+   "velocity_merchants_72h": 6,
+   "burn_rotate": 1,
+   "amount_band_hit": 1.0,
+   "new_identity_fraction": 1.0,
+   "n_f1": 0.666667,
+   "n_f2": 0.5,
+   "n_f3": 1.0,
+   "n_f4": 1.0,
+   "n_f5": 1.0,
+   "n_f6": 1.0,
+   "n_f7": 1.0
+  },
+  "contributions": {
+   "device_identity_ratio": 9.3333,
+   "cross_merchant_fanout": 10.0,
+   "taint_propagation": 24.0,
+   "velocity_72h": 14.0,
+   "burn_rotate": 10.0,
+   "amount_pattern": 4.0,
+   "new_identity_burst": 14.0
+  },
+  "model_version": "rules-v1.0",
+  "schema_version": "1",
+  "explanation": null,
+  "explanation_status": "PENDING",
+  "challenger": null,
+  "created_at": "2026-08-30T17:43:31.423244+00:00"
+ },
+ {
+  "verdict_id": "fd2ea751-c063-437c-bd0c-e30a401ad72a",
+  "event_id": "0a532bb5-1ecd-5c7a-b2f9-07ec6df02d4d",
+  "score": 84,
+  "verdict": "BLOCK_REC",
+  "reason_codes": [
+   "RNG_DEVICE_FANOUT",
+   "RNG_IDENTITY_FARM",
+   "RNG_TAINT_LINK",
+   "RNG_VELOCITY",
+   "RNG_BURN_ROTATE",
+   "RNG_AMOUNT_PATTERN"
+  ],
+  "evidence": {
+   "linked_merchants": [
+    "mcht_00004",
+    "mcht_00031",
+    "mcht_00033",
+    "mcht_00034",
+    "mcht_00035",
+    "mcht_00043"
+   ],
+   "shared_devices": [
+    {
+     "device_id": "dev_c519d85a",
+     "linked_identities": 5,
+     "merchant_count": 4
+    },
+    {
+     "device_id": "dev_d86c8695",
+     "linked_identities": 2,
+     "merchant_count": 2
+    }
+   ],
+   "taint": 1.0,
+   "taint_path": [
+    "cust_320510",
+    "dev_c519d85a",
+    "cust_759039"
+   ],
+   "cluster": {
+    "customers": 7,
+    "truncated": false
+   },
+   "customer_id": "cust_320510",
+   "merchant_id": "mcht_00004"
+  },
+  "features": {
+   "device_identity_ratio": 3.5,
+   "cross_merchant_fanout": 4,
+   "taint": 1.0,
+   "velocity_merchants_72h": 6,
+   "burn_rotate": 1,
+   "amount_band_hit": 1.0,
+   "new_identity_fraction": 1.0,
+   "n_f1": 0.583333,
+   "n_f2": 0.5,
+   "n_f3": 1.0,
+   "n_f4": 1.0,
+   "n_f5": 1.0,
+   "n_f6": 1.0,
+   "n_f7": 1.0
+  },
+  "contributions": {
+   "device_identity_ratio": 8.1667,
+   "cross_merchant_fanout": 10.0,
+   "taint_propagation": 24.0,
+   "velocity_72h": 14.0,
+   "burn_rotate": 10.0,
+   "amount_pattern": 4.0,
+   "new_identity_burst": 14.0
+  },
+  "model_version": "rules-v1.0",
+  "schema_version": "1",
+  "explanation": null,
+  "explanation_status": "PENDING",
+  "challenger": null,
+  "created_at": "2026-08-30T17:43:29.802040+00:00"
+ },
+ {
+  "verdict_id": "03a0bc49-28c2-45ef-bb59-a269b18ede31",
+  "event_id": "46ee34f4-dc22-56c4-b0d1-c0d4536e3c6c",
+  "score": 84,
+  "verdict": "BLOCK_REC",
+  "reason_codes": [
+   "RNG_DEVICE_FANOUT",
+   "RNG_IDENTITY_FARM",
+   "RNG_TAINT_LINK",
+   "RNG_VELOCITY",
+   "RNG_BURN_ROTATE",
+   "RNG_AMOUNT_PATTERN"
+  ],
+  "evidence": {
+   "linked_merchants": [
+    "mcht_00004",
+    "mcht_00031",
+    "mcht_00033",
+    "mcht_00035",
+    "mcht_00043"
+   ],
+   "shared_devices": [
+    {
+     "device_id": "dev_c519d85a",
+     "linked_identities": 5,
+     "merchant_count": 4
+    },
+    {
+     "device_id": "dev_d86c8695",
+     "linked_identities": 3,
+     "merchant_count": 3
+    }
+   ],
+   "taint": 1.0,
+   "taint_path": [
+    "cust_0eed60",
+    "+919361849009",
+    "cust_759039"
+   ],
+   "cluster": {
+    "customers": 7,
+    "truncated": false
+   },
+   "customer_id": "cust_0eed60",
+   "merchant_id": "mcht_00031"
+  },
+  "features": {
+   "device_identity_ratio": 3.5,
+   "cross_merchant_fanout": 4,
+   "taint": 1.0,
+   "velocity_merchants_72h": 5,
+   "burn_rotate": 1,
+   "amount_band_hit": 1.0,
+   "new_identity_fraction": 1.0,
+   "n_f1": 0.583333,
+   "n_f2": 0.5,
+   "n_f3": 1.0,
+   "n_f4": 1.0,
+   "n_f5": 1.0,
+   "n_f6": 1.0,
+   "n_f7": 1.0
+  },
+  "contributions": {
+   "device_identity_ratio": 8.1667,
+   "cross_merchant_fanout": 10.0,
+   "taint_propagation": 24.0,
+   "velocity_72h": 14.0,
+   "burn_rotate": 10.0,
+   "amount_pattern": 4.0,
+   "new_identity_burst": 14.0
+  },
+  "model_version": "rules-v1.0",
+  "schema_version": "1",
+  "explanation": null,
+  "explanation_status": "PENDING",
+  "challenger": null,
+  "created_at": "2026-08-30T17:43:29.892842+00:00"
+ },
+ {
+  "verdict_id": "6895ff78-849b-4986-a9db-6a5b44930e62",
+  "event_id": "1e480b14-e320-5869-a661-a49c62974424",
+  "score": 84,
+  "verdict": "BLOCK_REC",
+  "reason_codes": [
+   "RNG_DEVICE_FANOUT",
+   "RNG_IDENTITY_FARM",
+   "RNG_TAINT_LINK",
+   "RNG_VELOCITY",
+   "RNG_BURN_ROTATE",
+   "RNG_AMOUNT_PATTERN"
+  ],
+  "evidence": {
+   "linked_merchants": [
+    "mcht_00027",
+    "mcht_00028",
+    "mcht_00036",
+    "mcht_00037",
+    "mcht_00043"
+   ],
+   "shared_devices": [
+    {
+     "device_id": "dev_23f76327",
+     "linked_identities": 6,
+     "merchant_count": 4
+    },
+    {
+     "device_id": "dev_3a439f3f",
+     "linked_identities": 3,
+     "merchant_count": 3
+    }
+   ],
+   "taint": 1.0,
+   "taint_path": [
+    "cust_de5b28",
+    "varun.250@gmail.com",
+    "cust_e79449"
+   ],
+   "cluster": {
+    "customers": 7,
+    "truncated": false
+   },
+   "customer_id": "cust_de5b28",
+   "merchant_id": "mcht_00037"
+  },
+  "features": {
+   "device_identity_ratio": 3.5,
+   "cross_merchant_fanout": 4,
+   "taint": 1.0,
+   "velocity_merchants_72h": 5,
+   "burn_rotate": 1,
+   "amount_band_hit": 1.0,
+   "new_identity_fraction": 1.0,
+   "n_f1": 0.583333,
+   "n_f2": 0.5,
+   "n_f3": 1.0,
+   "n_f4": 1.0,
+   "n_f5": 1.0,
+   "n_f6": 1.0,
+   "n_f7": 1.0
+  },
+  "contributions": {
+   "device_identity_ratio": 8.1667,
+   "cross_merchant_fanout": 10.0,
+   "taint_propagation": 24.0,
+   "velocity_72h": 14.0,
+   "burn_rotate": 10.0,
+   "amount_pattern": 4.0,
+   "new_identity_burst": 14.0
+  },
+  "model_version": "rules-v1.0",
+  "schema_version": "1",
+  "explanation": null,
+  "explanation_status": "PENDING",
+  "challenger": null,
+  "created_at": "2026-08-30T17:43:31.447133+00:00"
+ },
+ {
+  "verdict_id": "32fff895-c35d-40d3-9ea5-f6c0f946f94d",
+  "event_id": "a0cc1995-aed8-5b2b-b245-0ffce537fe7e",
+  "score": 83,
+  "verdict": "BLOCK_REC",
+  "reason_codes": [
+   "RNG_DEVICE_FANOUT",
+   "RNG_IDENTITY_FARM",
+   "RNG_TAINT_LINK",
+   "RNG_VELOCITY",
+   "RNG_BURN_ROTATE",
+   "RNG_AMOUNT_PATTERN"
+  ],
+  "evidence": {
+   "linked_merchants": [
+    "mcht_00010",
+    "mcht_00020",
+    "mcht_00023",
+    "mcht_00031"
+   ],
+   "shared_devices": [
+    {
+     "device_id": "dev_454ad3f1",
+     "linked_identities": 4,
+     "merchant_count": 4
+    }
+   ],
+   "taint": 1.0,
+   "taint_path": [
+    "cust_4c68ed",
+    "+916184322974",
+    "cust_65ff58"
+   ],
+   "cluster": {
+    "customers": 4,
+    "truncated": false
+   },
+   "customer_id": "cust_4c68ed",
+   "merchant_id": "mcht_00023"
+  },
+  "features": {
+   "device_identity_ratio": 4.0,
+   "cross_merchant_fanout": 4,
+   "taint": 1.0,
+   "velocity_merchants_72h": 4,
+   "burn_rotate": 1,
+   "amount_band_hit": 1.0,
+   "new_identity_fraction": 1.0,
+   "n_f1": 0.666667,
+   "n_f2": 0.5,
+   "n_f3": 1.0,
+   "n_f4": 0.8,
+   "n_f5": 1.0,
+   "n_f6": 1.0,
+   "n_f7": 1.0
+  },
+  "contributions": {
+   "device_identity_ratio": 9.3333,
+   "cross_merchant_fanout": 10.0,
+   "taint_propagation": 24.0,
+   "velocity_72h": 11.2,
+   "burn_rotate": 10.0,
+   "amount_pattern": 4.0,
+   "new_identity_burst": 14.0
+  },
+  "model_version": "rules-v1.0",
+  "schema_version": "1",
+  "explanation": null,
+  "explanation_status": "PENDING",
+  "challenger": null,
+  "created_at": "2026-08-30T17:43:25.604692+00:00"
+ },
+ {
+  "verdict_id": "d898f502-4b53-427f-8270-46842678bb20",
+  "event_id": "2ffa34ef-6004-5bfe-949a-c24beca4d404",
+  "score": 83,
+  "verdict": "BLOCK_REC",
+  "reason_codes": [
+   "RNG_DEVICE_FANOUT",
+   "RNG_IDENTITY_FARM",
+   "RNG_TAINT_LINK",
+   "RNG_VELOCITY",
+   "RNG_BURN_ROTATE",
+   "RNG_AMOUNT_PATTERN"
+  ],
+  "evidence": {
+   "linked_merchants": [
+    "mcht_00027",
+    "mcht_00028",
+    "mcht_00036",
+    "mcht_00037",
+    "mcht_00043"
+   ],
+   "shared_devices": [
+    {
+     "device_id": "dev_23f76327",
+     "linked_identities": 4,
+     "merchant_count": 3
+    },
+    {
+     "device_id": "dev_3a439f3f",
+     "linked_identities": 3,
+     "merchant_count": 3
+    }
+   ],
+   "taint": 1.0,
+   "taint_path": [
+    "cust_4a4cca",
+    "+917644681740",
+    "cust_ddb568"
+   ],
+   "cluster": {
+    "customers": 6,
+    "truncated": false
+   },
+   "customer_id": "cust_4a4cca",
+   "merchant_id": "mcht_00028"
+  },
+  "features": {
+   "device_identity_ratio": 3.0,
+   "cross_merchant_fanout": 4,
+   "taint": 1.0,
+   "velocity_merchants_72h": 5,
+   "burn_rotate": 1,
+   "amount_band_hit": 1.0,
+   "new_identity_fraction": 1.0,
+   "n_f1": 0.5,
+   "n_f2": 0.5,
+   "n_f3": 1.0,
+   "n_f4": 1.0,
+   "n_f5": 1.0,
+   "n_f6": 1.0,
+   "n_f7": 1.0
+  },
+  "contributions": {
+   "device_identity_ratio": 7.0,
+   "cross_merchant_fanout": 10.0,
+   "taint_propagation": 24.0,
+   "velocity_72h": 14.0,
+   "burn_rotate": 10.0,
+   "amount_pattern": 4.0,
+   "new_identity_burst": 14.0
+  },
+  "model_version": "rules-v1.0",
+  "schema_version": "1",
+  "explanation": null,
+  "explanation_status": "PENDING",
+  "challenger": null,
+  "created_at": "2026-08-30T17:43:31.407015+00:00"
+ },
+ {
+  "verdict_id": "26af5e4e-7858-4826-b43b-73b248f936fd",
+  "event_id": "fe072e87-39cc-52e3-9d20-5fe5a6952573",
+  "score": 82,
+  "verdict": "BLOCK_REC",
+  "reason_codes": [
+   "RNG_DEVICE_FANOUT",
+   "RNG_IDENTITY_FARM",
+   "RNG_TAINT_LINK",
+   "RNG_VELOCITY",
+   "RNG_BURN_ROTATE",
+   "RNG_AMOUNT_PATTERN"
+  ],
+  "evidence": {
+   "linked_merchants": [
+    "mcht_00004",
+    "mcht_00031",
+    "mcht_00033",
+    "mcht_00034",
+    "mcht_00043"
+   ],
+   "shared_devices": [
+    {
+     "device_id": "dev_c519d85a",
+     "linked_identities": 4,
+     "merchant_count": 4
+    },
+    {
+     "device_id": "dev_d86c8695",
+     "linked_identities": 2,
+     "merchant_count": 2
+    }
+   ],
+   "taint": 1.0,
+   "taint_path": [
+    "cust_e137c5",
+    "dev_c519d85a",
+    "cust_759039"
+   ],
+   "cluster": {
+    "customers": 5,
+    "truncated": false
+   },
+   "customer_id": "cust_e137c5",
+   "merchant_id": "mcht_00033"
+  },
+  "features": {
+   "device_identity_ratio": 2.5,
+   "cross_merchant_fanout": 4,
+   "taint": 1.0,
+   "velocity_merchants_72h": 5,
+   "burn_rotate": 1,
+   "amount_band_hit": 1.0,
+   "new_identity_fraction": 1.0,
+   "n_f1": 0.416667,
+   "n_f2": 0.5,
+   "n_f3": 1.0,
+   "n_f4": 1.0,
+   "n_f5": 1.0,
+   "n_f6": 1.0,
+   "n_f7": 1.0
+  },
+  "contributions": {
+   "device_identity_ratio": 5.8333,
+   "cross_merchant_fanout": 10.0,
+   "taint_propagation": 24.0,
+   "velocity_72h": 14.0,
+   "burn_rotate": 10.0,
+   "amount_pattern": 4.0,
+   "new_identity_burst": 14.0
+  },
+  "model_version": "rules-v1.0",
+  "schema_version": "1",
+  "explanation": null,
+  "explanation_status": "PENDING",
+  "challenger": null,
+  "created_at": "2026-08-30T17:43:29.794211+00:00"
+ },
+ {
+  "verdict_id": "c6382728-2813-4596-9244-dfd30390e8e8",
+  "event_id": "2e27cf12-b5da-5e4e-86f9-b0d0374f9757",
+  "score": 82,
+  "verdict": "BLOCK_REC",
+  "reason_codes": [
+   "RNG_DEVICE_FANOUT",
+   "RNG_IDENTITY_FARM",
+   "RNG_TAINT_LINK",
+   "RNG_VELOCITY",
+   "RNG_BURN_ROTATE",
+   "RNG_AMOUNT_PATTERN"
+  ],
+  "evidence": {
+   "linked_merchants": [
+    "mcht_00027",
+    "mcht_00028",
+    "mcht_00037",
+    "mcht_00040",
+    "mcht_00043"
+   ],
+   "shared_devices": [
+    {
+     "device_id": "dev_3a439f3f",
+     "linked_identities": 3,
+     "merchant_count": 3
+    },
+    {
+     "device_id": "dev_23f76327",
+     "linked_identities": 2,
+     "merchant_count": 2
+    }
+   ],
+   "taint": 1.0,
+   "taint_path": [
+    "cust_3356bd",
+    "+917907457079",
+    "cust_1610b8"
+   ],
+   "cluster": {
+    "customers": 5,
+    "truncated": false
+   },
+   "customer_id": "cust_3356bd",
+   "merchant_id": "mcht_00040"
+  },
+  "features": {
+   "device_identity_ratio": 2.5,
+   "cross_merchant_fanout": 4,
+   "taint": 1.0,
+   "velocity_merchants_72h": 5,
+   "burn_rotate": 1,
+   "amount_band_hit": 1.0,
+   "new_identity_fraction": 1.0,
+   "n_f1": 0.416667,
+   "n_f2": 0.5,
+   "n_f3": 1.0,
+   "n_f4": 1.0,
+   "n_f5": 1.0,
+   "n_f6": 1.0,
+   "n_f7": 1.0
+  },
+  "contributions": {
+   "device_identity_ratio": 5.8333,
+   "cross_merchant_fanout": 10.0,
+   "taint_propagation": 24.0,
+   "velocity_72h": 14.0,
+   "burn_rotate": 10.0,
+   "amount_pattern": 4.0,
+   "new_identity_burst": 14.0
+  },
+  "model_version": "rules-v1.0",
+  "schema_version": "1",
+  "explanation": null,
+  "explanation_status": "PENDING",
+  "challenger": null,
+  "created_at": "2026-08-30T17:43:31.340079+00:00"
+ },
+ {
+  "verdict_id": "85f65da0-3fad-4b4d-b542-b355da5af9d6",
+  "event_id": "fd4f732b-01f8-50f8-ad8e-07157f633ff4",
+  "score": 82,
+  "verdict": "BLOCK_REC",
+  "reason_codes": [
+   "RNG_DEVICE_FANOUT",
+   "RNG_IDENTITY_FARM",
+   "RNG_TAINT_LINK",
+   "RNG_VELOCITY",
+   "RNG_BURN_ROTATE",
+   "RNG_AMOUNT_PATTERN"
+  ],
+  "evidence": {
+   "linked_merchants": [
+    "mcht_00027",
+    "mcht_00028",
+    "mcht_00036",
+    "mcht_00037",
+    "mcht_00040"
+   ],
+   "shared_devices": [
+    {
+     "device_id": "dev_23f76327",
+     "linked_identities": 3,
+     "merchant_count": 3
+    },
+    {
+     "device_id": "dev_3a439f3f",
+     "linked_identities": 3,
+     "merchant_count": 3
+    }
+   ],
+   "taint": 1.0,
+   "taint_path": [
+    "cust_e79449",
+    "+917644681740",
+    "cust_ddb568"
+   ],
+   "cluster": {
+    "customers": 5,
+    "truncated": false
+   },
+   "customer_id": "cust_e79449",
+   "merchant_id": "mcht_00036"
+  },
+  "features": {
+   "device_identity_ratio": 2.5,
+   "cross_merchant_fanout": 4,
+   "taint": 1.0,
+   "velocity_merchants_72h": 5,
+   "burn_rotate": 1,
+   "amount_band_hit": 1.0,
+   "new_identity_fraction": 1.0,
+   "n_f1": 0.416667,
+   "n_f2": 0.5,
+   "n_f3": 1.0,
+   "n_f4": 1.0,
+   "n_f5": 1.0,
+   "n_f6": 1.0,
+   "n_f7": 1.0
+  },
+  "contributions": {
+   "device_identity_ratio": 5.8333,
+   "cross_merchant_fanout": 10.0,
+   "taint_propagation": 24.0,
+   "velocity_72h": 14.0,
+   "burn_rotate": 10.0,
+   "amount_pattern": 4.0,
+   "new_identity_burst": 14.0
+  },
+  "model_version": "rules-v1.0",
+  "schema_version": "1",
+  "explanation": null,
+  "explanation_status": "PENDING",
+  "challenger": null,
+  "created_at": "2026-08-30T17:43:31.351379+00:00"
+ },
+ {
+  "verdict_id": "bd68d641-9282-4b15-b534-208c068f956f",
+  "event_id": "d2e2495b-e3f1-5717-989f-71b49c040e53",
+  "score": 78,
+  "verdict": "BLOCK_REC",
+  "reason_codes": [
+   "RNG_DEVICE_FANOUT",
+   "RNG_IDENTITY_FARM",
+   "RNG_TAINT_LINK",
+   "RNG_VELOCITY",
+   "RNG_BURN_ROTATE",
+   "RNG_AMOUNT_PATTERN"
+  ],
+  "evidence": {
+   "linked_merchants": [
+    "mcht_00006",
+    "mcht_00007",
+    "mcht_00015",
+    "mcht_00026",
+    "mcht_00031"
+   ],
+   "shared_devices": [
+    {
+     "device_id": "dev_aed2add1",
+     "linked_identities": 3,
+     "merchant_count": 3
+    },
+    {
+     "device_id": "dev_b92f2974",
+     "linked_identities": 3,
+     "merchant_count": 3
+    }
+   ],
+   "taint": 1.0,
+   "taint_path": [
+    "cust_37d9f1",
+    "dev_b92f2974",
+    "cust_d895e7"
+   ],
+   "cluster": {
+    "customers": 6,
+    "truncated": false
+   },
+   "customer_id": "cust_37d9f1",
+   "merchant_id": "mcht_00015"
+  },
+  "features": {
+   "device_identity_ratio": 3.0,
+   "cross_merchant_fanout": 3,
+   "taint": 1.0,
+   "velocity_merchants_72h": 5,
+   "burn_rotate": 1,
+   "amount_band_hit": 1.0,
+   "new_identity_fraction": 1.0,
+   "n_f1": 0.5,
+   "n_f2": 0.25,
+   "n_f3": 1.0,
+   "n_f4": 1.0,
+   "n_f5": 1.0,
+   "n_f6": 1.0,
+   "n_f7": 1.0
+  },
+  "contributions": {
+   "device_identity_ratio": 7.0,
+   "cross_merchant_fanout": 5.0,
+   "taint_propagation": 24.0,
+   "velocity_72h": 14.0,
+   "burn_rotate": 10.0,
+   "amount_pattern": 4.0,
+   "new_identity_burst": 14.0
+  },
+  "model_version": "rules-v1.0",
+  "schema_version": "1",
+  "explanation": null,
+  "explanation_status": "PENDING",
+  "challenger": null,
+  "created_at": "2026-08-30T17:43:31.044706+00:00"
+ },
+ {
+  "verdict_id": "eac989ca-deb2-4829-afaf-357a1b588c96",
+  "event_id": "ece0e452-1ed0-5c35-b713-4b811042ab7e",
+  "score": 77,
+  "verdict": "BLOCK_REC",
+  "reason_codes": [
+   "RNG_DEVICE_FANOUT",
+   "RNG_IDENTITY_FARM",
+   "RNG_TAINT_LINK",
+   "RNG_VELOCITY",
+   "RNG_AMOUNT_PATTERN"
+  ],
+  "evidence": {
+   "linked_merchants": [
+    "mcht_00027",
+    "mcht_00030",
+    "mcht_00036",
+    "mcht_00037"
+   ],
+   "shared_devices": [
+    {
+     "device_id": "dev_9bd4ad04",
+     "linked_identities": 6,
+     "merchant_count": 4
+    }
+   ],
+   "taint": 1.0,
+   "taint_path": [],
+   "cluster": {
+    "customers": 6,
+    "truncated": false
+   },
+   "customer_id": "cust_0236ba",
+   "merchant_id": "mcht_00036"
+  },
+  "features": {
+   "device_identity_ratio": 6.0,
+   "cross_merchant_fanout": 4,
+   "taint": 1.0,
+   "velocity_merchants_72h": 4,
+   "burn_rotate": 0,
+   "amount_band_hit": 1.0,
+   "new_identity_fraction": 1.0,
+   "n_f1": 1.0,
+   "n_f2": 0.5,
+   "n_f3": 1.0,
+   "n_f4": 0.8,
+   "n_f5": 0.0,
+   "n_f6": 1.0,
+   "n_f7": 1.0
+  },
+  "contributions": {
+   "device_identity_ratio": 14.0,
+   "cross_merchant_fanout": 10.0,
+   "taint_propagation": 24.0,
+   "velocity_72h": 11.2,
+   "burn_rotate": 0.0,
+   "amount_pattern": 4.0,
+   "new_identity_burst": 14.0
+  },
+  "model_version": "rules-v1.0",
+  "schema_version": "1",
+  "explanation": null,
+  "explanation_status": "PENDING",
+  "challenger": null,
+  "created_at": "2026-08-30T17:43:25.539177+00:00"
+ },
+ {
+  "verdict_id": "f325adda-15c7-4bec-b57a-734f6f6baa38",
+  "event_id": "4844ce9f-01ae-57b9-a799-6886e6407990",
+  "score": 76,
+  "verdict": "BLOCK_REC",
+  "reason_codes": [
+   "RNG_DEVICE_FANOUT",
+   "RNG_IDENTITY_FARM",
+   "RNG_TAINT_LINK",
+   "RNG_VELOCITY",
+   "RNG_BURN_ROTATE",
+   "RNG_AMOUNT_PATTERN"
+  ],
+  "evidence": {
+   "linked_merchants": [
+    "mcht_00006",
+    "mcht_00015",
+    "mcht_00025",
+    "mcht_00026"
+   ],
+   "shared_devices": [
+    {
+     "device_id": "dev_b92f2974",
+     "linked_identities": 5,
+     "merchant_count": 4
+    },
+    {
+     "device_id": "dev_aed2add1",
+     "linked_identities": 3,
+     "merchant_count": 3
+    },
+    {
+     "device_id": "dev_e6130771",
+     "linked_identities": 1,
+     "merchant_count": 1
+    }
+   ],
+   "taint": 1.0,
+   "taint_path": [
+    "cust_8175bf",
+    "+918941154171",
+    "cust_d772a3"
+   ],
+   "cluster": {
+    "customers": 7,
+    "truncated": false
+   },
+   "customer_id": "cust_8175bf",
+   "merchant_id": "mcht_00025"
+  },
+  "features": {
+   "device_identity_ratio": 2.333,
+   "cross_merchant_fanout": 4,
+   "taint": 1.0,
+   "velocity_merchants_72h": 3,
+   "burn_rotate": 1,
+   "amount_band_hit": 1.0,
+   "new_identity_fraction": 1.0,
+   "n_f1": 0.388833,
+   "n_f2": 0.5,
+   "n_f3": 1.0,
+   "n_f4": 0.6,
+   "n_f5": 1.0,
+   "n_f6": 1.0,
+   "n_f7": 1.0
+  },
+  "contributions": {
+   "device_identity_ratio": 5.4437,
+   "cross_merchant_fanout": 10.0,
+   "taint_propagation": 24.0,
+   "velocity_72h": 8.4,
+   "burn_rotate": 10.0,
+   "amount_pattern": 4.0,
+   "new_identity_burst": 14.0
+  },
+  "model_version": "rules-v1.0",
+  "schema_version": "1",
+  "explanation": null,
+  "explanation_status": "PENDING",
+  "challenger": null,
+  "created_at": "2026-08-30T17:43:31.274518+00:00"
+ },
+ {
+  "verdict_id": "7ba6df77-1a90-42a9-9e84-655ebfc89c73",
+  "event_id": "1b4d4aad-1a2a-532b-ba0e-3c41d38913d2",
+  "score": 75,
+  "verdict": "BLOCK_REC",
+  "reason_codes": [
+   "RNG_DEVICE_FANOUT",
+   "RNG_IDENTITY_FARM",
+   "RNG_TAINT_LINK",
+   "RNG_VELOCITY",
+   "RNG_BURN_ROTATE",
+   "RNG_AMOUNT_PATTERN"
+  ],
+  "evidence": {
+   "linked_merchants": [
+    "mcht_00003",
+    "mcht_00005",
+    "mcht_00034"
+   ],
+   "shared_devices": [
+    {
+     "device_id": "dev_aa87ab9f",
+     "linked_identities": 5,
+     "merchant_count": 3
+    },
+    {
+     "device_id": "dev_f8d45285",
+     "linked_identities": 3,
+     "merchant_count": 2
+    }
+   ],
+   "taint": 1.0,
+   "taint_path": [
+    "cust_7278ee",
+    "dev_f8d45285",
+    "cust_47d46e"
+   ],
+   "cluster": {
+    "customers": 8,
+    "truncated": false
+   },
+   "customer_id": "cust_7278ee",
+   "merchant_id": "mcht_00034"
+  },
+  "features": {
+   "device_identity_ratio": 4.0,
+   "cross_merchant_fanout": 3,
+   "taint": 1.0,
+   "velocity_merchants_72h": 3,
+   "burn_rotate": 1,
+   "amount_band_hit": 1.0,
+   "new_identity_fraction": 1.0,
+   "n_f1": 0.666667,
+   "n_f2": 0.25,
+   "n_f3": 1.0,
+   "n_f4": 0.6,
+   "n_f5": 1.0,
+   "n_f6": 1.0,
+   "n_f7": 1.0
+  },
+  "contributions": {
+   "device_identity_ratio": 9.3333,
+   "cross_merchant_fanout": 5.0,
+   "taint_propagation": 24.0,
+   "velocity_72h": 8.4,
+   "burn_rotate": 10.0,
+   "amount_pattern": 4.0,
+   "new_identity_burst": 14.0
+  },
+  "model_version": "rules-v1.0",
+  "schema_version": "1",
+  "explanation": null,
+  "explanation_status": "PENDING",
+  "challenger": null,
+  "created_at": "2026-08-30T17:43:26.365483+00:00"
+ },
+ {
+  "verdict_id": "a29491dd-b45e-4cb6-97e6-ed0faf6c9d54",
+  "event_id": "194355ce-5646-552a-ac17-1c657afae840",
+  "score": 75,
+  "verdict": "BLOCK_REC",
+  "reason_codes": [
+   "RNG_DEVICE_FANOUT",
+   "RNG_IDENTITY_FARM",
+   "RNG_TAINT_LINK",
+   "RNG_VELOCITY",
+   "RNG_BURN_ROTATE",
+   "RNG_AMOUNT_PATTERN"
+  ],
+  "evidence": {
+   "linked_merchants": [
+    "mcht_00008",
+    "mcht_00042",
+    "mcht_00044"
+   ],
+   "shared_devices": [
+    {
+     "device_id": "dev_ef297651",
+     "linked_identities": 4,
+     "merchant_count": 4
+    },
+    {
+     "device_id": "dev_a31d30dd",
+     "linked_identities": 2,
+     "merchant_count": 2
+    }
+   ],
+   "taint": 1.0,
+   "taint_path": [
+    "cust_b13a88",
+    "nikita.tanvi@gmail.com",
+    "cust_9acd17"
+   ],
+   "cluster": {
+    "customers": 4,
+    "truncated": false
+   },
+   "customer_id": "cust_b13a88",
+   "merchant_id": "mcht_00008"
+  },
+  "features": {
+   "device_identity_ratio": 2.0,
+   "cross_merchant_fanout": 4,
+   "taint": 1.0,
+   "velocity_merchants_72h": 3,
+   "burn_rotate": 1,
+   "amount_band_hit": 1.0,
+   "new_identity_fraction": 1.0,
+   "n_f1": 0.333333,
+   "n_f2": 0.5,
+   "n_f3": 1.0,
+   "n_f4": 0.6,
+   "n_f5": 1.0,
+   "n_f6": 1.0,
+   "n_f7": 1.0
+  },
+  "contributions": {
+   "device_identity_ratio": 4.6667,
+   "cross_merchant_fanout": 10.0,
+   "taint_propagation": 24.0,
+   "velocity_72h": 8.4,
+   "burn_rotate": 10.0,
+   "amount_pattern": 4.0,
+   "new_identity_burst": 14.0
+  },
+  "model_version": "rules-v1.0",
+  "schema_version": "1",
+  "explanation": null,
+  "explanation_status": "PENDING",
+  "challenger": null,
+  "created_at": "2026-08-30T17:43:28.862828+00:00"
+ },
+ {
+  "verdict_id": "fd1d889d-39f2-4df0-b9b7-9525798e8f7a",
+  "event_id": "6fc5fd49-7406-5b79-87d6-a311e477c421",
+  "score": 75,
+  "verdict": "BLOCK_REC",
+  "reason_codes": [
+   "RNG_DEVICE_FANOUT",
+   "RNG_IDENTITY_FARM",
+   "RNG_TAINT_LINK",
+   "RNG_VELOCITY",
+   "RNG_BURN_ROTATE",
+   "RNG_AMOUNT_PATTERN"
+  ],
+  "evidence": {
+   "linked_merchants": [
+    "mcht_00008",
+    "mcht_00042",
+    "mcht_00043"
+   ],
+   "shared_devices": [
+    {
+     "device_id": "dev_ef297651",
+     "linked_identities": 4,
+     "merchant_count": 4
+    },
+    {
+     "device_id": "dev_a31d30dd",
+     "linked_identities": 3,
+     "merchant_count": 3
+    }
+   ],
+   "taint": 1.0,
+   "taint_path": [
+    "cust_68e0ca",
+    "dev_a31d30dd",
+    "cust_9acd17"
+   ],
+   "cluster": {
+    "customers": 4,
+    "truncated": false
+   },
+   "customer_id": "cust_68e0ca",
+   "merchant_id": "mcht_00043"
+  },
+  "features": {
+   "device_identity_ratio": 2.0,
+   "cross_merchant_fanout": 4,
+   "taint": 1.0,
+   "velocity_merchants_72h": 3,
+   "burn_rotate": 1,
+   "amount_band_hit": 1.0,
+   "new_identity_fraction": 1.0,
+   "n_f1": 0.333333,
+   "n_f2": 0.5,
+   "n_f3": 1.0,
+   "n_f4": 0.6,
+   "n_f5": 1.0,
+   "n_f6": 1.0,
+   "n_f7": 1.0
+  },
+  "contributions": {
+   "device_identity_ratio": 4.6667,
+   "cross_merchant_fanout": 10.0,
+   "taint_propagation": 24.0,
+   "velocity_72h": 8.4,
+   "burn_rotate": 10.0,
+   "amount_pattern": 4.0,
+   "new_identity_burst": 14.0
+  },
+  "model_version": "rules-v1.0",
+  "schema_version": "1",
+  "explanation": null,
+  "explanation_status": "PENDING",
+  "challenger": null,
+  "created_at": "2026-08-30T17:43:28.994517+00:00"
+ },
+ {
+  "verdict_id": "db254b6d-d503-4c9f-8129-de2c9e5d7651",
+  "event_id": "9813e1c6-805c-5712-b68b-1e5c7b7e93a8",
+  "score": 75,
+  "verdict": "BLOCK_REC",
+  "reason_codes": [
+   "RNG_DEVICE_FANOUT",
+   "RNG_IDENTITY_FARM",
+   "RNG_TAINT_LINK",
+   "RNG_VELOCITY",
+   "RNG_BURN_ROTATE",
+   "RNG_AMOUNT_PATTERN"
+  ],
+  "evidence": {
+   "linked_merchants": [
+    "mcht_00006",
+    "mcht_00015",
+    "mcht_00025",
+    "mcht_00026"
+   ],
+   "shared_devices": [
+    {
+     "device_id": "dev_b92f2974",
+     "linked_identities": 4,
+     "merchant_count": 3
+    },
+    {
+     "device_id": "dev_aed2add1",
+     "linked_identities": 3,
+     "merchant_count": 3
+    },
+    {
+     "device_id": "dev_e6130771",
+     "linked_identities": 1,
+     "merchant_count": 1
+    }
+   ],
+   "taint": 1.0,
+   "taint_path": [
+    "cust_c7edd2",
+    "+918941154171",
+    "cust_d772a3"
+   ],
+   "cluster": {
+    "customers": 6,
+    "truncated": false
+   },
+   "customer_id": "cust_c7edd2",
+   "merchant_id": "mcht_00026"
+  },
+  "features": {
+   "device_identity_ratio": 2.0,
+   "cross_merchant_fanout": 4,
+   "taint": 1.0,
+   "velocity_merchants_72h": 3,
+   "burn_rotate": 1,
+   "amount_band_hit": 1.0,
+   "new_identity_fraction": 1.0,
+   "n_f1": 0.333333,
+   "n_f2": 0.5,
+   "n_f3": 1.0,
+   "n_f4": 0.6,
+   "n_f5": 1.0,
+   "n_f6": 1.0,
+   "n_f7": 1.0
+  },
+  "contributions": {
+   "device_identity_ratio": 4.6667,
+   "cross_merchant_fanout": 10.0,
+   "taint_propagation": 24.0,
+   "velocity_72h": 8.4,
+   "burn_rotate": 10.0,
+   "amount_pattern": 4.0,
+   "new_identity_burst": 14.0
+  },
+  "model_version": "rules-v1.0",
+  "schema_version": "1",
+  "explanation": null,
+  "explanation_status": "PENDING",
+  "challenger": null,
+  "created_at": "2026-08-30T17:43:31.109130+00:00"
+ },
+ {
+  "verdict_id": "b79cf13b-9516-4ed1-8f66-f2d2982220c5",
+  "event_id": "974e961c-97ba-55e7-8ff0-1132e3eca07c",
+  "score": 73,
+  "verdict": "BLOCK_REC",
+  "reason_codes": [
+   "RNG_DEVICE_FANOUT",
+   "RNG_IDENTITY_FARM",
+   "RNG_TAINT_LINK",
+   "RNG_VELOCITY",
+   "RNG_AMOUNT_PATTERN"
+  ],
+  "evidence": {
+   "linked_merchants": [
+    "mcht_00015",
+    "mcht_00017",
+    "mcht_00030",
+    "mcht_00032"
+   ],
+   "shared_devices": [
+    {
+     "device_id": "dev_b7cfe871",
+     "linked_identities": 4,
+     "merchant_count": 4
+    }
+   ],
+   "taint": 1.0,
+   "taint_path": [],
+   "cluster": {
+    "customers": 4,
+    "truncated": false
+   },
+   "customer_id": "cust_752832",
+   "merchant_id": "mcht_00015"
+  },
+  "features": {
+   "device_identity_ratio": 4.0,
+   "cross_merchant_fanout": 4,
+   "taint": 1.0,
+   "velocity_merchants_72h": 4,
+   "burn_rotate": 0,
+   "amount_band_hit": 1.0,
+   "new_identity_fraction": 1.0,
+   "n_f1": 0.666667,
+   "n_f2": 0.5,
+   "n_f3": 1.0,
+   "n_f4": 0.8,
+   "n_f5": 0.0,
+   "n_f6": 1.0,
+   "n_f7": 1.0
+  },
+  "contributions": {
+   "device_identity_ratio": 9.3333,
+   "cross_merchant_fanout": 10.0,
+   "taint_propagation": 24.0,
+   "velocity_72h": 11.2,
+   "burn_rotate": 0.0,
+   "amount_pattern": 4.0,
+   "new_identity_burst": 14.0
+  },
+  "model_version": "rules-v1.0",
+  "schema_version": "1",
+  "explanation": null,
+  "explanation_status": "PENDING",
+  "challenger": null,
+  "created_at": "2026-08-30T17:43:28.022979+00:00"
+ },
+ {
+  "verdict_id": "0f459106-aed6-4609-801e-f21893584776",
+  "event_id": "e82332b4-3156-5d3d-a4e7-2d6f979e04bf",
+  "score": 73,
+  "verdict": "BLOCK_REC",
+  "reason_codes": [
+   "RNG_DEVICE_FANOUT",
+   "RNG_IDENTITY_FARM",
+   "RNG_TAINT_LINK",
+   "RNG_VELOCITY",
+   "RNG_BURN_ROTATE",
+   "RNG_AMOUNT_PATTERN"
+  ],
+  "evidence": {
+   "linked_merchants": [
+    "mcht_00004",
+    "mcht_00031",
+    "mcht_00034",
+    "mcht_00035"
+   ],
+   "shared_devices": [
+    {
+     "device_id": "dev_c519d85a",
+     "linked_identities": 3,
+     "merchant_count": 3
+    },
+    {
+     "device_id": "dev_d86c8695",
+     "linked_identities": 1,
+     "merchant_count": 1
+    }
+   ],
+   "taint": 1.0,
+   "taint_path": [
+    "cust_ea30c1",
+    "deepaananya37@gmail.com",
+    "cust_759039"
+   ],
+   "cluster": {
+    "customers": 4,
+    "truncated": false
+   },
+   "customer_id": "cust_ea30c1",
+   "merchant_id": "mcht_00035"
+  },
+  "features": {
+   "device_identity_ratio": 2.0,
+   "cross_merchant_fanout": 3,
+   "taint": 1.0,
+   "velocity_merchants_72h": 4,
+   "burn_rotate": 1,
+   "amount_band_hit": 1.0,
+   "new_identity_fraction": 1.0,
+   "n_f1": 0.333333,
+   "n_f2": 0.25,
+   "n_f3": 1.0,
+   "n_f4": 0.8,
+   "n_f5": 1.0,
+   "n_f6": 1.0,
+   "n_f7": 1.0
+  },
+  "contributions": {
+   "device_identity_ratio": 4.6667,
+   "cross_merchant_fanout": 5.0,
+   "taint_propagation": 24.0,
+   "velocity_72h": 11.2,
+   "burn_rotate": 10.0,
+   "amount_pattern": 4.0,
+   "new_identity_burst": 14.0
+  },
+  "model_version": "rules-v1.0",
+  "schema_version": "1",
+  "explanation": null,
+  "explanation_status": "PENDING",
+  "challenger": null,
+  "created_at": "2026-08-30T17:43:29.768823+00:00"
+ },
+ {
+  "verdict_id": "81c42b7e-b1cc-4eb0-8d9f-190379aacbcf",
+  "event_id": "6a871e07-9918-53fd-8d4d-83c993a7bd66",
+  "score": 73,
+  "verdict": "BLOCK_REC",
+  "reason_codes": [
+   "RNG_DEVICE_FANOUT",
+   "RNG_IDENTITY_FARM",
+   "RNG_TAINT_LINK",
+   "RNG_VELOCITY",
+   "RNG_BURN_ROTATE",
+   "RNG_AMOUNT_PATTERN"
+  ],
+  "evidence": {
+   "linked_merchants": [
+    "mcht_00004",
+    "mcht_00031",
+    "mcht_00035",
+    "mcht_00043"
+   ],
+   "shared_devices": [
+    {
+     "device_id": "dev_c519d85a",
+     "linked_identities": 3,
+     "merchant_count": 3
+    },
+    {
+     "device_id": "dev_d86c8695",
+     "linked_identities": 2,
+     "merchant_count": 2
+    }
+   ],
+   "taint": 1.0,
+   "taint_path": [
+    "cust_182853",
+    "+919361849009",
+    "cust_759039"
+   ],
+   "cluster": {
+    "customers": 4,
+    "truncated": false
+   },
+   "customer_id": "cust_182853",
+   "merchant_id": "mcht_00043"
+  },
+  "features": {
+   "device_identity_ratio": 2.0,
+   "cross_merchant_fanout": 3,
+   "taint": 1.0,
+   "velocity_merchants_72h": 4,
+   "burn_rotate": 1,
+   "amount_band_hit": 1.0,
+   "new_identity_fraction": 1.0,
+   "n_f1": 0.333333,
+   "n_f2": 0.25,
+   "n_f3": 1.0,
+   "n_f4": 0.8,
+   "n_f5": 1.0,
+   "n_f6": 1.0,
+   "n_f7": 1.0
+  },
+  "contributions": {
+   "device_identity_ratio": 4.6667,
+   "cross_merchant_fanout": 5.0,
+   "taint_propagation": 24.0,
+   "velocity_72h": 11.2,
+   "burn_rotate": 10.0,
+   "amount_pattern": 4.0,
+   "new_identity_burst": 14.0
+  },
+  "model_version": "rules-v1.0",
+  "schema_version": "1",
+  "explanation": null,
+  "explanation_status": "PENDING",
+  "challenger": null,
+  "created_at": "2026-08-30T17:43:29.785428+00:00"
+ },
+ {
+  "verdict_id": "fa607c38-01da-4855-993b-551093d721d5",
+  "event_id": "b0391943-9916-5ee3-a723-cb2b9018cb45",
+  "score": 72,
+  "verdict": "BLOCK_REC",
+  "reason_codes": [
+   "RNG_DEVICE_FANOUT",
+   "RNG_IDENTITY_FARM",
+   "RNG_TAINT_LINK",
+   "RNG_VELOCITY",
+   "RNG_BURN_ROTATE",
+   "RNG_AMOUNT_PATTERN"
+  ],
+  "evidence": {
+   "linked_merchants": [
+    "mcht_00010",
+    "mcht_00020",
+    "mcht_00031"
+   ],
+   "shared_devices": [
+    {
+     "device_id": "dev_454ad3f1",
+     "linked_identities": 3,
+     "merchant_count": 3
+    }
+   ],
+   "taint": 1.0,
+   "taint_path": [
+    "cust_2647dd",
+    "+916184322974",
+    "cust_65ff58"
+   ],
+   "cluster": {
+    "customers": 3,
+    "truncated": false
+   },
+   "customer_id": "cust_2647dd",
+   "merchant_id": "mcht_00020"
+  },
+  "features": {
+   "device_identity_ratio": 3.0,
+   "cross_merchant_fanout": 3,
+   "taint": 1.0,
+   "velocity_merchants_72h": 3,
+   "burn_rotate": 1,
+   "amount_band_hit": 1.0,
+   "new_identity_fraction": 1.0,
+   "n_f1": 0.5,
+   "n_f2": 0.25,
+   "n_f3": 1.0,
+   "n_f4": 0.6,
+   "n_f5": 1.0,
+   "n_f6": 1.0,
+   "n_f7": 1.0
+  },
+  "contributions": {
+   "device_identity_ratio": 7.0,
+   "cross_merchant_fanout": 5.0,
+   "taint_propagation": 24.0,
+   "velocity_72h": 8.4,
+   "burn_rotate": 10.0,
+   "amount_pattern": 4.0,
+   "new_identity_burst": 14.0
+  },
+  "model_version": "rules-v1.0",
+  "schema_version": "1",
+  "explanation": null,
+  "explanation_status": "PENDING",
+  "challenger": null,
+  "created_at": "2026-08-30T17:43:25.596836+00:00"
+ },
+ {
+  "verdict_id": "f1c1c4cb-2a7d-43fa-81ac-5277930f432c",
+  "event_id": "7ce7933a-ad64-59da-98d4-8eef3b9334a1",
+  "score": 72,
+  "verdict": "BLOCK_REC",
+  "reason_codes": [
+   "RNG_DEVICE_FANOUT",
+   "RNG_IDENTITY_FARM",
+   "RNG_TAINT_LINK",
+   "RNG_BURN_ROTATE",
+   "RNG_AMOUNT_PATTERN"
+  ],
+  "evidence": {
+   "linked_merchants": [
+    "mcht_00003",
+    "mcht_00014",
+    "mcht_00022"
+   ],
+   "shared_devices": [
+    {
+     "device_id": "dev_221ce5ac",
+     "linked_identities": 6,
+     "merchant_count": 3
+    }
+   ],
+   "taint": 1.0,
+   "taint_path": [
+    "cust_58f803",
+    "dev_221ce5ac",
+    "cust_b1e431"
+   ],
+   "cluster": {
+    "customers": 6,
+    "truncated": false
+   },
+   "customer_id": "cust_58f803",
+   "merchant_id": "mcht_00014"
+  },
+  "features": {
+   "device_identity_ratio": 6.0,
+   "cross_merchant_fanout": 3,
+   "taint": 1.0,
+   "velocity_merchants_72h": 2,
+   "burn_rotate": 1,
+   "amount_band_hit": 1.0,
+   "new_identity_fraction": 0.666667,
+   "n_f1": 1.0,
+   "n_f2": 0.25,
+   "n_f3": 1.0,
+   "n_f4": 0.4,
+   "n_f5": 1.0,
+   "n_f6": 1.0,
+   "n_f7": 0.666667
+  },
+  "contributions": {
+   "device_identity_ratio": 14.0,
+   "cross_merchant_fanout": 5.0,
+   "taint_propagation": 24.0,
+   "velocity_72h": 5.6,
+   "burn_rotate": 10.0,
+   "amount_pattern": 4.0,
+   "new_identity_burst": 9.3333
+  },
+  "model_version": "rules-v1.0",
+  "schema_version": "1",
+  "explanation": null,
+  "explanation_status": "PENDING",
+  "challenger": null,
+  "created_at": "2026-08-30T17:43:28.348716+00:00"
+ },
+ {
+  "verdict_id": "ed1fd07e-7beb-47ee-a888-b7a78ac6d6d3",
+  "event_id": "9166a5a3-a6ef-5186-972e-c2a790d2981e",
+  "score": 72,
+  "verdict": "BLOCK_REC",
+  "reason_codes": [
+   "RNG_DEVICE_FANOUT",
+   "RNG_IDENTITY_FARM",
+   "RNG_TAINT_LINK",
+   "RNG_VELOCITY",
+   "RNG_BURN_ROTATE",
+   "RNG_AMOUNT_PATTERN"
+  ],
+  "evidence": {
+   "linked_merchants": [
+    "mcht_00004",
+    "mcht_00031",
+    "mcht_00034"
+   ],
+   "shared_devices": [
+    {
+     "device_id": "dev_c519d85a",
+     "linked_identities": 3,
+     "merchant_count": 3
+    }
+   ],
+   "taint": 1.0,
+   "taint_path": [
+    "cust_74cb45",
+    "dev_c519d85a",
+    "cust_759039"
+   ],
+   "cluster": {
+    "customers": 3,
+    "truncated": false
+   },
+   "customer_id": "cust_74cb45",
+   "merchant_id": "mcht_00034"
+  },
+  "features": {
+   "device_identity_ratio": 3.0,
+   "cross_merchant_fanout": 3,
+   "taint": 1.0,
+   "velocity_merchants_72h": 3,
+   "burn_rotate": 1,
+   "amount_band_hit": 1.0,
+   "new_identity_fraction": 1.0,
+   "n_f1": 0.5,
+   "n_f2": 0.25,
+   "n_f3": 1.0,
+   "n_f4": 0.6,
+   "n_f5": 1.0,
+   "n_f6": 1.0,
+   "n_f7": 1.0
+  },
+  "contributions": {
+   "device_identity_ratio": 7.0,
+   "cross_merchant_fanout": 5.0,
+   "taint_propagation": 24.0,
+   "velocity_72h": 8.4,
+   "burn_rotate": 10.0,
+   "amount_pattern": 4.0,
+   "new_identity_burst": 14.0
+  },
+  "model_version": "rules-v1.0",
+  "schema_version": "1",
+  "explanation": null,
+  "explanation_status": "PENDING",
+  "challenger": null,
+  "created_at": "2026-08-30T17:43:29.768823+00:00"
+ },
+ {
+  "verdict_id": "f23aa11a-c7b7-4d41-bbdb-5b7d32aafaf2",
+  "event_id": "8f76a735-7f3e-5397-acc7-e622e7f1927c",
+  "score": 71,
+  "verdict": "BLOCK_REC",
+  "reason_codes": [
+   "RNG_DEVICE_FANOUT",
+   "RNG_IDENTITY_FARM",
+   "RNG_TAINT_LINK",
+   "RNG_VELOCITY",
+   "RNG_BURN_ROTATE",
+   "RNG_AMOUNT_PATTERN"
+  ],
+  "evidence": {
+   "linked_merchants": [
+    "mcht_00006",
+    "mcht_00015",
+    "mcht_00025",
+    "mcht_00026"
+   ],
+   "shared_devices": [
+    {
+     "device_id": "dev_b92f2974",
+     "linked_identities": 2,
+     "merchant_count": 2
+    },
+    {
+     "device_id": "dev_aed2add1",
+     "linked_identities": 1,
+     "merchant_count": 1
+    },
+    {
+     "device_id": "dev_e6130771",
+     "linked_identities": 1,
+     "merchant_count": 1
+    }
+   ],
+   "taint": 1.0,
+   "taint_path": [
+    "cust_d895e7",
+    "+918941154171",
+    "cust_d772a3"
+   ],
+   "cluster": {
+    "customers": 4,
+    "truncated": false
+   },
+   "customer_id": "cust_d895e7",
+   "merchant_id": "mcht_00006"
+  },
+  "features": {
+   "device_identity_ratio": 1.333,
+   "cross_merchant_fanout": 3,
+   "taint": 1.0,
+   "velocity_merchants_72h": 4,
+   "burn_rotate": 1,
+   "amount_band_hit": 1.0,
+   "new_identity_fraction": 1.0,
+   "n_f1": 0.222167,
+   "n_f2": 0.25,
+   "n_f3": 1.0,
+   "n_f4": 0.8,
+   "n_f5": 1.0,
+   "n_f6": 1.0,
+   "n_f7": 1.0
+  },
+  "contributions": {
+   "device_identity_ratio": 3.1103,
+   "cross_merchant_fanout": 5.0,
+   "taint_propagation": 24.0,
+   "velocity_72h": 11.2,
+   "burn_rotate": 10.0,
+   "amount_pattern": 4.0,
+   "new_identity_burst": 14.0
+  },
+  "model_version": "rules-v1.0",
+  "schema_version": "1",
+  "explanation": null,
+  "explanation_status": "PENDING",
+  "challenger": null,
+  "created_at": "2026-08-30T17:43:30.580373+00:00"
+ },
+ {
+  "verdict_id": "782da221-a33f-43c8-9be9-b699e3b22a8c",
+  "event_id": "d3a08af0-b59b-541b-9222-b87236106564",
+  "score": 70,
+  "verdict": "BLOCK_REC",
+  "reason_codes": [
+   "RNG_DEVICE_FANOUT",
+   "RNG_IDENTITY_FARM",
+   "RNG_TAINT_LINK",
+   "RNG_VELOCITY",
+   "RNG_BURN_ROTATE",
+   "RNG_AMOUNT_PATTERN"
+  ],
+  "evidence": {
+   "linked_merchants": [
+    "mcht_00003",
+    "mcht_00005",
+    "mcht_00034"
+   ],
+   "shared_devices": [
+    {
+     "device_id": "dev_aa87ab9f",
+     "linked_identities": 3,
+     "merchant_count": 2
+    },
+    {
+     "device_id": "dev_f8d45285",
+     "linked_identities": 2,
+     "merchant_count": 1
+    }
+   ],
+   "taint": 1.0,
+   "taint_path": [
+    "cust_149071",
+    "meera.tanvi@gmail.com",
+    "cust_47d46e"
+   ],
+   "cluster": {
+    "customers": 4,
+    "truncated": false
+   },
+   "customer_id": "cust_149071",
+   "merchant_id": "mcht_00034"
+  },
+  "features": {
+   "device_identity_ratio": 2.0,
+   "cross_merchant_fanout": 3,
+   "taint": 1.0,
+   "velocity_merchants_72h": 3,
+   "burn_rotate": 1,
+   "amount_band_hit": 1.0,
+   "new_identity_fraction": 1.0,
+   "n_f1": 0.333333,
+   "n_f2": 0.25,
+   "n_f3": 1.0,
+   "n_f4": 0.6,
+   "n_f5": 1.0,
+   "n_f6": 1.0,
+   "n_f7": 1.0
+  },
+  "contributions": {
+   "device_identity_ratio": 4.6667,
+   "cross_merchant_fanout": 5.0,
+   "taint_propagation": 24.0,
+   "velocity_72h": 8.4,
+   "burn_rotate": 10.0,
+   "amount_pattern": 4.0,
+   "new_identity_burst": 14.0
+  },
+  "model_version": "rules-v1.0",
+  "schema_version": "1",
+  "explanation": null,
+  "explanation_status": "PENDING",
+  "challenger": null,
+  "created_at": "2026-08-30T17:43:25.901747+00:00"
+ },
+ {
+  "verdict_id": "b63ec86d-f65d-4efb-8c1c-434bbc81c5f4",
+  "event_id": "0782118c-c266-599f-9967-4e1176bbf324",
+  "score": 69,
+  "verdict": "REVIEW",
+  "reason_codes": [
+   "RNG_DEVICE_FANOUT",
+   "RNG_IDENTITY_FARM",
+   "RNG_TAINT_LINK",
+   "RNG_VELOCITY",
+   "RNG_AMOUNT_PATTERN"
+  ],
+  "evidence": {
+   "linked_merchants": [
+    "mcht_00008",
+    "mcht_00042",
+    "mcht_00043",
+    "mcht_00044"
+   ],
+   "shared_devices": [
+    {
+     "device_id": "dev_ef297651",
+     "linked_identities": 4,
+     "merchant_count": 4
+    },
+    {
+     "device_id": "dev_a31d30dd",
+     "linked_identities": 1,
+     "merchant_count": 1
+    }
+   ],
+   "taint": 1.0,
+   "taint_path": [],
+   "cluster": {
+    "customers": 5,
+    "truncated": false
+   },
+   "customer_id": "cust_9acd17",
+   "merchant_id": "mcht_00042"
+  },
+  "features": {
+   "device_identity_ratio": 2.5,
+   "cross_merchant_fanout": 4,
+   "taint": 1.0,
+   "velocity_merchants_72h": 4,
+   "burn_rotate": 0,
+   "amount_band_hit": 1.0,
+   "new_identity_fraction": 1.0,
+   "n_f1": 0.416667,
+   "n_f2": 0.5,
+   "n_f3": 1.0,
+   "n_f4": 0.8,
+   "n_f5": 0.0,
+   "n_f6": 1.0,
+   "n_f7": 1.0
+  },
+  "contributions": {
+   "device_identity_ratio": 5.8333,
+   "cross_merchant_fanout": 10.0,
+   "taint_propagation": 24.0,
+   "velocity_72h": 11.2,
+   "burn_rotate": 0.0,
+   "amount_pattern": 4.0,
+   "new_identity_burst": 14.0
+  },
+  "model_version": "rules-v1.0",
+  "schema_version": "1",
+  "explanation": null,
+  "explanation_status": "PENDING",
+  "challenger": null,
+  "created_at": "2026-08-30T17:43:28.829800+00:00"
+ },
+ {
+  "verdict_id": "01b479d6-82a9-493a-874e-d4255a672bc1",
+  "event_id": "8ad17933-2ad1-51fb-8d86-da9c8661c2bd",
+  "score": 69,
+  "verdict": "REVIEW",
+  "reason_codes": [
+   "RNG_DEVICE_FANOUT",
+   "RNG_IDENTITY_FARM",
+   "RNG_TAINT_LINK",
+   "RNG_VELOCITY",
+   "RNG_AMOUNT_PATTERN"
+  ],
+  "evidence": {
+   "linked_merchants": [
+    "mcht_00008",
+    "mcht_00042",
+    "mcht_00043",
+    "mcht_00044"
+   ],
+   "shared_devices": [
+    {
+     "device_id": "dev_ef297651",
+     "linked_identities": 5,
+     "merchant_count": 4
+    },
+    {
+     "device_id": "dev_a31d30dd",
+     "linked_identities": 3,
+     "merchant_count": 3
+    },
+    {
+     "device_id": "dev_5aa8722b",
+     "linked_identities": 1,
+     "merchant_count": 1
+    }
+   ],
+   "taint": 1.0,
+   "taint_path": [],
+   "cluster": {
+    "customers": 8,
+    "truncated": false
+   },
+   "customer_id": "cust_9c0e33",
+   "merchant_id": "mcht_00042"
+  },
+  "features": {
+   "device_identity_ratio": 2.667,
+   "cross_merchant_fanout": 4,
+   "taint": 1.0,
+   "velocity_merchants_72h": 4,
+   "burn_rotate": 0,
+   "amount_band_hit": 1.0,
+   "new_identity_fraction": 1.0,
+   "n_f1": 0.4445,
+   "n_f2": 0.5,
+   "n_f3": 1.0,
+   "n_f4": 0.8,
+   "n_f5": 0.0,
+   "n_f6": 1.0,
+   "n_f7": 1.0
+  },
+  "contributions": {
+   "device_identity_ratio": 6.223,
+   "cross_merchant_fanout": 10.0,
+   "taint_propagation": 24.0,
+   "velocity_72h": 11.2,
+   "burn_rotate": 0.0,
+   "amount_pattern": 4.0,
+   "new_identity_burst": 14.0
+  },
+  "model_version": "rules-v1.0",
+  "schema_version": "1",
+  "explanation": null,
+  "explanation_status": "PENDING",
+  "challenger": null,
+  "created_at": "2026-08-30T17:43:29.283967+00:00"
+ }
+]

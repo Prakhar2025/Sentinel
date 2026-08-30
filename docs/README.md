@@ -1,7 +1,5 @@
 # Abuse-Ring Sentinel, Documentation Suite
 
-**Razorpay AI Buildathon · Track 02 (AI Risk Manager)**
-
 > A defense-only fraud detection system that identifies the **same UPI ID, phone number, or device fingerprint being reused across multiple merchants and customers to commit fraud**, with honest, measured precision, recall, and false-positive cost.
 
 ---
@@ -23,6 +21,13 @@
 | 11 | [Roadmap & Build Plan](./11-roadmap.md) | Phased plan with verification checkpoints |
 | 12 | [Pitch Script](./12-pitch-script.md) | 5-minute video structure |
 | 13 | [Glossary](./13-glossary.md) | Domain terms |
+| 14 | [Champion/Challenger](./14-champion-challenger.md) | Shadow model, agreement reporting, promotion criteria |
+| 15 | [Productionization RFC](./15-productionization-rfc.md) | Measured capacity plan to fintech scale |
+| 16 | [Threat Model](./16-threat-model.md) | STRIDE analysis mapped to built controls |
+| 17 | [Runbook](./17-runbook.md) | Deploy, rollback, and 3 AM incident procedures |
+| 18 | [ADRs](./18-adrs.md) | The six decisions that define the system |
+| 19 | [Deployment Kit](./19-deployment-kit.md) | Click-level all-AWS deployment steps |
+| — | [Engineering Deep Dive](./blog/engineering-deep-dive.md) | The full story as a long-form article |
 
 ---
 

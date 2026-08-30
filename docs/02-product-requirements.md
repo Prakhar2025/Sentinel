@@ -90,7 +90,7 @@ Four views, built as a local Next.js app against the FastAPI (doc 08 has the sta
 └──────────────────────────┴─────────────────────────────────────────────┘
 ```
 
-## Success Definition (buildathon bar mapping)
+## Success Definition (bar mapping)
 
 | Evaluation criterion | How we satisfy it |
 |----------------------|-------------------|
