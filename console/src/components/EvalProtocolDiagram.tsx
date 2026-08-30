@@ -1,26 +1,41 @@
 "use client";
 
 /*
-  The evaluation protocol, drawn: one dataset, ring-stratified splits,
-  weights fit on train, thresholds locked on calibration, a single pass
-  on the held-out test set. The lock marks what can never be retouched.
+  The evaluation protocol, drawn clean: one dataset fans out into three
+  ring-stratified splits, weights freeze under train and thresholds
+  lock under calibration, and the test box arrows once into the
+  held-out verdicts. Entrance staggers left to right.
 */
+
+import { useEffect, useState } from "react";
 
 const TEXT = "#e8e3d5";
 const MUTED = "#8b8574";
-const FAINT = "#565246";
 const AMBER = "#e8a33d";
-const ALLOW = "#4cc38a";
-const BLOCK = "#e5484d";
 const LINE = "#31363f";
 const TRAIN = "#6fbfa8";
 const CAL = "#d8b36a";
 const TEST = "#e5484d";
 
 const W = 920;
-const H = 250;
+const H = 210;
 
 export function EvalProtocolDiagram() {
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => {
+    const timer = setTimeout(() => setMounted(true), 150);
+    return () => clearTimeout(timer);
+  }, []);
+
+  const enter = (delay: number) => ({
+    opacity: mounted ? 1 : 0,
+    transform: mounted ? "translateY(0)" : "translateY(8px)",
+    transition: `opacity 0.5s ease ${delay}ms, transform 0.5s ease ${delay}ms`,
+  });
+
+  const splitY = 70;
+  const splitH = 58;
+
   return (
     <figure className="rounded-lg border border-hairline bg-panel p-3">
       <svg viewBox={`0 0 ${W} ${H}`} className="h-auto w-full" role="img" aria-label="evaluation protocol">
@@ -31,107 +46,103 @@ export function EvalProtocolDiagram() {
           <marker id="evalhead" markerWidth="7" markerHeight="6" refX="6" refY="3" orient="auto">
             <path d="M0,0 L7,3 L0,6 Z" fill={LINE} />
           </marker>
+          <marker id="testhead" markerWidth="7" markerHeight="6" refX="6" refY="3" orient="auto">
+            <path d="M0,0 L7,3 L0,6 Z" fill={TEST} />
+          </marker>
         </defs>
         <rect width={W} height={H} fill="url(#evalgrid)" rx="6" />
 
-        {/* dataset */}
-        <rect x={24} y={92} width={120} height={56} rx="8" fill="#15171c" stroke={TEXT} strokeWidth="1.6" />
-        <text x={84} y={114} textAnchor="middle" fontSize="12.5" fontWeight="600" fill={TEXT}>
-          1,000 events
-        </text>
-        <text x={84} y={132} textAnchor="middle" fontSize="9" fontFamily="var(--font-mono, monospace)" fill={MUTED}>
-          seed 42 · 100 fraud
-        </text>
+        <g style={enter(0)}>
+          <rect x={24} y={splitY} width={130} height={splitH} rx="8" fill="#15171c" stroke={TEXT} strokeWidth="1.6" />
+          <text x={89} y={splitY + 24} textAnchor="middle" fontSize="12.5" fontWeight="600" fill={TEXT}>
+            1,000 events
+          </text>
+          <text x={89} y={splitY + 42} textAnchor="middle" fontSize="9" fontFamily="var(--font-mono, monospace)" fill={MUTED}>
+            seed 42 · 100 fraud
+          </text>
+        </g>
 
-        {/* splits */}
         {(
           [
-            ["TRAIN 60%", TRAIN, "weights fit here"],
-            ["CALIB 20%", CAL, "thresholds locked"],
-            ["TEST 20%", TEST, "touched ONCE"],
+            [248],
+            [418],
+            [588],
           ] as const
-        ).map(([label, color, sub], index) => (
-          <g key={label}>
-            <rect
-              x={230 + index * 150}
-              y={index === 2 ? 60 : 92}
-              width={130}
-              height={56}
-              rx="8"
-              fill="#15171c"
+        ).map(([x], index) => (
+          <path
+            key={x}
+            d={`M 154 ${splitY + splitH / 2} C 190 ${splitY + splitH / 2}, 200 ${splitY + splitH / 2}, ${x - 6} ${splitY + splitH / 2}`}
+            stroke={LINE}
+            strokeWidth="1.4"
+            fill="none"
+            markerEnd="url(#evalhead)"
+            opacity={mounted ? 0.85 : 0}
+            style={{ transition: `opacity 0.4s ease ${200 + index * 120}ms` }}
+          />
+        ))}
+
+        {(
+          [
+            ["TRAIN 60%", TRAIN, "weights fit here", 250],
+            ["CALIB 20%", CAL, "thresholds locked", 420],
+            ["TEST 20%", TEST, "touched once", 590],
+          ] as const
+        ).map(([label, color, sub, x], index) => (
+          <g key={label} style={enter(250 + index * 140)}>
+            <rect x={x} y={splitY} width={140} height={splitH} rx="8" fill="#15171c" stroke={color} strokeWidth="1.6" />
+            <text x={x + 70} y={splitY + 24} textAnchor="middle" fontSize="12" fontWeight="600" fill={color}>
+              {label}
+            </text>
+            <text x={x + 70} y={splitY + 42} textAnchor="middle" fontSize="9" fontFamily="var(--font-mono, monospace)" fill={MUTED}>
+              {sub}
+            </text>
+          </g>
+        ))}
+
+        {(
+          [
+            ["weights frozen · published", 250, TRAIN],
+            ["thresholds locked · 42 / 49", 420, CAL],
+          ] as const
+        ).map(([label, x, color], index) => (
+          <g key={label} style={enter(650 + index * 120)}>
+            <line
+              x1={x + 70}
+              y1={splitY + splitH}
+              x2={x + 70}
+              y2={162}
               stroke={color}
-              strokeWidth="1.6"
-            />
-            <text x={295 + index * 150} y={index === 2 ? 84 : 116} textAnchor="middle" fontSize="12" fontWeight="600" fill={color}>
-              {label}
-            </text>
-            <text
-              x={295 + index * 150}
-              y={index === 2 ? 100 : 132}
-              textAnchor="middle"
-              fontSize="9"
-              fontFamily="var(--font-mono, monospace)"
-              fill={MUTED}
-            >
-              {sub}
-            </text>
-            <path
-              d={`M 144 ${index === 2 ? 100 : 118} L ${224 - 6} ${index === 2 ? 88 : 120}`}
-              stroke={LINE}
-              strokeWidth="1.4"
+              strokeWidth="1.2"
+              strokeDasharray="3 3"
+              opacity="0.7"
               markerEnd="url(#evalhead)"
-              opacity="0.8"
             />
-          </g>
-        ))}
-
-        {/* protocol rail */}
-        <text x={230} y={30} fontSize="10" fontFamily="var(--font-mono, monospace)" fill={FAINT}>
-          ring-stratified: no identity spans two splits (union-find enforced, tested)
-        </text>
-        <line x1={230} y1={40} x2={660} y2={40} stroke={LINE} strokeWidth="1" />
-
-        {/* locks */}
-        {(
-          [
-            ["weights frozen", "published in code", 230, TRAIN],
-            ["thresholds locked", "review 42 · block 49", 380, CAL],
-          ] as const
-        ).map(([label, sub, x, color]) => (
-          <g key={label}>
-            <rect x={x} y={170} width={130} height={44} rx="8" fill="#15171c" stroke={color} strokeWidth="1.2" strokeDasharray="4 3" />
-            <text x={x + 65} y={188} textAnchor="middle" fontSize="10.5" fontFamily="var(--font-mono, monospace)" fill={TEXT}>
+            <rect x={x} y={164} width={140} height={34} rx="6" fill="#15171c" stroke={color} strokeWidth="1.1" strokeDasharray="4 3" />
+            <text x={x + 70} y={185} textAnchor="middle" fontSize="10" fontFamily="var(--font-mono, monospace)" fill={TEXT}>
               {label}
             </text>
-            <text x={x + 65} y={204} textAnchor="middle" fontSize="9" fontFamily="var(--font-mono, monospace)" fill={MUTED}>
-              {sub}
-            </text>
           </g>
         ))}
 
-        {/* single test pass */}
-        <path d={`M 725 88 C 790 70, 820 90, 838 108`} stroke={TEST} strokeWidth="1.6" fill="none" markerEnd="url(#evalhead)" />
-        <rect x={764} y={112} width={132} height={56} rx="8" fill="#15171c" stroke={TEST} strokeWidth="1.8" />
-        <text x={830} y={134} textAnchor="middle" fontSize="12" fontWeight="600" fill={TEST}>
-          held-out verdicts
-        </text>
-        <text x={830} y={152} textAnchor="middle" fontSize="9" fontFamily="var(--font-mono, monospace)" fill={MUTED}>
-          P 0.833 · R 0.882 · 2/2 rings
-        </text>
-
-        {/* honesty note */}
-        <text x={24} y={216} fontSize="10" fontFamily="var(--font-mono, monospace)" fill={FAINT}>
-          order of operations, non-negotiable:
-        </text>
-        <text x={24} y={232} fontSize="10" fontFamily="var(--font-mono, monospace)" fill={FAINT}>
-          weights (train) → thresholds (calibration) → one pass (test).
-        </text>
-        <text x={24} y={248} fontSize="10" fontFamily="var(--font-mono, monospace)" fill={FAINT}>
-          peeking at test data forfeits the protocol that makes any number meaningful.
-        </text>
+        <g style={enter(1000)}>
+          <path
+            d={`M 730 ${splitY + splitH / 2} L ${758 - 6} ${splitY + splitH / 2}`}
+            stroke={TEST}
+            strokeWidth="1.6"
+            fill="none"
+            markerEnd="url(#testhead)"
+          />
+          <rect x={760} y={splitY} width={136} height={splitH} rx="8" fill="#15171c" stroke={TEST} strokeWidth="1.8" />
+          <text x={828} y={splitY + 24} textAnchor="middle" fontSize="12" fontWeight="600" fill={TEST}>
+            held-out verdicts
+          </text>
+          <text x={828} y={splitY + 42} textAnchor="middle" fontSize="9" fontFamily="var(--font-mono, monospace)" fill={MUTED}>
+            P 0.833 · R 0.882 · 2/2 rings
+          </text>
+        </g>
       </svg>
       <figcaption className="micro px-2 pb-1 pt-2">
-        the honesty protocol &middot; every published number regenerates from make evaluate, byte-identical
+        order of operations: weights on train, thresholds on calibration, one single pass on test · peeking forfeits the protocol that makes any number meaningful
       </figcaption>
     </figure>
   );
