@@ -145,8 +145,9 @@ class AuditStore:
     def insert_event(self, payload: dict[str, Any]) -> bool:
         """Insert an event; False when the event_id already exists.
 
-        Conflict handling is dialect-aware: SQLite takes OR IGNORE,
-        Postgres takes ON CONFLICT DO NOTHING on the primary key.
+        Conflict handling is dialect-aware: SQLite takes OR IGNORE with
+        rowcount, Postgres takes ON CONFLICT DO NOTHING with RETURNING
+        (psycopg3 rowcount is unreliable through the cursor result).
         """
         try:
             with self._engine.begin() as connection:
@@ -157,14 +158,16 @@ class AuditStore:
                         pg_insert(EventRow)
                         .values(**payload)
                         .on_conflict_do_nothing(index_elements=["event_id"])
+                        .returning(EventRow.event_id)
                     )
+                    return result.scalar_one_or_none() is not None
                 else:
                     from sqlalchemy.dialects.sqlite import insert as sqlite_insert
 
                     result = connection.execute(
                         sqlite_insert(EventRow).values(**payload).prefix_with("OR IGNORE")
                     )
-                return result.rowcount > 0
+                    return result.rowcount > 0
         except OperationalError as exc:
             raise StoreUnavailableError(str(exc)) from exc
 
