@@ -42,7 +42,6 @@ node_modules/
 .next/
 out/
 console/out/
-console/src/demo/
 
 # Spool files from degraded-mode ingestion
 *.spool

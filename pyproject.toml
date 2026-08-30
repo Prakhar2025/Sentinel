@@ -94,3 +94,8 @@ markers = [
 
 [tool.coverage.run]
 source = ["sentinel"]
+omit = [
+    "src/sentinel/challenger_train.py",
+    "src/sentinel/merchant_token.py",
+    "src/sentinel/generate.py",
+]

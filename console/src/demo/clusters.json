@@ -1,0 +1,2756 @@
+{
+ "cust_ce923c": {
+  "customer_id": "cust_ce923c",
+  "nodes": [
+   {
+    "type": "customer",
+    "id": "cust_ce923c",
+    "taint": 0.36
+   },
+   {
+    "type": "email",
+    "id": "aarti.yash@gmail.com",
+    "taint": 0.6
+   },
+   {
+    "type": "customer",
+    "id": "cust_41ee37",
+    "taint": 0.36
+   },
+   {
+    "type": "customer",
+    "id": "cust_b7378b",
+    "taint": 0.36
+   },
+   {
+    "type": "customer",
+    "id": "cust_dcfc81",
+    "taint": 0.36
+   },
+   {
+    "type": "merchant",
+    "id": "mcht_00032",
+    "taint": 0.0
+   },
+   {
+    "type": "merchant",
+    "id": "mcht_00015",
+    "taint": 0.0
+   },
+   {
+    "type": "customer",
+    "id": "cust_1258b0",
+    "taint": 1.0
+   },
+   {
+    "type": "upi",
+    "id": "karan.1813@yapl",
+    "taint": 0.6
+   },
+   {
+    "type": "upi",
+    "id": "rajat2726@ibl",
+    "taint": 0.6
+   },
+   {
+    "type": "phone",
+    "id": "+9188XXXX7272",
+    "taint": 0.6
+   },
+   {
+    "type": "merchant",
+    "id": "mcht_00030",
+    "taint": 0.0
+   },
+   {
+    "type": "merchant",
+    "id": "mcht_00017",
+    "taint": 0.0
+   },
+   {
+    "type": "customer",
+    "id": "cust_0ad023",
+    "taint": 0.36
+   },
+   {
+    "type": "phone",
+    "id": "+9167XXXX4027",
+    "taint": 0.6
+   },
+   {
+    "type": "customer",
+    "id": "cust_752832",
+    "taint": 1.0
+   },
+   {
+    "type": "customer",
+    "id": "cust_55e64a",
+    "taint": 0.36
+   },
+   {
+    "type": "email",
+    "id": "aarti.897@gmail.com",
+    "taint": 0.6
+   },
+   {
+    "type": "device",
+    "id": "dev_b7cfe871",
+    "taint": 0.6
+   },
+   {
+    "type": "merchant",
+    "id": "mcht_00007",
+    "taint": 0.0
+   },
+   {
+    "type": "upi",
+    "id": "nikita_3930@okicici",
+    "taint": 0.216
+   },
+   {
+    "type": "merchant",
+    "id": "mcht_00045",
+    "taint": 0.0
+   },
+   {
+    "type": "email",
+    "id": "aartiyash46@gmail.com",
+    "taint": 0.216
+   }
+  ],
+  "edges": [
+   {
+    "source": "customer:cust_ce923c",
+    "target": "merchant:mcht_00007"
+   },
+   {
+    "source": "customer:cust_ce923c",
+    "target": "upi:rajat2726@ibl"
+   },
+   {
+    "source": "customer:cust_ce923c",
+    "target": "phone:+916733854027"
+   },
+   {
+    "source": "customer:cust_ce923c",
+    "target": "device:dev_b7cfe871"
+   },
+   {
+    "source": "customer:cust_ce923c",
+    "target": "email:aarti.yash@gmail.com"
+   },
+   {
+    "source": "customer:cust_41ee37",
+    "target": "merchant:mcht_00030"
+   },
+   {
+    "source": "customer:cust_41ee37",
+    "target": "upi:karan.1813@yapl"
+   },
+   {
+    "source": "customer:cust_41ee37",
+    "target": "phone:+918825417272"
+   },
+   {
+    "source": "customer:cust_41ee37",
+    "target": "device:dev_b7cfe871"
+   },
+   {
+    "source": "customer:cust_41ee37",
+    "target": "email:aarti.897@gmail.com"
+   },
+   {
+    "source": "customer:cust_b7378b",
+    "target": "merchant:mcht_00017"
+   },
+   {
+    "source": "customer:cust_b7378b",
+    "target": "upi:karan.1813@yapl"
+   },
+   {
+    "source": "customer:cust_b7378b",
+    "target": "phone:+916733854027"
+   },
+   {
+    "source": "customer:cust_b7378b",
+    "target": "device:dev_b7cfe871"
+   },
+   {
+    "source": "customer:cust_b7378b",
+    "target": "email:aarti.yash@gmail.com"
+   },
+   {
+    "source": "customer:cust_dcfc81",
+    "target": "merchant:mcht_00045"
+   },
+   {
+    "source": "customer:cust_dcfc81",
+    "target": "upi:rajat2726@ibl"
+   },
+   {
+    "source": "customer:cust_dcfc81",
+    "target": "phone:+916733854027"
+   },
+   {
+    "source": "customer:cust_dcfc81",
+    "target": "device:dev_b7cfe871"
+   },
+   {
+    "source": "customer:cust_dcfc81",
+    "target": "email:aarti.897@gmail.com"
+   },
+   {
+    "source": "customer:cust_1258b0",
+    "target": "merchant:mcht_00017"
+   },
+   {
+    "source": "customer:cust_1258b0",
+    "target": "upi:rajat2726@ibl"
+   },
+   {
+    "source": "customer:cust_1258b0",
+    "target": "phone:+918825417272"
+   },
+   {
+    "source": "customer:cust_1258b0",
+    "target": "device:dev_b7cfe871"
+   },
+   {
+    "source": "customer:cust_1258b0",
+    "target": "email:aarti.yash@gmail.com"
+   },
+   {
+    "source": "customer:cust_0ad023",
+    "target": "merchant:mcht_00032"
+   },
+   {
+    "source": "customer:cust_0ad023",
+    "target": "upi:nikita_3930@okicici"
+   },
+   {
+    "source": "customer:cust_0ad023",
+    "target": "phone:+916733854027"
+   },
+   {
+    "source": "customer:cust_0ad023",
+    "target": "device:dev_b7cfe871"
+   },
+   {
+    "source": "customer:cust_0ad023",
+    "target": "email:aartiyash46@gmail.com"
+   },
+   {
+    "source": "customer:cust_752832",
+    "target": "merchant:mcht_00015"
+   },
+   {
+    "source": "customer:cust_752832",
+    "target": "upi:karan.1813@yapl"
+   },
+   {
+    "source": "customer:cust_752832",
+    "target": "phone:+916733854027"
+   },
+   {
+    "source": "customer:cust_752832",
+    "target": "device:dev_b7cfe871"
+   },
+   {
+    "source": "customer:cust_752832",
+    "target": "email:aarti.897@gmail.com"
+   },
+   {
+    "source": "customer:cust_55e64a",
+    "target": "merchant:mcht_00032"
+   },
+   {
+    "source": "customer:cust_55e64a",
+    "target": "upi:karan.1813@yapl"
+   },
+   {
+    "source": "customer:cust_55e64a",
+    "target": "phone:+916733854027"
+   },
+   {
+    "source": "customer:cust_55e64a",
+    "target": "device:dev_b7cfe871"
+   },
+   {
+    "source": "customer:cust_55e64a",
+    "target": "email:aartiyash46@gmail.com"
+   }
+  ],
+  "truncated": false
+ },
+ "cust_1258b0": {
+  "customer_id": "cust_1258b0",
+  "nodes": [
+   {
+    "type": "customer",
+    "id": "cust_ce923c",
+    "taint": 0.36
+   },
+   {
+    "type": "email",
+    "id": "aarti.yash@gmail.com",
+    "taint": 0.6
+   },
+   {
+    "type": "customer",
+    "id": "cust_41ee37",
+    "taint": 0.36
+   },
+   {
+    "type": "customer",
+    "id": "cust_b7378b",
+    "taint": 0.36
+   },
+   {
+    "type": "customer",
+    "id": "cust_dcfc81",
+    "taint": 0.36
+   },
+   {
+    "type": "merchant",
+    "id": "mcht_00032",
+    "taint": 0.0
+   },
+   {
+    "type": "merchant",
+    "id": "mcht_00015",
+    "taint": 0.0
+   },
+   {
+    "type": "customer",
+    "id": "cust_1258b0",
+    "taint": 1.0
+   },
+   {
+    "type": "merchant",
+    "id": "mcht_00030",
+    "taint": 0.0
+   },
+   {
+    "type": "upi",
+    "id": "rajat2726@ibl",
+    "taint": 0.6
+   },
+   {
+    "type": "phone",
+    "id": "+9188XXXX7272",
+    "taint": 0.6
+   },
+   {
+    "type": "upi",
+    "id": "karan.1813@yapl",
+    "taint": 0.6
+   },
+   {
+    "type": "merchant",
+    "id": "mcht_00017",
+    "taint": 0.0
+   },
+   {
+    "type": "customer",
+    "id": "cust_0ad023",
+    "taint": 0.36
+   },
+   {
+    "type": "phone",
+    "id": "+9167XXXX4027",
+    "taint": 0.6
+   },
+   {
+    "type": "customer",
+    "id": "cust_752832",
+    "taint": 1.0
+   },
+   {
+    "type": "customer",
+    "id": "cust_55e64a",
+    "taint": 0.36
+   },
+   {
+    "type": "email",
+    "id": "aarti.897@gmail.com",
+    "taint": 0.6
+   },
+   {
+    "type": "device",
+    "id": "dev_b7cfe871",
+    "taint": 0.6
+   },
+   {
+    "type": "merchant",
+    "id": "mcht_00007",
+    "taint": 0.0
+   },
+   {
+    "type": "upi",
+    "id": "nikita_3930@okicici",
+    "taint": 0.216
+   },
+   {
+    "type": "merchant",
+    "id": "mcht_00045",
+    "taint": 0.0
+   },
+   {
+    "type": "email",
+    "id": "aartiyash46@gmail.com",
+    "taint": 0.216
+   }
+  ],
+  "edges": [
+   {
+    "source": "customer:cust_ce923c",
+    "target": "merchant:mcht_00007"
+   },
+   {
+    "source": "customer:cust_ce923c",
+    "target": "upi:rajat2726@ibl"
+   },
+   {
+    "source": "customer:cust_ce923c",
+    "target": "phone:+916733854027"
+   },
+   {
+    "source": "customer:cust_ce923c",
+    "target": "device:dev_b7cfe871"
+   },
+   {
+    "source": "customer:cust_ce923c",
+    "target": "email:aarti.yash@gmail.com"
+   },
+   {
+    "source": "customer:cust_41ee37",
+    "target": "merchant:mcht_00030"
+   },
+   {
+    "source": "customer:cust_41ee37",
+    "target": "upi:karan.1813@yapl"
+   },
+   {
+    "source": "customer:cust_41ee37",
+    "target": "phone:+918825417272"
+   },
+   {
+    "source": "customer:cust_41ee37",
+    "target": "device:dev_b7cfe871"
+   },
+   {
+    "source": "customer:cust_41ee37",
+    "target": "email:aarti.897@gmail.com"
+   },
+   {
+    "source": "customer:cust_b7378b",
+    "target": "merchant:mcht_00017"
+   },
+   {
+    "source": "customer:cust_b7378b",
+    "target": "upi:karan.1813@yapl"
+   },
+   {
+    "source": "customer:cust_b7378b",
+    "target": "phone:+916733854027"
+   },
+   {
+    "source": "customer:cust_b7378b",
+    "target": "device:dev_b7cfe871"
+   },
+   {
+    "source": "customer:cust_b7378b",
+    "target": "email:aarti.yash@gmail.com"
+   },
+   {
+    "source": "customer:cust_dcfc81",
+    "target": "merchant:mcht_00045"
+   },
+   {
+    "source": "customer:cust_dcfc81",
+    "target": "upi:rajat2726@ibl"
+   },
+   {
+    "source": "customer:cust_dcfc81",
+    "target": "phone:+916733854027"
+   },
+   {
+    "source": "customer:cust_dcfc81",
+    "target": "device:dev_b7cfe871"
+   },
+   {
+    "source": "customer:cust_dcfc81",
+    "target": "email:aarti.897@gmail.com"
+   },
+   {
+    "source": "customer:cust_1258b0",
+    "target": "merchant:mcht_00017"
+   },
+   {
+    "source": "customer:cust_1258b0",
+    "target": "upi:rajat2726@ibl"
+   },
+   {
+    "source": "customer:cust_1258b0",
+    "target": "phone:+918825417272"
+   },
+   {
+    "source": "customer:cust_1258b0",
+    "target": "device:dev_b7cfe871"
+   },
+   {
+    "source": "customer:cust_1258b0",
+    "target": "email:aarti.yash@gmail.com"
+   },
+   {
+    "source": "customer:cust_0ad023",
+    "target": "merchant:mcht_00032"
+   },
+   {
+    "source": "customer:cust_0ad023",
+    "target": "upi:nikita_3930@okicici"
+   },
+   {
+    "source": "customer:cust_0ad023",
+    "target": "phone:+916733854027"
+   },
+   {
+    "source": "customer:cust_0ad023",
+    "target": "device:dev_b7cfe871"
+   },
+   {
+    "source": "customer:cust_0ad023",
+    "target": "email:aartiyash46@gmail.com"
+   },
+   {
+    "source": "customer:cust_752832",
+    "target": "merchant:mcht_00015"
+   },
+   {
+    "source": "customer:cust_752832",
+    "target": "upi:karan.1813@yapl"
+   },
+   {
+    "source": "customer:cust_752832",
+    "target": "phone:+916733854027"
+   },
+   {
+    "source": "customer:cust_752832",
+    "target": "device:dev_b7cfe871"
+   },
+   {
+    "source": "customer:cust_752832",
+    "target": "email:aarti.897@gmail.com"
+   },
+   {
+    "source": "customer:cust_55e64a",
+    "target": "merchant:mcht_00032"
+   },
+   {
+    "source": "customer:cust_55e64a",
+    "target": "upi:karan.1813@yapl"
+   },
+   {
+    "source": "customer:cust_55e64a",
+    "target": "phone:+916733854027"
+   },
+   {
+    "source": "customer:cust_55e64a",
+    "target": "device:dev_b7cfe871"
+   },
+   {
+    "source": "customer:cust_55e64a",
+    "target": "email:aartiyash46@gmail.com"
+   }
+  ],
+  "truncated": false
+ },
+ "cust_0ad023": {
+  "customer_id": "cust_0ad023",
+  "nodes": [
+   {
+    "type": "customer",
+    "id": "cust_ce923c",
+    "taint": 0.36
+   },
+   {
+    "type": "email",
+    "id": "aarti.yash@gmail.com",
+    "taint": 0.6
+   },
+   {
+    "type": "customer",
+    "id": "cust_41ee37",
+    "taint": 0.36
+   },
+   {
+    "type": "customer",
+    "id": "cust_b7378b",
+    "taint": 0.36
+   },
+   {
+    "type": "customer",
+    "id": "cust_dcfc81",
+    "taint": 0.36
+   },
+   {
+    "type": "merchant",
+    "id": "mcht_00032",
+    "taint": 0.0
+   },
+   {
+    "type": "merchant",
+    "id": "mcht_00015",
+    "taint": 0.0
+   },
+   {
+    "type": "customer",
+    "id": "cust_1258b0",
+    "taint": 1.0
+   },
+   {
+    "type": "upi",
+    "id": "karan.1813@yapl",
+    "taint": 0.6
+   },
+   {
+    "type": "upi",
+    "id": "rajat2726@ibl",
+    "taint": 0.6
+   },
+   {
+    "type": "phone",
+    "id": "+9188XXXX7272",
+    "taint": 0.6
+   },
+   {
+    "type": "merchant",
+    "id": "mcht_00030",
+    "taint": 0.0
+   },
+   {
+    "type": "merchant",
+    "id": "mcht_00017",
+    "taint": 0.0
+   },
+   {
+    "type": "customer",
+    "id": "cust_0ad023",
+    "taint": 0.36
+   },
+   {
+    "type": "phone",
+    "id": "+9167XXXX4027",
+    "taint": 0.6
+   },
+   {
+    "type": "customer",
+    "id": "cust_752832",
+    "taint": 1.0
+   },
+   {
+    "type": "customer",
+    "id": "cust_55e64a",
+    "taint": 0.36
+   },
+   {
+    "type": "email",
+    "id": "aarti.897@gmail.com",
+    "taint": 0.6
+   },
+   {
+    "type": "device",
+    "id": "dev_b7cfe871",
+    "taint": 0.6
+   },
+   {
+    "type": "merchant",
+    "id": "mcht_00007",
+    "taint": 0.0
+   },
+   {
+    "type": "upi",
+    "id": "nikita_3930@okicici",
+    "taint": 0.216
+   },
+   {
+    "type": "merchant",
+    "id": "mcht_00045",
+    "taint": 0.0
+   },
+   {
+    "type": "email",
+    "id": "aartiyash46@gmail.com",
+    "taint": 0.216
+   }
+  ],
+  "edges": [
+   {
+    "source": "customer:cust_ce923c",
+    "target": "merchant:mcht_00007"
+   },
+   {
+    "source": "customer:cust_ce923c",
+    "target": "upi:rajat2726@ibl"
+   },
+   {
+    "source": "customer:cust_ce923c",
+    "target": "phone:+916733854027"
+   },
+   {
+    "source": "customer:cust_ce923c",
+    "target": "device:dev_b7cfe871"
+   },
+   {
+    "source": "customer:cust_ce923c",
+    "target": "email:aarti.yash@gmail.com"
+   },
+   {
+    "source": "customer:cust_41ee37",
+    "target": "merchant:mcht_00030"
+   },
+   {
+    "source": "customer:cust_41ee37",
+    "target": "upi:karan.1813@yapl"
+   },
+   {
+    "source": "customer:cust_41ee37",
+    "target": "phone:+918825417272"
+   },
+   {
+    "source": "customer:cust_41ee37",
+    "target": "device:dev_b7cfe871"
+   },
+   {
+    "source": "customer:cust_41ee37",
+    "target": "email:aarti.897@gmail.com"
+   },
+   {
+    "source": "customer:cust_b7378b",
+    "target": "merchant:mcht_00017"
+   },
+   {
+    "source": "customer:cust_b7378b",
+    "target": "upi:karan.1813@yapl"
+   },
+   {
+    "source": "customer:cust_b7378b",
+    "target": "phone:+916733854027"
+   },
+   {
+    "source": "customer:cust_b7378b",
+    "target": "device:dev_b7cfe871"
+   },
+   {
+    "source": "customer:cust_b7378b",
+    "target": "email:aarti.yash@gmail.com"
+   },
+   {
+    "source": "customer:cust_dcfc81",
+    "target": "merchant:mcht_00045"
+   },
+   {
+    "source": "customer:cust_dcfc81",
+    "target": "upi:rajat2726@ibl"
+   },
+   {
+    "source": "customer:cust_dcfc81",
+    "target": "phone:+916733854027"
+   },
+   {
+    "source": "customer:cust_dcfc81",
+    "target": "device:dev_b7cfe871"
+   },
+   {
+    "source": "customer:cust_dcfc81",
+    "target": "email:aarti.897@gmail.com"
+   },
+   {
+    "source": "customer:cust_1258b0",
+    "target": "merchant:mcht_00017"
+   },
+   {
+    "source": "customer:cust_1258b0",
+    "target": "upi:rajat2726@ibl"
+   },
+   {
+    "source": "customer:cust_1258b0",
+    "target": "phone:+918825417272"
+   },
+   {
+    "source": "customer:cust_1258b0",
+    "target": "device:dev_b7cfe871"
+   },
+   {
+    "source": "customer:cust_1258b0",
+    "target": "email:aarti.yash@gmail.com"
+   },
+   {
+    "source": "customer:cust_0ad023",
+    "target": "merchant:mcht_00032"
+   },
+   {
+    "source": "customer:cust_0ad023",
+    "target": "upi:nikita_3930@okicici"
+   },
+   {
+    "source": "customer:cust_0ad023",
+    "target": "phone:+916733854027"
+   },
+   {
+    "source": "customer:cust_0ad023",
+    "target": "device:dev_b7cfe871"
+   },
+   {
+    "source": "customer:cust_0ad023",
+    "target": "email:aartiyash46@gmail.com"
+   },
+   {
+    "source": "customer:cust_752832",
+    "target": "merchant:mcht_00015"
+   },
+   {
+    "source": "customer:cust_752832",
+    "target": "upi:karan.1813@yapl"
+   },
+   {
+    "source": "customer:cust_752832",
+    "target": "phone:+916733854027"
+   },
+   {
+    "source": "customer:cust_752832",
+    "target": "device:dev_b7cfe871"
+   },
+   {
+    "source": "customer:cust_752832",
+    "target": "email:aarti.897@gmail.com"
+   },
+   {
+    "source": "customer:cust_55e64a",
+    "target": "merchant:mcht_00032"
+   },
+   {
+    "source": "customer:cust_55e64a",
+    "target": "upi:karan.1813@yapl"
+   },
+   {
+    "source": "customer:cust_55e64a",
+    "target": "phone:+916733854027"
+   },
+   {
+    "source": "customer:cust_55e64a",
+    "target": "device:dev_b7cfe871"
+   },
+   {
+    "source": "customer:cust_55e64a",
+    "target": "email:aartiyash46@gmail.com"
+   }
+  ],
+  "truncated": false
+ },
+ "cust_80b372": {
+  "customer_id": "cust_80b372",
+  "nodes": [
+   {
+    "type": "upi",
+    "id": "priya_6791@okaxis",
+    "taint": 0.6
+   },
+   {
+    "type": "upi",
+    "id": "riya6059@axl",
+    "taint": 0.6
+   },
+   {
+    "type": "merchant",
+    "id": "mcht_00043",
+    "taint": 0.0
+   },
+   {
+    "type": "customer",
+    "id": "cust_76f685",
+    "taint": 0.36
+   },
+   {
+    "type": "device",
+    "id": "dev_3a439f3f",
+    "taint": 0.6
+   },
+   {
+    "type": "merchant",
+    "id": "mcht_00036",
+    "taint": 0.0
+   },
+   {
+    "type": "merchant",
+    "id": "mcht_00040",
+    "taint": 0.0
+   },
+   {
+    "type": "customer",
+    "id": "cust_de5b28",
+    "taint": 0.36
+   },
+   {
+    "type": "merchant",
+    "id": "mcht_00028",
+    "taint": 0.0
+   },
+   {
+    "type": "customer",
+    "id": "cust_e79449",
+    "taint": 1.0
+   },
+   {
+    "type": "customer",
+    "id": "cust_3616cf",
+    "taint": 0.36
+   },
+   {
+    "type": "merchant",
+    "id": "mcht_00037",
+    "taint": 0.0
+   },
+   {
+    "type": "upi",
+    "id": "karan_6092@paytm",
+    "taint": 0.6
+   },
+   {
+    "type": "customer",
+    "id": "cust_3356bd",
+    "taint": 0.36
+   },
+   {
+    "type": "email",
+    "id": "varun.250@gmail.com",
+    "taint": 0.6
+   },
+   {
+    "type": "customer",
+    "id": "cust_2148dd",
+    "taint": 0.36
+   },
+   {
+    "type": "customer",
+    "id": "cust_80b372",
+    "taint": 1.0
+   },
+   {
+    "type": "email",
+    "id": "varunmeera12@gmail.com",
+    "taint": 0.6
+   },
+   {
+    "type": "device",
+    "id": "dev_23f76327",
+    "taint": 0.6
+   },
+   {
+    "type": "customer",
+    "id": "cust_1610b8",
+    "taint": 1.0
+   },
+   {
+    "type": "phone",
+    "id": "+9179XXXX7079",
+    "taint": 0.6
+   },
+   {
+    "type": "phone",
+    "id": "+9176XXXX1740",
+    "taint": 0.6
+   },
+   {
+    "type": "customer",
+    "id": "cust_c36876",
+    "taint": 0.36
+   },
+   {
+    "type": "email",
+    "id": "varun.meera@gmail.com",
+    "taint": 0.216
+   },
+   {
+    "type": "upi",
+    "id": "sonal1052@okhdfcbank",
+    "taint": 0.6
+   },
+   {
+    "type": "merchant",
+    "id": "mcht_00027",
+    "taint": 0.0
+   },
+   {
+    "type": "customer",
+    "id": "cust_b47ae3",
+    "taint": 0.36
+   },
+   {
+    "type": "customer",
+    "id": "cust_4a4cca",
+    "taint": 0.36
+   },
+   {
+    "type": "customer",
+    "id": "cust_9b0067",
+    "taint": 0.36
+   }
+  ],
+  "edges": [
+   {
+    "source": "customer:cust_76f685",
+    "target": "merchant:mcht_00027"
+   },
+   {
+    "source": "customer:cust_76f685",
+    "target": "upi:sonal1052@okhdfcbank"
+   },
+   {
+    "source": "customer:cust_76f685",
+    "target": "phone:+917907457079"
+   },
+   {
+    "source": "customer:cust_76f685",
+    "target": "device:dev_3a439f3f"
+   },
+   {
+    "source": "customer:cust_76f685",
+    "target": "email:varun.250@gmail.com"
+   },
+   {
+    "source": "customer:cust_de5b28",
+    "target": "merchant:mcht_00037"
+   },
+   {
+    "source": "customer:cust_de5b28",
+    "target": "upi:sonal1052@okhdfcbank"
+   },
+   {
+    "source": "customer:cust_de5b28",
+    "target": "phone:+917644681740"
+   },
+   {
+    "source": "customer:cust_de5b28",
+    "target": "device:dev_23f76327"
+   },
+   {
+    "source": "customer:cust_de5b28",
+    "target": "email:varun.250@gmail.com"
+   },
+   {
+    "source": "customer:cust_e79449",
+    "target": "merchant:mcht_00036"
+   },
+   {
+    "source": "customer:cust_e79449",
+    "target": "upi:karan_6092@paytm"
+   },
+   {
+    "source": "customer:cust_e79449",
+    "target": "phone:+917644681740"
+   },
+   {
+    "source": "customer:cust_e79449",
+    "target": "device:dev_23f76327"
+   },
+   {
+    "source": "customer:cust_e79449",
+    "target": "email:varun.250@gmail.com"
+   },
+   {
+    "source": "customer:cust_3616cf",
+    "target": "merchant:mcht_00036"
+   },
+   {
+    "source": "customer:cust_3616cf",
+    "target": "upi:sonal1052@okhdfcbank"
+   },
+   {
+    "source": "customer:cust_3616cf",
+    "target": "phone:+917907457079"
+   },
+   {
+    "source": "customer:cust_3616cf",
+    "target": "device:dev_23f76327"
+   },
+   {
+    "source": "customer:cust_3616cf",
+    "target": "email:varun.meera@gmail.com"
+   },
+   {
+    "source": "customer:cust_3356bd",
+    "target": "merchant:mcht_00040"
+   },
+   {
+    "source": "customer:cust_3356bd",
+    "target": "upi:karan_6092@paytm"
+   },
+   {
+    "source": "customer:cust_3356bd",
+    "target": "phone:+917907457079"
+   },
+   {
+    "source": "customer:cust_3356bd",
+    "target": "device:dev_3a439f3f"
+   },
+   {
+    "source": "customer:cust_3356bd",
+    "target": "email:varun.meera@gmail.com"
+   },
+   {
+    "source": "customer:cust_2148dd",
+    "target": "merchant:mcht_00037"
+   },
+   {
+    "source": "customer:cust_2148dd",
+    "target": "upi:riya6059@axl"
+   },
+   {
+    "source": "customer:cust_2148dd",
+    "target": "phone:+917907457079"
+   },
+   {
+    "source": "customer:cust_2148dd",
+    "target": "device:dev_23f76327"
+   },
+   {
+    "source": "customer:cust_2148dd",
+    "target": "email:varunmeera12@gmail.com"
+   },
+   {
+    "source": "customer:cust_80b372",
+    "target": "merchant:mcht_00028"
+   },
+   {
+    "source": "customer:cust_80b372",
+    "target": "upi:sonal1052@okhdfcbank"
+   },
+   {
+    "source": "customer:cust_80b372",
+    "target": "phone:+917907457079"
+   },
+   {
+    "source": "customer:cust_80b372",
+    "target": "device:dev_23f76327"
+   },
+   {
+    "source": "customer:cust_80b372",
+    "target": "email:varun.250@gmail.com"
+   },
+   {
+    "source": "customer:cust_1610b8",
+    "target": "merchant:mcht_00043"
+   },
+   {
+    "source": "customer:cust_1610b8",
+    "target": "upi:priya_6791@okaxis"
+   },
+   {
+    "source": "customer:cust_1610b8",
+    "target": "phone:+917907457079"
+   },
+   {
+    "source": "customer:cust_1610b8",
+    "target": "device:dev_3a439f3f"
+   },
+   {
+    "source": "customer:cust_1610b8",
+    "target": "email:varunmeera12@gmail.com"
+   },
+   {
+    "source": "customer:cust_c36876",
+    "target": "merchant:mcht_00040"
+   },
+   {
+    "source": "customer:cust_c36876",
+    "target": "upi:sonal1052@okhdfcbank"
+   },
+   {
+    "source": "customer:cust_c36876",
+    "target": "phone:+917907457079"
+   },
+   {
+    "source": "customer:cust_c36876",
+    "target": "device:dev_3a439f3f"
+   },
+   {
+    "source": "customer:cust_c36876",
+    "target": "email:varun.250@gmail.com"
+   },
+   {
+    "source": "customer:cust_b47ae3",
+    "target": "merchant:mcht_00043"
+   },
+   {
+    "source": "customer:cust_b47ae3",
+    "target": "upi:sonal1052@okhdfcbank"
+   },
+   {
+    "source": "customer:cust_b47ae3",
+    "target": "phone:+917907457079"
+   },
+   {
+    "source": "customer:cust_b47ae3",
+    "target": "device:dev_23f76327"
+   },
+   {
+    "source": "customer:cust_b47ae3",
+    "target": "email:varunmeera12@gmail.com"
+   },
+   {
+    "source": "customer:cust_4a4cca",
+    "target": "merchant:mcht_00028"
+   },
+   {
+    "source": "customer:cust_4a4cca",
+    "target": "upi:sonal1052@okhdfcbank"
+   },
+   {
+    "source": "customer:cust_4a4cca",
+    "target": "phone:+917644681740"
+   },
+   {
+    "source": "customer:cust_4a4cca",
+    "target": "device:dev_23f76327"
+   },
+   {
+    "source": "customer:cust_4a4cca",
+    "target": "email:varunmeera12@gmail.com"
+   },
+   {
+    "source": "customer:cust_9b0067",
+    "target": "merchant:mcht_00028"
+   },
+   {
+    "source": "customer:cust_9b0067",
+    "target": "upi:priya_6791@okaxis"
+   },
+   {
+    "source": "customer:cust_9b0067",
+    "target": "phone:+917907457079"
+   },
+   {
+    "source": "customer:cust_9b0067",
+    "target": "device:dev_23f76327"
+   },
+   {
+    "source": "customer:cust_9b0067",
+    "target": "email:varun.250@gmail.com"
+   }
+  ],
+  "truncated": false
+ },
+ "cust_3616cf": {
+  "customer_id": "cust_3616cf",
+  "nodes": [
+   {
+    "type": "upi",
+    "id": "priya_6791@okaxis",
+    "taint": 0.6
+   },
+   {
+    "type": "upi",
+    "id": "riya6059@axl",
+    "taint": 0.6
+   },
+   {
+    "type": "merchant",
+    "id": "mcht_00043",
+    "taint": 0.0
+   },
+   {
+    "type": "customer",
+    "id": "cust_76f685",
+    "taint": 0.36
+   },
+   {
+    "type": "device",
+    "id": "dev_3a439f3f",
+    "taint": 0.6
+   },
+   {
+    "type": "merchant",
+    "id": "mcht_00036",
+    "taint": 0.0
+   },
+   {
+    "type": "merchant",
+    "id": "mcht_00040",
+    "taint": 0.0
+   },
+   {
+    "type": "customer",
+    "id": "cust_de5b28",
+    "taint": 0.36
+   },
+   {
+    "type": "merchant",
+    "id": "mcht_00028",
+    "taint": 0.0
+   },
+   {
+    "type": "customer",
+    "id": "cust_e79449",
+    "taint": 1.0
+   },
+   {
+    "type": "customer",
+    "id": "cust_3616cf",
+    "taint": 0.36
+   },
+   {
+    "type": "merchant",
+    "id": "mcht_00037",
+    "taint": 0.0
+   },
+   {
+    "type": "upi",
+    "id": "karan_6092@paytm",
+    "taint": 0.6
+   },
+   {
+    "type": "customer",
+    "id": "cust_3356bd",
+    "taint": 0.36
+   },
+   {
+    "type": "customer",
+    "id": "cust_2148dd",
+    "taint": 0.36
+   },
+   {
+    "type": "email",
+    "id": "varun.250@gmail.com",
+    "taint": 0.6
+   },
+   {
+    "type": "customer",
+    "id": "cust_80b372",
+    "taint": 1.0
+   },
+   {
+    "type": "email",
+    "id": "varunmeera12@gmail.com",
+    "taint": 0.6
+   },
+   {
+    "type": "device",
+    "id": "dev_23f76327",
+    "taint": 0.6
+   },
+   {
+    "type": "customer",
+    "id": "cust_1610b8",
+    "taint": 1.0
+   },
+   {
+    "type": "phone",
+    "id": "+9179XXXX7079",
+    "taint": 0.6
+   },
+   {
+    "type": "phone",
+    "id": "+9176XXXX1740",
+    "taint": 0.6
+   },
+   {
+    "type": "customer",
+    "id": "cust_c36876",
+    "taint": 0.36
+   },
+   {
+    "type": "email",
+    "id": "varun.meera@gmail.com",
+    "taint": 0.216
+   },
+   {
+    "type": "upi",
+    "id": "sonal1052@okhdfcbank",
+    "taint": 0.6
+   },
+   {
+    "type": "merchant",
+    "id": "mcht_00027",
+    "taint": 0.0
+   },
+   {
+    "type": "customer",
+    "id": "cust_b47ae3",
+    "taint": 0.36
+   },
+   {
+    "type": "customer",
+    "id": "cust_4a4cca",
+    "taint": 0.36
+   },
+   {
+    "type": "customer",
+    "id": "cust_9b0067",
+    "taint": 0.36
+   }
+  ],
+  "edges": [
+   {
+    "source": "customer:cust_76f685",
+    "target": "merchant:mcht_00027"
+   },
+   {
+    "source": "customer:cust_76f685",
+    "target": "upi:sonal1052@okhdfcbank"
+   },
+   {
+    "source": "customer:cust_76f685",
+    "target": "phone:+917907457079"
+   },
+   {
+    "source": "customer:cust_76f685",
+    "target": "device:dev_3a439f3f"
+   },
+   {
+    "source": "customer:cust_76f685",
+    "target": "email:varun.250@gmail.com"
+   },
+   {
+    "source": "customer:cust_de5b28",
+    "target": "merchant:mcht_00037"
+   },
+   {
+    "source": "customer:cust_de5b28",
+    "target": "upi:sonal1052@okhdfcbank"
+   },
+   {
+    "source": "customer:cust_de5b28",
+    "target": "phone:+917644681740"
+   },
+   {
+    "source": "customer:cust_de5b28",
+    "target": "device:dev_23f76327"
+   },
+   {
+    "source": "customer:cust_de5b28",
+    "target": "email:varun.250@gmail.com"
+   },
+   {
+    "source": "customer:cust_e79449",
+    "target": "merchant:mcht_00036"
+   },
+   {
+    "source": "customer:cust_e79449",
+    "target": "upi:karan_6092@paytm"
+   },
+   {
+    "source": "customer:cust_e79449",
+    "target": "phone:+917644681740"
+   },
+   {
+    "source": "customer:cust_e79449",
+    "target": "device:dev_23f76327"
+   },
+   {
+    "source": "customer:cust_e79449",
+    "target": "email:varun.250@gmail.com"
+   },
+   {
+    "source": "customer:cust_3616cf",
+    "target": "merchant:mcht_00036"
+   },
+   {
+    "source": "customer:cust_3616cf",
+    "target": "upi:sonal1052@okhdfcbank"
+   },
+   {
+    "source": "customer:cust_3616cf",
+    "target": "phone:+917907457079"
+   },
+   {
+    "source": "customer:cust_3616cf",
+    "target": "device:dev_23f76327"
+   },
+   {
+    "source": "customer:cust_3616cf",
+    "target": "email:varun.meera@gmail.com"
+   },
+   {
+    "source": "customer:cust_3356bd",
+    "target": "merchant:mcht_00040"
+   },
+   {
+    "source": "customer:cust_3356bd",
+    "target": "upi:karan_6092@paytm"
+   },
+   {
+    "source": "customer:cust_3356bd",
+    "target": "phone:+917907457079"
+   },
+   {
+    "source": "customer:cust_3356bd",
+    "target": "device:dev_3a439f3f"
+   },
+   {
+    "source": "customer:cust_3356bd",
+    "target": "email:varun.meera@gmail.com"
+   },
+   {
+    "source": "customer:cust_2148dd",
+    "target": "merchant:mcht_00037"
+   },
+   {
+    "source": "customer:cust_2148dd",
+    "target": "upi:riya6059@axl"
+   },
+   {
+    "source": "customer:cust_2148dd",
+    "target": "phone:+917907457079"
+   },
+   {
+    "source": "customer:cust_2148dd",
+    "target": "device:dev_23f76327"
+   },
+   {
+    "source": "customer:cust_2148dd",
+    "target": "email:varunmeera12@gmail.com"
+   },
+   {
+    "source": "customer:cust_80b372",
+    "target": "merchant:mcht_00028"
+   },
+   {
+    "source": "customer:cust_80b372",
+    "target": "upi:sonal1052@okhdfcbank"
+   },
+   {
+    "source": "customer:cust_80b372",
+    "target": "phone:+917907457079"
+   },
+   {
+    "source": "customer:cust_80b372",
+    "target": "device:dev_23f76327"
+   },
+   {
+    "source": "customer:cust_80b372",
+    "target": "email:varun.250@gmail.com"
+   },
+   {
+    "source": "customer:cust_1610b8",
+    "target": "merchant:mcht_00043"
+   },
+   {
+    "source": "customer:cust_1610b8",
+    "target": "upi:priya_6791@okaxis"
+   },
+   {
+    "source": "customer:cust_1610b8",
+    "target": "phone:+917907457079"
+   },
+   {
+    "source": "customer:cust_1610b8",
+    "target": "device:dev_3a439f3f"
+   },
+   {
+    "source": "customer:cust_1610b8",
+    "target": "email:varunmeera12@gmail.com"
+   },
+   {
+    "source": "customer:cust_c36876",
+    "target": "merchant:mcht_00040"
+   },
+   {
+    "source": "customer:cust_c36876",
+    "target": "upi:sonal1052@okhdfcbank"
+   },
+   {
+    "source": "customer:cust_c36876",
+    "target": "phone:+917907457079"
+   },
+   {
+    "source": "customer:cust_c36876",
+    "target": "device:dev_3a439f3f"
+   },
+   {
+    "source": "customer:cust_c36876",
+    "target": "email:varun.250@gmail.com"
+   },
+   {
+    "source": "customer:cust_b47ae3",
+    "target": "merchant:mcht_00043"
+   },
+   {
+    "source": "customer:cust_b47ae3",
+    "target": "upi:sonal1052@okhdfcbank"
+   },
+   {
+    "source": "customer:cust_b47ae3",
+    "target": "phone:+917907457079"
+   },
+   {
+    "source": "customer:cust_b47ae3",
+    "target": "device:dev_23f76327"
+   },
+   {
+    "source": "customer:cust_b47ae3",
+    "target": "email:varunmeera12@gmail.com"
+   },
+   {
+    "source": "customer:cust_4a4cca",
+    "target": "merchant:mcht_00028"
+   },
+   {
+    "source": "customer:cust_4a4cca",
+    "target": "upi:sonal1052@okhdfcbank"
+   },
+   {
+    "source": "customer:cust_4a4cca",
+    "target": "phone:+917644681740"
+   },
+   {
+    "source": "customer:cust_4a4cca",
+    "target": "device:dev_23f76327"
+   },
+   {
+    "source": "customer:cust_4a4cca",
+    "target": "email:varunmeera12@gmail.com"
+   },
+   {
+    "source": "customer:cust_9b0067",
+    "target": "merchant:mcht_00028"
+   },
+   {
+    "source": "customer:cust_9b0067",
+    "target": "upi:priya_6791@okaxis"
+   },
+   {
+    "source": "customer:cust_9b0067",
+    "target": "phone:+917907457079"
+   },
+   {
+    "source": "customer:cust_9b0067",
+    "target": "device:dev_23f76327"
+   },
+   {
+    "source": "customer:cust_9b0067",
+    "target": "email:varun.250@gmail.com"
+   }
+  ],
+  "truncated": false
+ },
+ "cust_c36876": {
+  "customer_id": "cust_c36876",
+  "nodes": [
+   {
+    "type": "upi",
+    "id": "priya_6791@okaxis",
+    "taint": 0.6
+   },
+   {
+    "type": "upi",
+    "id": "riya6059@axl",
+    "taint": 0.6
+   },
+   {
+    "type": "merchant",
+    "id": "mcht_00043",
+    "taint": 0.0
+   },
+   {
+    "type": "customer",
+    "id": "cust_76f685",
+    "taint": 0.36
+   },
+   {
+    "type": "device",
+    "id": "dev_3a439f3f",
+    "taint": 0.6
+   },
+   {
+    "type": "merchant",
+    "id": "mcht_00040",
+    "taint": 0.0
+   },
+   {
+    "type": "merchant",
+    "id": "mcht_00036",
+    "taint": 0.0
+   },
+   {
+    "type": "customer",
+    "id": "cust_de5b28",
+    "taint": 0.36
+   },
+   {
+    "type": "merchant",
+    "id": "mcht_00028",
+    "taint": 0.0
+   },
+   {
+    "type": "customer",
+    "id": "cust_e79449",
+    "taint": 1.0
+   },
+   {
+    "type": "customer",
+    "id": "cust_3616cf",
+    "taint": 0.36
+   },
+   {
+    "type": "merchant",
+    "id": "mcht_00037",
+    "taint": 0.0
+   },
+   {
+    "type": "upi",
+    "id": "karan_6092@paytm",
+    "taint": 0.6
+   },
+   {
+    "type": "customer",
+    "id": "cust_3356bd",
+    "taint": 0.36
+   },
+   {
+    "type": "email",
+    "id": "varun.250@gmail.com",
+    "taint": 0.6
+   },
+   {
+    "type": "customer",
+    "id": "cust_2148dd",
+    "taint": 0.36
+   },
+   {
+    "type": "customer",
+    "id": "cust_80b372",
+    "taint": 1.0
+   },
+   {
+    "type": "email",
+    "id": "varunmeera12@gmail.com",
+    "taint": 0.6
+   },
+   {
+    "type": "device",
+    "id": "dev_23f76327",
+    "taint": 0.6
+   },
+   {
+    "type": "customer",
+    "id": "cust_1610b8",
+    "taint": 1.0
+   },
+   {
+    "type": "phone",
+    "id": "+9179XXXX7079",
+    "taint": 0.6
+   },
+   {
+    "type": "customer",
+    "id": "cust_ddb568",
+    "taint": 1.0
+   },
+   {
+    "type": "phone",
+    "id": "+9176XXXX1740",
+    "taint": 0.6
+   },
+   {
+    "type": "customer",
+    "id": "cust_c36876",
+    "taint": 0.36
+   },
+   {
+    "type": "email",
+    "id": "varun.meera@gmail.com",
+    "taint": 0.216
+   },
+   {
+    "type": "upi",
+    "id": "sonal1052@okhdfcbank",
+    "taint": 0.6
+   },
+   {
+    "type": "merchant",
+    "id": "mcht_00027",
+    "taint": 0.0
+   },
+   {
+    "type": "customer",
+    "id": "cust_b47ae3",
+    "taint": 0.36
+   },
+   {
+    "type": "customer",
+    "id": "cust_4a4cca",
+    "taint": 0.36
+   },
+   {
+    "type": "customer",
+    "id": "cust_9b0067",
+    "taint": 0.36
+   }
+  ],
+  "edges": [
+   {
+    "source": "customer:cust_76f685",
+    "target": "merchant:mcht_00027"
+   },
+   {
+    "source": "customer:cust_76f685",
+    "target": "upi:sonal1052@okhdfcbank"
+   },
+   {
+    "source": "customer:cust_76f685",
+    "target": "phone:+917907457079"
+   },
+   {
+    "source": "customer:cust_76f685",
+    "target": "device:dev_3a439f3f"
+   },
+   {
+    "source": "customer:cust_76f685",
+    "target": "email:varun.250@gmail.com"
+   },
+   {
+    "source": "customer:cust_de5b28",
+    "target": "merchant:mcht_00037"
+   },
+   {
+    "source": "customer:cust_de5b28",
+    "target": "upi:sonal1052@okhdfcbank"
+   },
+   {
+    "source": "customer:cust_de5b28",
+    "target": "phone:+917644681740"
+   },
+   {
+    "source": "customer:cust_de5b28",
+    "target": "device:dev_23f76327"
+   },
+   {
+    "source": "customer:cust_de5b28",
+    "target": "email:varun.250@gmail.com"
+   },
+   {
+    "source": "customer:cust_e79449",
+    "target": "merchant:mcht_00036"
+   },
+   {
+    "source": "customer:cust_e79449",
+    "target": "upi:karan_6092@paytm"
+   },
+   {
+    "source": "customer:cust_e79449",
+    "target": "phone:+917644681740"
+   },
+   {
+    "source": "customer:cust_e79449",
+    "target": "device:dev_23f76327"
+   },
+   {
+    "source": "customer:cust_e79449",
+    "target": "email:varun.250@gmail.com"
+   },
+   {
+    "source": "customer:cust_3616cf",
+    "target": "merchant:mcht_00036"
+   },
+   {
+    "source": "customer:cust_3616cf",
+    "target": "upi:sonal1052@okhdfcbank"
+   },
+   {
+    "source": "customer:cust_3616cf",
+    "target": "phone:+917907457079"
+   },
+   {
+    "source": "customer:cust_3616cf",
+    "target": "device:dev_23f76327"
+   },
+   {
+    "source": "customer:cust_3616cf",
+    "target": "email:varun.meera@gmail.com"
+   },
+   {
+    "source": "customer:cust_3356bd",
+    "target": "merchant:mcht_00040"
+   },
+   {
+    "source": "customer:cust_3356bd",
+    "target": "upi:karan_6092@paytm"
+   },
+   {
+    "source": "customer:cust_3356bd",
+    "target": "phone:+917907457079"
+   },
+   {
+    "source": "customer:cust_3356bd",
+    "target": "device:dev_3a439f3f"
+   },
+   {
+    "source": "customer:cust_3356bd",
+    "target": "email:varun.meera@gmail.com"
+   },
+   {
+    "source": "customer:cust_2148dd",
+    "target": "merchant:mcht_00037"
+   },
+   {
+    "source": "customer:cust_2148dd",
+    "target": "upi:riya6059@axl"
+   },
+   {
+    "source": "customer:cust_2148dd",
+    "target": "phone:+917907457079"
+   },
+   {
+    "source": "customer:cust_2148dd",
+    "target": "device:dev_23f76327"
+   },
+   {
+    "source": "customer:cust_2148dd",
+    "target": "email:varunmeera12@gmail.com"
+   },
+   {
+    "source": "customer:cust_80b372",
+    "target": "merchant:mcht_00028"
+   },
+   {
+    "source": "customer:cust_80b372",
+    "target": "upi:sonal1052@okhdfcbank"
+   },
+   {
+    "source": "customer:cust_80b372",
+    "target": "phone:+917907457079"
+   },
+   {
+    "source": "customer:cust_80b372",
+    "target": "device:dev_23f76327"
+   },
+   {
+    "source": "customer:cust_80b372",
+    "target": "email:varun.250@gmail.com"
+   },
+   {
+    "source": "customer:cust_1610b8",
+    "target": "merchant:mcht_00043"
+   },
+   {
+    "source": "customer:cust_1610b8",
+    "target": "upi:priya_6791@okaxis"
+   },
+   {
+    "source": "customer:cust_1610b8",
+    "target": "phone:+917907457079"
+   },
+   {
+    "source": "customer:cust_1610b8",
+    "target": "device:dev_3a439f3f"
+   },
+   {
+    "source": "customer:cust_1610b8",
+    "target": "email:varunmeera12@gmail.com"
+   },
+   {
+    "source": "customer:cust_ddb568",
+    "target": "merchant:mcht_00027"
+   },
+   {
+    "source": "customer:cust_ddb568",
+    "target": "upi:riya6059@axl"
+   },
+   {
+    "source": "customer:cust_ddb568",
+    "target": "phone:+917644681740"
+   },
+   {
+    "source": "customer:cust_ddb568",
+    "target": "device:dev_3a439f3f"
+   },
+   {
+    "source": "customer:cust_ddb568",
+    "target": "email:varunmeera12@gmail.com"
+   },
+   {
+    "source": "customer:cust_c36876",
+    "target": "merchant:mcht_00040"
+   },
+   {
+    "source": "customer:cust_c36876",
+    "target": "upi:sonal1052@okhdfcbank"
+   },
+   {
+    "source": "customer:cust_c36876",
+    "target": "phone:+917907457079"
+   },
+   {
+    "source": "customer:cust_c36876",
+    "target": "device:dev_3a439f3f"
+   },
+   {
+    "source": "customer:cust_c36876",
+    "target": "email:varun.250@gmail.com"
+   },
+   {
+    "source": "customer:cust_b47ae3",
+    "target": "merchant:mcht_00043"
+   },
+   {
+    "source": "customer:cust_b47ae3",
+    "target": "upi:sonal1052@okhdfcbank"
+   },
+   {
+    "source": "customer:cust_b47ae3",
+    "target": "phone:+917907457079"
+   },
+   {
+    "source": "customer:cust_b47ae3",
+    "target": "device:dev_23f76327"
+   },
+   {
+    "source": "customer:cust_b47ae3",
+    "target": "email:varunmeera12@gmail.com"
+   },
+   {
+    "source": "customer:cust_4a4cca",
+    "target": "merchant:mcht_00028"
+   },
+   {
+    "source": "customer:cust_4a4cca",
+    "target": "upi:sonal1052@okhdfcbank"
+   },
+   {
+    "source": "customer:cust_4a4cca",
+    "target": "phone:+917644681740"
+   },
+   {
+    "source": "customer:cust_4a4cca",
+    "target": "device:dev_23f76327"
+   },
+   {
+    "source": "customer:cust_4a4cca",
+    "target": "email:varunmeera12@gmail.com"
+   },
+   {
+    "source": "customer:cust_9b0067",
+    "target": "merchant:mcht_00028"
+   },
+   {
+    "source": "customer:cust_9b0067",
+    "target": "upi:priya_6791@okaxis"
+   },
+   {
+    "source": "customer:cust_9b0067",
+    "target": "phone:+917907457079"
+   },
+   {
+    "source": "customer:cust_9b0067",
+    "target": "device:dev_23f76327"
+   },
+   {
+    "source": "customer:cust_9b0067",
+    "target": "email:varun.250@gmail.com"
+   }
+  ],
+  "truncated": false
+ },
+ "cust_dcfc81": {
+  "customer_id": "cust_dcfc81",
+  "nodes": [
+   {
+    "type": "customer",
+    "id": "cust_ce923c",
+    "taint": 0.36
+   },
+   {
+    "type": "email",
+    "id": "aarti.yash@gmail.com",
+    "taint": 0.6
+   },
+   {
+    "type": "customer",
+    "id": "cust_41ee37",
+    "taint": 0.36
+   },
+   {
+    "type": "customer",
+    "id": "cust_b7378b",
+    "taint": 0.36
+   },
+   {
+    "type": "customer",
+    "id": "cust_dcfc81",
+    "taint": 0.36
+   },
+   {
+    "type": "merchant",
+    "id": "mcht_00032",
+    "taint": 0.0
+   },
+   {
+    "type": "merchant",
+    "id": "mcht_00015",
+    "taint": 0.0
+   },
+   {
+    "type": "customer",
+    "id": "cust_1258b0",
+    "taint": 1.0
+   },
+   {
+    "type": "upi",
+    "id": "karan.1813@yapl",
+    "taint": 0.6
+   },
+   {
+    "type": "upi",
+    "id": "rajat2726@ibl",
+    "taint": 0.6
+   },
+   {
+    "type": "phone",
+    "id": "+9188XXXX7272",
+    "taint": 0.6
+   },
+   {
+    "type": "merchant",
+    "id": "mcht_00030",
+    "taint": 0.0
+   },
+   {
+    "type": "merchant",
+    "id": "mcht_00017",
+    "taint": 0.0
+   },
+   {
+    "type": "customer",
+    "id": "cust_0ad023",
+    "taint": 0.36
+   },
+   {
+    "type": "phone",
+    "id": "+9167XXXX4027",
+    "taint": 0.6
+   },
+   {
+    "type": "customer",
+    "id": "cust_752832",
+    "taint": 1.0
+   },
+   {
+    "type": "customer",
+    "id": "cust_55e64a",
+    "taint": 0.36
+   },
+   {
+    "type": "email",
+    "id": "aarti.897@gmail.com",
+    "taint": 0.6
+   },
+   {
+    "type": "device",
+    "id": "dev_b7cfe871",
+    "taint": 0.6
+   },
+   {
+    "type": "merchant",
+    "id": "mcht_00007",
+    "taint": 0.0
+   },
+   {
+    "type": "upi",
+    "id": "nikita_3930@okicici",
+    "taint": 0.216
+   },
+   {
+    "type": "merchant",
+    "id": "mcht_00045",
+    "taint": 0.0
+   },
+   {
+    "type": "email",
+    "id": "aartiyash46@gmail.com",
+    "taint": 0.216
+   }
+  ],
+  "edges": [
+   {
+    "source": "customer:cust_ce923c",
+    "target": "merchant:mcht_00007"
+   },
+   {
+    "source": "customer:cust_ce923c",
+    "target": "upi:rajat2726@ibl"
+   },
+   {
+    "source": "customer:cust_ce923c",
+    "target": "phone:+916733854027"
+   },
+   {
+    "source": "customer:cust_ce923c",
+    "target": "device:dev_b7cfe871"
+   },
+   {
+    "source": "customer:cust_ce923c",
+    "target": "email:aarti.yash@gmail.com"
+   },
+   {
+    "source": "customer:cust_41ee37",
+    "target": "merchant:mcht_00030"
+   },
+   {
+    "source": "customer:cust_41ee37",
+    "target": "upi:karan.1813@yapl"
+   },
+   {
+    "source": "customer:cust_41ee37",
+    "target": "phone:+918825417272"
+   },
+   {
+    "source": "customer:cust_41ee37",
+    "target": "device:dev_b7cfe871"
+   },
+   {
+    "source": "customer:cust_41ee37",
+    "target": "email:aarti.897@gmail.com"
+   },
+   {
+    "source": "customer:cust_b7378b",
+    "target": "merchant:mcht_00017"
+   },
+   {
+    "source": "customer:cust_b7378b",
+    "target": "upi:karan.1813@yapl"
+   },
+   {
+    "source": "customer:cust_b7378b",
+    "target": "phone:+916733854027"
+   },
+   {
+    "source": "customer:cust_b7378b",
+    "target": "device:dev_b7cfe871"
+   },
+   {
+    "source": "customer:cust_b7378b",
+    "target": "email:aarti.yash@gmail.com"
+   },
+   {
+    "source": "customer:cust_dcfc81",
+    "target": "merchant:mcht_00045"
+   },
+   {
+    "source": "customer:cust_dcfc81",
+    "target": "upi:rajat2726@ibl"
+   },
+   {
+    "source": "customer:cust_dcfc81",
+    "target": "phone:+916733854027"
+   },
+   {
+    "source": "customer:cust_dcfc81",
+    "target": "device:dev_b7cfe871"
+   },
+   {
+    "source": "customer:cust_dcfc81",
+    "target": "email:aarti.897@gmail.com"
+   },
+   {
+    "source": "customer:cust_1258b0",
+    "target": "merchant:mcht_00017"
+   },
+   {
+    "source": "customer:cust_1258b0",
+    "target": "upi:rajat2726@ibl"
+   },
+   {
+    "source": "customer:cust_1258b0",
+    "target": "phone:+918825417272"
+   },
+   {
+    "source": "customer:cust_1258b0",
+    "target": "device:dev_b7cfe871"
+   },
+   {
+    "source": "customer:cust_1258b0",
+    "target": "email:aarti.yash@gmail.com"
+   },
+   {
+    "source": "customer:cust_0ad023",
+    "target": "merchant:mcht_00032"
+   },
+   {
+    "source": "customer:cust_0ad023",
+    "target": "upi:nikita_3930@okicici"
+   },
+   {
+    "source": "customer:cust_0ad023",
+    "target": "phone:+916733854027"
+   },
+   {
+    "source": "customer:cust_0ad023",
+    "target": "device:dev_b7cfe871"
+   },
+   {
+    "source": "customer:cust_0ad023",
+    "target": "email:aartiyash46@gmail.com"
+   },
+   {
+    "source": "customer:cust_752832",
+    "target": "merchant:mcht_00015"
+   },
+   {
+    "source": "customer:cust_752832",
+    "target": "upi:karan.1813@yapl"
+   },
+   {
+    "source": "customer:cust_752832",
+    "target": "phone:+916733854027"
+   },
+   {
+    "source": "customer:cust_752832",
+    "target": "device:dev_b7cfe871"
+   },
+   {
+    "source": "customer:cust_752832",
+    "target": "email:aarti.897@gmail.com"
+   },
+   {
+    "source": "customer:cust_55e64a",
+    "target": "merchant:mcht_00032"
+   },
+   {
+    "source": "customer:cust_55e64a",
+    "target": "upi:karan.1813@yapl"
+   },
+   {
+    "source": "customer:cust_55e64a",
+    "target": "phone:+916733854027"
+   },
+   {
+    "source": "customer:cust_55e64a",
+    "target": "device:dev_b7cfe871"
+   },
+   {
+    "source": "customer:cust_55e64a",
+    "target": "email:aartiyash46@gmail.com"
+   }
+  ],
+  "truncated": false
+ },
+ "cust_76f685": {
+  "customer_id": "cust_76f685",
+  "nodes": [
+   {
+    "type": "upi",
+    "id": "priya_6791@okaxis",
+    "taint": 0.6
+   },
+   {
+    "type": "upi",
+    "id": "riya6059@axl",
+    "taint": 0.6
+   },
+   {
+    "type": "merchant",
+    "id": "mcht_00043",
+    "taint": 0.0
+   },
+   {
+    "type": "customer",
+    "id": "cust_76f685",
+    "taint": 0.36
+   },
+   {
+    "type": "device",
+    "id": "dev_3a439f3f",
+    "taint": 0.6
+   },
+   {
+    "type": "merchant",
+    "id": "mcht_00036",
+    "taint": 0.0
+   },
+   {
+    "type": "merchant",
+    "id": "mcht_00040",
+    "taint": 0.0
+   },
+   {
+    "type": "customer",
+    "id": "cust_de5b28",
+    "taint": 0.36
+   },
+   {
+    "type": "merchant",
+    "id": "mcht_00028",
+    "taint": 0.0
+   },
+   {
+    "type": "customer",
+    "id": "cust_e79449",
+    "taint": 1.0
+   },
+   {
+    "type": "customer",
+    "id": "cust_3616cf",
+    "taint": 0.36
+   },
+   {
+    "type": "merchant",
+    "id": "mcht_00037",
+    "taint": 0.0
+   },
+   {
+    "type": "upi",
+    "id": "karan_6092@paytm",
+    "taint": 0.6
+   },
+   {
+    "type": "customer",
+    "id": "cust_3356bd",
+    "taint": 0.36
+   },
+   {
+    "type": "email",
+    "id": "varun.250@gmail.com",
+    "taint": 0.6
+   },
+   {
+    "type": "customer",
+    "id": "cust_2148dd",
+    "taint": 0.36
+   },
+   {
+    "type": "customer",
+    "id": "cust_80b372",
+    "taint": 1.0
+   },
+   {
+    "type": "email",
+    "id": "varunmeera12@gmail.com",
+    "taint": 0.6
+   },
+   {
+    "type": "device",
+    "id": "dev_23f76327",
+    "taint": 0.6
+   },
+   {
+    "type": "customer",
+    "id": "cust_1610b8",
+    "taint": 1.0
+   },
+   {
+    "type": "phone",
+    "id": "+9179XXXX7079",
+    "taint": 0.6
+   },
+   {
+    "type": "customer",
+    "id": "cust_ddb568",
+    "taint": 1.0
+   },
+   {
+    "type": "phone",
+    "id": "+9176XXXX1740",
+    "taint": 0.6
+   },
+   {
+    "type": "customer",
+    "id": "cust_c36876",
+    "taint": 0.36
+   },
+   {
+    "type": "email",
+    "id": "varun.meera@gmail.com",
+    "taint": 0.216
+   },
+   {
+    "type": "upi",
+    "id": "sonal1052@okhdfcbank",
+    "taint": 0.6
+   },
+   {
+    "type": "merchant",
+    "id": "mcht_00027",
+    "taint": 0.0
+   },
+   {
+    "type": "customer",
+    "id": "cust_b47ae3",
+    "taint": 0.36
+   },
+   {
+    "type": "customer",
+    "id": "cust_4a4cca",
+    "taint": 0.36
+   },
+   {
+    "type": "customer",
+    "id": "cust_9b0067",
+    "taint": 0.36
+   }
+  ],
+  "edges": [
+   {
+    "source": "customer:cust_76f685",
+    "target": "merchant:mcht_00027"
+   },
+   {
+    "source": "customer:cust_76f685",
+    "target": "upi:sonal1052@okhdfcbank"
+   },
+   {
+    "source": "customer:cust_76f685",
+    "target": "phone:+917907457079"
+   },
+   {
+    "source": "customer:cust_76f685",
+    "target": "device:dev_3a439f3f"
+   },
+   {
+    "source": "customer:cust_76f685",
+    "target": "email:varun.250@gmail.com"
+   },
+   {
+    "source": "customer:cust_de5b28",
+    "target": "merchant:mcht_00037"
+   },
+   {
+    "source": "customer:cust_de5b28",
+    "target": "upi:sonal1052@okhdfcbank"
+   },
+   {
+    "source": "customer:cust_de5b28",
+    "target": "phone:+917644681740"
+   },
+   {
+    "source": "customer:cust_de5b28",
+    "target": "device:dev_23f76327"
+   },
+   {
+    "source": "customer:cust_de5b28",
+    "target": "email:varun.250@gmail.com"
+   },
+   {
+    "source": "customer:cust_e79449",
+    "target": "merchant:mcht_00036"
+   },
+   {
+    "source": "customer:cust_e79449",
+    "target": "upi:karan_6092@paytm"
+   },
+   {
+    "source": "customer:cust_e79449",
+    "target": "phone:+917644681740"
+   },
+   {
+    "source": "customer:cust_e79449",
+    "target": "device:dev_23f76327"
+   },
+   {
+    "source": "customer:cust_e79449",
+    "target": "email:varun.250@gmail.com"
+   },
+   {
+    "source": "customer:cust_3616cf",
+    "target": "merchant:mcht_00036"
+   },
+   {
+    "source": "customer:cust_3616cf",
+    "target": "upi:sonal1052@okhdfcbank"
+   },
+   {
+    "source": "customer:cust_3616cf",
+    "target": "phone:+917907457079"
+   },
+   {
+    "source": "customer:cust_3616cf",
+    "target": "device:dev_23f76327"
+   },
+   {
+    "source": "customer:cust_3616cf",
+    "target": "email:varun.meera@gmail.com"
+   },
+   {
+    "source": "customer:cust_3356bd",
+    "target": "merchant:mcht_00040"
+   },
+   {
+    "source": "customer:cust_3356bd",
+    "target": "upi:karan_6092@paytm"
+   },
+   {
+    "source": "customer:cust_3356bd",
+    "target": "phone:+917907457079"
+   },
+   {
+    "source": "customer:cust_3356bd",
+    "target": "device:dev_3a439f3f"
+   },
+   {
+    "source": "customer:cust_3356bd",
+    "target": "email:varun.meera@gmail.com"
+   },
+   {
+    "source": "customer:cust_2148dd",
+    "target": "merchant:mcht_00037"
+   },
+   {
+    "source": "customer:cust_2148dd",
+    "target": "upi:riya6059@axl"
+   },
+   {
+    "source": "customer:cust_2148dd",
+    "target": "phone:+917907457079"
+   },
+   {
+    "source": "customer:cust_2148dd",
+    "target": "device:dev_23f76327"
+   },
+   {
+    "source": "customer:cust_2148dd",
+    "target": "email:varunmeera12@gmail.com"
+   },
+   {
+    "source": "customer:cust_80b372",
+    "target": "merchant:mcht_00028"
+   },
+   {
+    "source": "customer:cust_80b372",
+    "target": "upi:sonal1052@okhdfcbank"
+   },
+   {
+    "source": "customer:cust_80b372",
+    "target": "phone:+917907457079"
+   },
+   {
+    "source": "customer:cust_80b372",
+    "target": "device:dev_23f76327"
+   },
+   {
+    "source": "customer:cust_80b372",
+    "target": "email:varun.250@gmail.com"
+   },
+   {
+    "source": "customer:cust_1610b8",
+    "target": "merchant:mcht_00043"
+   },
+   {
+    "source": "customer:cust_1610b8",
+    "target": "upi:priya_6791@okaxis"
+   },
+   {
+    "source": "customer:cust_1610b8",
+    "target": "phone:+917907457079"
+   },
+   {
+    "source": "customer:cust_1610b8",
+    "target": "device:dev_3a439f3f"
+   },
+   {
+    "source": "customer:cust_1610b8",
+    "target": "email:varunmeera12@gmail.com"
+   },
+   {
+    "source": "customer:cust_ddb568",
+    "target": "merchant:mcht_00027"
+   },
+   {
+    "source": "customer:cust_ddb568",
+    "target": "upi:riya6059@axl"
+   },
+   {
+    "source": "customer:cust_ddb568",
+    "target": "phone:+917644681740"
+   },
+   {
+    "source": "customer:cust_ddb568",
+    "target": "device:dev_3a439f3f"
+   },
+   {
+    "source": "customer:cust_ddb568",
+    "target": "email:varunmeera12@gmail.com"
+   },
+   {
+    "source": "customer:cust_c36876",
+    "target": "merchant:mcht_00040"
+   },
+   {
+    "source": "customer:cust_c36876",
+    "target": "upi:sonal1052@okhdfcbank"
+   },
+   {
+    "source": "customer:cust_c36876",
+    "target": "phone:+917907457079"
+   },
+   {
+    "source": "customer:cust_c36876",
+    "target": "device:dev_3a439f3f"
+   },
+   {
+    "source": "customer:cust_c36876",
+    "target": "email:varun.250@gmail.com"
+   },
+   {
+    "source": "customer:cust_b47ae3",
+    "target": "merchant:mcht_00043"
+   },
+   {
+    "source": "customer:cust_b47ae3",
+    "target": "upi:sonal1052@okhdfcbank"
+   },
+   {
+    "source": "customer:cust_b47ae3",
+    "target": "phone:+917907457079"
+   },
+   {
+    "source": "customer:cust_b47ae3",
+    "target": "device:dev_23f76327"
+   },
+   {
+    "source": "customer:cust_b47ae3",
+    "target": "email:varunmeera12@gmail.com"
+   },
+   {
+    "source": "customer:cust_4a4cca",
+    "target": "merchant:mcht_00028"
+   },
+   {
+    "source": "customer:cust_4a4cca",
+    "target": "upi:sonal1052@okhdfcbank"
+   },
+   {
+    "source": "customer:cust_4a4cca",
+    "target": "phone:+917644681740"
+   },
+   {
+    "source": "customer:cust_4a4cca",
+    "target": "device:dev_23f76327"
+   },
+   {
+    "source": "customer:cust_4a4cca",
+    "target": "email:varunmeera12@gmail.com"
+   },
+   {
+    "source": "customer:cust_9b0067",
+    "target": "merchant:mcht_00028"
+   },
+   {
+    "source": "customer:cust_9b0067",
+    "target": "upi:priya_6791@okaxis"
+   },
+   {
+    "source": "customer:cust_9b0067",
+    "target": "phone:+917907457079"
+   },
+   {
+    "source": "customer:cust_9b0067",
+    "target": "device:dev_23f76327"
+   },
+   {
+    "source": "customer:cust_9b0067",
+    "target": "email:varun.250@gmail.com"
+   }
+  ],
+  "truncated": false
+ }
+}
