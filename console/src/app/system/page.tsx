@@ -8,8 +8,8 @@
 */
 
 import { useEffect, useState } from "react";
+import { ArchitectureDiagram } from "@/components/ArchitectureDiagram";
 import { useApi } from "@/lib/api";
-import { rupeesPlain } from "@/lib/format";
 
 interface SystemData {
   what_broke: { date: string; phase: string; broke: string; cause: string; fix: string }[];
@@ -127,6 +127,7 @@ export default function SystemPage() {
                 </Panel>
               ))}
             </div>
+            <ArchitectureDiagram />
             <Panel title="the seven components, end to end" aside="every layer tested and documented">
               <ol className="flex flex-col divide-y divide-hairline-soft">
                 {data.components.map((component, index) => (
