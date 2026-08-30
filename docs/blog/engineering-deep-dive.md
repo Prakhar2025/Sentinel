@@ -2,7 +2,7 @@
 
 *An engineering deep dive into building a defense-only, graph-based fraud detection system with honestly measured metrics, including the false-positive cost, the attacks that beat it, and the baseline model that outperformed it.*
 
-<p align="center"><img src="../assets/cover.svg" alt="Sentinel cover" width="880"></p>
+![Sentinel cover](../assets/cover.svg)
 
 ---
 
@@ -14,7 +14,7 @@ This is the blind spot that transaction-level fraud ML cannot fix, no matter how
 
 Everything below is real, measured, and reproducible. The repository is public; one command regenerates every number.
 
-<p align="center"><img src="../assets/architecture.svg" alt="Sentinel architecture" width="880"></p>
+![Sentinel architecture](../assets/architecture.svg)
 
 ## Table of contents
 
