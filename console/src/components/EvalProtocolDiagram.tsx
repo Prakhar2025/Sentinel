@@ -4,21 +4,23 @@
   The evaluation protocol, drawn clean: one dataset fans out into three
   ring-stratified splits, weights freeze under train and thresholds
   lock under calibration, and the test box arrows once into the
-  held-out verdicts. Entrance staggers left to right.
+  held-out verdicts. Every string is measured to fit its box.
 */
 
 import { useEffect, useState } from "react";
 
 const TEXT = "#e8e3d5";
 const MUTED = "#8b8574";
-const AMBER = "#e8a33d";
 const LINE = "#31363f";
 const TRAIN = "#6fbfa8";
 const CAL = "#d8b36a";
 const TEST = "#e5484d";
 
-const W = 920;
-const H = 210;
+const W = 1000;
+const H = 230;
+const SPLIT_Y = 76;
+const SPLIT_H = 64;
+const SPLIT_W = 150;
 
 export function EvalProtocolDiagram() {
   const [mounted, setMounted] = useState(false);
@@ -33,8 +35,16 @@ export function EvalProtocolDiagram() {
     transition: `opacity 0.5s ease ${delay}ms, transform 0.5s ease ${delay}ms`,
   });
 
-  const splitY = 70;
-  const splitH = 58;
+  const midY = SPLIT_Y + SPLIT_H / 2;
+  const splits = [
+    { label: "TRAIN 60%", color: TRAIN, sub: "weights fit here", x: 240 },
+    { label: "CALIB 20%", color: CAL, sub: "thresholds locked", x: 424 },
+    { label: "TEST 20%", color: TEST, sub: "touched once", x: 608 },
+  ];
+  const freezes = [
+    { line1: "weights frozen", line2: "published in code", x: 240, color: TRAIN },
+    { line1: "thresholds locked", line2: "42 / 49", x: 424, color: CAL },
+  ];
 
   return (
     <figure className="rounded-lg border border-hairline bg-panel p-3">
@@ -52,26 +62,22 @@ export function EvalProtocolDiagram() {
         </defs>
         <rect width={W} height={H} fill="url(#evalgrid)" rx="6" />
 
+        {/* dataset */}
         <g style={enter(0)}>
-          <rect x={24} y={splitY} width={130} height={splitH} rx="8" fill="#15171c" stroke={TEXT} strokeWidth="1.6" />
-          <text x={89} y={splitY + 24} textAnchor="middle" fontSize="12.5" fontWeight="600" fill={TEXT}>
+          <rect x={30} y={SPLIT_Y} width={140} height={SPLIT_H} rx="8" fill="#15171c" stroke={TEXT} strokeWidth="1.6" />
+          <text x={100} y={SPLIT_Y + 26} textAnchor="middle" fontSize="13" fontWeight="600" fill={TEXT}>
             1,000 events
           </text>
-          <text x={89} y={splitY + 42} textAnchor="middle" fontSize="9" fontFamily="var(--font-mono, monospace)" fill={MUTED}>
+          <text x={100} y={SPLIT_Y + 46} textAnchor="middle" fontSize="9.5" fontFamily="var(--font-mono, monospace)" fill="#8b8574">
             seed 42 · 100 fraud
           </text>
         </g>
 
-        {(
-          [
-            [248],
-            [418],
-            [588],
-          ] as const
-        ).map(([x], index) => (
+        {/* fan-out curves */}
+        {splits.map((split, index) => (
           <path
-            key={x}
-            d={`M 154 ${splitY + splitH / 2} C 190 ${splitY + splitH / 2}, 200 ${splitY + splitH / 2}, ${x - 6} ${splitY + splitH / 2}`}
+            key={split.x}
+            d={`M 170 ${midY} C 200 ${midY}, 205 ${midY}, ${split.x - 6} ${midY}`}
             stroke={LINE}
             strokeWidth="1.4"
             fill="none"
@@ -81,68 +87,63 @@ export function EvalProtocolDiagram() {
           />
         ))}
 
-        {(
-          [
-            ["TRAIN 60%", TRAIN, "weights fit here", 250],
-            ["CALIB 20%", CAL, "thresholds locked", 420],
-            ["TEST 20%", TEST, "touched once", 590],
-          ] as const
-        ).map(([label, color, sub, x], index) => (
-          <g key={label} style={enter(250 + index * 140)}>
-            <rect x={x} y={splitY} width={140} height={splitH} rx="8" fill="#15171c" stroke={color} strokeWidth="1.6" />
-            <text x={x + 70} y={splitY + 24} textAnchor="middle" fontSize="12" fontWeight="600" fill={color}>
-              {label}
+        {/* three splits, one row */}
+        {splits.map((split, index) => (
+          <g key={split.label} style={enter(250 + index * 140)}>
+            <rect x={split.x} y={SPLIT_Y} width={SPLIT_W} height={SPLIT_H} rx="8" fill="#15171c" stroke={split.color} strokeWidth="1.6" />
+            <text x={split.x + SPLIT_W / 2} y={SPLIT_Y + 25} textAnchor="middle" fontSize="12.5" fontWeight="600" fill={split.color}>
+              {split.label}
             </text>
-            <text x={x + 70} y={splitY + 42} textAnchor="middle" fontSize="9" fontFamily="var(--font-mono, monospace)" fill={MUTED}>
-              {sub}
+            <text x={split.x + SPLIT_W / 2} y={SPLIT_Y + 45} textAnchor="middle" fontSize="9.5" fontFamily="var(--font-mono, monospace)" fill="#8b8574">
+              {split.sub}
             </text>
           </g>
         ))}
 
-        {(
-          [
-            ["weights frozen · published", 250, TRAIN],
-            ["thresholds locked · 42 / 49", 420, CAL],
-          ] as const
-        ).map(([label, x, color], index) => (
-          <g key={label} style={enter(650 + index * 120)}>
+        {/* freeze boxes directly beneath their splits */}
+        {freezes.map((freeze, index) => (
+          <g key={freeze.line1} style={enter(650 + index * 120)}>
             <line
-              x1={x + 70}
-              y1={splitY + splitH}
-              x2={x + 70}
-              y2={162}
-              stroke={color}
+              x1={freeze.x + SPLIT_W / 2}
+              y1={SPLIT_Y + SPLIT_H}
+              x2={freeze.x + SPLIT_W / 2}
+              y2={168}
+              stroke={freeze.color}
               strokeWidth="1.2"
               strokeDasharray="3 3"
               opacity="0.7"
               markerEnd="url(#evalhead)"
             />
-            <rect x={x} y={164} width={140} height={34} rx="6" fill="#15171c" stroke={color} strokeWidth="1.1" strokeDasharray="4 3" />
-            <text x={x + 70} y={185} textAnchor="middle" fontSize="10" fontFamily="var(--font-mono, monospace)" fill={TEXT}>
-              {label}
+            <rect x={freeze.x} y={170} width={SPLIT_W} height={44} rx="6" fill="#15171c" stroke={freeze.color} strokeWidth="1.1" strokeDasharray="4 3" />
+            <text x={freeze.x + SPLIT_W / 2} y={188} textAnchor="middle" fontSize="10" fontFamily="var(--font-mono, monospace)" fill={TEXT}>
+              {freeze.line1}
+            </text>
+            <text x={freeze.x + SPLIT_W / 2} y={203} textAnchor="middle" fontSize="9" fontFamily="var(--font-mono, monospace)" fill={MUTED}>
+              {freeze.line2}
             </text>
           </g>
         ))}
 
+        {/* test flows once into held-out verdicts */}
         <g style={enter(1000)}>
           <path
-            d={`M 730 ${splitY + splitH / 2} L ${758 - 6} ${splitY + splitH / 2}`}
+            d={`M ${608 + SPLIT_W} ${midY} L ${774 - 6} ${midY}`}
             stroke={TEST}
             strokeWidth="1.6"
             fill="none"
             markerEnd="url(#testhead)"
           />
-          <rect x={760} y={splitY} width={136} height={splitH} rx="8" fill="#15171c" stroke={TEST} strokeWidth="1.8" />
-          <text x={828} y={splitY + 24} textAnchor="middle" fontSize="12" fontWeight="600" fill={TEST}>
+          <rect x={776} y={SPLIT_Y} width={190} height={SPLIT_H} rx="8" fill="#15171c" stroke={TEST} strokeWidth="1.8" />
+          <text x={776 + 95} y={SPLIT_Y + 26} textAnchor="middle" fontSize="12.5" fontWeight="600" fill={TEST}>
             held-out verdicts
           </text>
-          <text x={828} y={splitY + 42} textAnchor="middle" fontSize="9" fontFamily="var(--font-mono, monospace)" fill={MUTED}>
-            P 0.833 · R 0.882 · 2/2 rings
+          <text x={776 + 95} y={SPLIT_Y + 46} textAnchor="middle" fontSize="9.5" fontFamily="var(--font-mono, monospace)" fill="#8b8574">
+            P 0.833 / R 0.882 / 2 of 2
           </text>
         </g>
       </svg>
       <figcaption className="micro px-2 pb-1 pt-2">
-        order of operations: weights on train, thresholds on calibration, one single pass on test · peeking forfeits the protocol that makes any number meaningful
+        order of operations: weights on train, thresholds on calibration, one single pass on test · ring-stratified so no identity spans splits · peeking forfeits the protocol
       </figcaption>
     </figure>
   );
