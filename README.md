@@ -15,6 +15,25 @@
   <img alt="License" src="https://img.shields.io/badge/license-MIT-4cc38a">
 </p>
 
+<p align="center">
+  <a href="https://youtu.be/Mds3NXkNxHw"><img alt="Demo video" src="https://img.shields.io/badge/%E2%96%B6%20demo%20video-5%20min-FF0000?logo=youtube&logoColor=white"></a>
+  <a href="https://d1uo4g1v7ecl77.cloudfront.net"><img alt="Live console" src="https://img.shields.io/badge/live%20console-open-4cc38a"></a>
+</p>
+
+<p align="center">
+  <a href="https://youtu.be/Mds3NXkNxHw"><strong>5-minute demo video</strong></a>
+  &nbsp;&middot;&nbsp;
+  <a href="https://d1uo4g1v7ecl77.cloudfront.net"><strong>Live analyst console</strong></a>
+  &nbsp;&middot;&nbsp;
+  <a href="docs/blog/engineering-deep-dive.md">Engineering deep-dive</a>
+  &nbsp;&middot;&nbsp;
+  <a href="docs/README.md">Design docs</a>
+</p>
+
+<p align="center">
+  <a href="https://youtu.be/Mds3NXkNxHw"><img src="docs/assets/video-thumb.png" alt="Watch the 5-minute demo" width="620"></a>
+</p>
+
 ---
 
 Fraud rings in Indian digital payments do not invent new identities, they **recycle** them: the same device, VPA, and phone hit merchant after merchant until each one individually blocks them. Every merchant sees a clean first-time customer; the fraud only exists *between* merchants. Sentinel builds the identity link graph across the whole population, scores every payment event against it deterministically, and hands the analyst an evidence bundle, not a black-box number.

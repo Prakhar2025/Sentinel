@@ -48,3 +48,7 @@ console/out/
 console/tsconfig.tsbuildinfo
 CLAUDE.md
 DEPLOY-PRIVATE.md
+
+# local deploy inputs (contain demo keys)
+deploy/
+TEARDOWN-PRIVATE.md
