@@ -77,6 +77,6 @@
   <g font-family="Consolas, monospace" font-size="11" fill="#565246">
     <text x="30" y="354">failure path: store down = spool + 503 REVIEW / LLM down = SKIPPED / never crash</text>
     <text x="620" y="354">security: per-IP rate limit / JWT scoping / all admin actions audited</text>
-    <text x="30" y="372">latency: scoring p50 2.3 ms, p95 4.1 ms (measured) / LLM async, capped at 50 narratives per UTC day</text>
+    <text x="30" y="372">latency: scoring p50 1.5 ms, p95 2.7 ms (measured) / LLM async, capped at 50 narratives per UTC day</text>
   </g>
 </svg>

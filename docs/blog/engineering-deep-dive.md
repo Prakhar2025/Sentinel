@@ -2,7 +2,7 @@
 
 *An engineering deep dive into building a defense-only, graph-based fraud detection system with honestly measured metrics, including the false-positive cost, the attacks that beat it, and the baseline model that outperformed it.*
 
-![Sentinel cover](../assets/cover.svg)
+![Sentinel cover](../assets/cover.png)
 
 ---
 
@@ -10,28 +10,29 @@ Fraud rings operating across Indian digital payments do not invent new identitie
 
 Every merchant sees a clean first-time customer. The fraud only exists **between** merchants.
 
-This is the blind spot that transaction-level fraud ML cannot fix, no matter how good the model is: each transaction looks legitimate in isolation. The signal is *relational*, identity reuse, velocity across merchants, and cluster geometry. This post is the full engineering story of **Sentinel**, a system we built to close that gap: a cross-merchant identity graph, a deterministic millisecond scorer with an an evidence bundle on every verdict, an LLM that explains but never decides, an evaluation protocol designed to make dishonesty impossible, and an adversarial pack that attacks the system and publishes what got through.
+This is the blind spot that transaction-level fraud ML cannot fix, no matter how good the model is: each transaction looks legitimate in isolation. The signal is *relational*, identity reuse, velocity across merchants, and cluster geometry. This post is the full engineering story of **Sentinel**, a system we built to close that gap: a cross-merchant identity graph, a deterministic millisecond scorer with an evidence bundle on every verdict, an LLM that explains but never decides, an evaluation protocol designed to make dishonesty impossible, and an adversarial pack that attacks the system and publishes what got through.
 
 Everything below is real, measured, and reproducible. The repository is public; one command regenerates every number.
 
-![Sentinel architecture](../assets/architecture.svg)
+![Sentinel architecture](../assets/architecture.png)
 
 ## Table of contents
 
-1. [The problem, quantified](#1-the-problem-quantified)
-2. [Why a graph, and why not an LLM](#2-why-a-graph-and-why-not-an-llm)
-3. [The data engine: manufacturing honest test data](#3-the-data-engine)
-4. [The identity graph](#4-the-identity-graph)
-5. [The seven features](#5-the-seven-features)
-6. [Scoring, calibration, and the honesty protocol](#6-scoring-calibration-and-the-honesty-protocol)
-7. [Results on the held-out set](#7-results)
-8. [The rupee cost of a false positive](#8-the-rupee-cost-of-a-false-positive)
-9. [We attacked ourselves: the evasion pack](#9-the-evasion-pack)
-10. [The LLM layer: where AI sits and where it does not](#10-the-llm-layer)
-11. [Production hardening](#11-production-hardening)
-12. [What broke](#12-what-broke)
-13. [Limitations, honestly](#13-limitations-honestly)
-14. [Reproduce it](#14-reproduce-it)
+1. The problem, quantified
+2. Why a graph, and why not an LLM
+3. The data engine: manufacturing honest test data
+4. The identity graph
+5. The seven features
+6. Scoring, calibration, and the honesty protocol
+7. Results on the held-out set
+8. The rupee cost of a false positive
+9. We attacked ourselves: the evasion pack
+10. The LLM layer: where AI sits and where it does not
+11. Production hardening
+12. What broke
+13. The path to production defense grade
+14. Limitations, honestly
+15. Reproduce it
 
 ## 1. The problem, quantified
 
@@ -61,7 +62,7 @@ So Sentinel draws a hard architectural line, recorded as the project's first Arc
 
 > **ADR-001: The LLM never scores.** Scoring is a deterministic weighted ensemble over published features. LLMs are used exactly where they are strong: converting evidence into an analyst-facing narrative, off the hot path, cost-capped, with a fallback chain.
 
-The consequences are measurable: scoring runs at **2.3 ms p50 / 4.1 ms p95**, the same evidence always produces the same score, and every verdict decomposes into per-feature contributions that an analyst (or a court) can read. The LLM layer, Amazon Bedrock with a measured fallback chain, writes audit narratives only, asynchronous, with a hard daily cap and every call cost-logged.
+The consequences are measurable: scoring runs at **1.5 ms p50 / 2.7 ms p95** (the full request path holds 4.8 ms p50 at 178 events/s per worker), the same evidence always produces the same score, and every verdict decomposes into per-feature contributions that an analyst (or a court) can read. The LLM layer, Amazon Bedrock with a measured fallback chain, writes audit narratives only, asynchronous, with a hard daily cap and every call cost-logged.
 
 ## 3. The data engine
 
@@ -90,23 +91,7 @@ The generator is seeded (42), deterministic to the byte, and the splits are **ri
 
 The graph is a typed directed multigraph in networkx. A ring, as the detector sees it:
 
-```mermaid
-graph LR
-    D[device dev_9f] --- C1[customer A]
-    D --- C2[customer B]
-    D --- C3[customer C]
-    C1 --- V1[vpa pay@ybl]
-    C2 --- V2[vpa pay2@ybl]
-    C1 --- P[phone +91 98xxx]
-    C3 --- P
-    C1 -.confirmed fraud.-> M1[merchant 1]
-    C2 --> M2[merchant 2]
-    C3 --> M3[merchant 3]
-    style D fill:#15171c,stroke:#e5484d
-    style M1 fill:#15171c,stroke:#7a8391
-    style M2 fill:#15171c,stroke:#7a8391
-    style M3 fill:#15171c,stroke:#7a8391
-```
+![A fraud ring as the detector sees it: one device linked to three customers, shared VPAs and phone, reaching three merchants](../assets/ring-graph.png)
 
 One device, three fresh customers, three merchants, two VPAs, one shared phone: every node clean in isolation, a ring in aggregate.
 
@@ -156,14 +141,14 @@ Held-out test set: 197 events, 17 fraud, evaluated once with the locked model.
 
 | Metric | Value |
 |---|---|
-| Precision (positive = BLOCK_REC) | **0.833** (95% Wilson CI 0.586-0.946) |
-| Recall, event level | **0.882** (95% CI 0.622-0.966) |
+| Precision (positive = BLOCK_REC) | **0.833** (95% Wilson CI 0.608-0.942) |
+| Recall, event level | **0.882** (95% CI 0.657-0.967) |
 | F1 | **0.857** |
 | Rings caught | **2 of 2**, including the sophisticated low-and-slow ring |
 | Fraud silently passed (ALLOW band) | **0** |
 | Confusion | BLOCK: 15 fraud / 3 clean · REVIEW: 2 fraud / 64 clean · ALLOW: 0 fraud / 113 clean |
 | Net saving after FP + review cost | **₹38,665 per 1,000 events** |
-| Scoring latency | p50 2.3 ms, p95 4.1 ms (design target 20 ms) |
+| Scoring latency | p50 1.5 ms, p95 2.7 ms in the evaluation harness (design target 20 ms) |
 
 The confidence intervals are wide, 17 fraud events is 17 fraud events, and pretending otherwise would be the first dishonest number in a project about honest numbers. The per-ring view matters more than the event view: catching both rings means the system works at the unit the attacker operates at.
 
@@ -226,7 +211,7 @@ A hardening pass converted the prototype into an operated system:
 
 ## 12. What broke
 
-Twenty-eight genuine failures are logged in [`what-broke.md`](../what-broke.md), appended in real time with root causes. A representative selection:
+Thirty-plus genuine failures are logged in [`what-broke.md`](../what-broke.md), appended in real time with root causes. A representative selection:
 
 | What broke | Root cause | Fix |
 |---|---|---|
@@ -262,7 +247,7 @@ The gap from this system to a payment-platform deployment is specific, and each 
 
 ```bash
 git clone https://github.com/Prakhar2025/Sentinel && cd Sentinel
-make setup && make check       # 196 tests, 92% coverage, strict mypy
+make setup && make check       # 206 tests, 91% coverage, strict mypy
 make calibrate && make evaluate  # the numbers in this post, byte-identical
 make serve && make console-setup && make console
 ```
@@ -271,4 +256,6 @@ The system recommends; it never acts. Every verdict carries its evidence, every 
 
 ---
 
-*Built as an independent deep dive into cross-merchant fraud detection. Repository: [github.com/Prakhar2025/Sentinel](https://github.com/Prakhar2025/Sentinel). The design documentation, threat model, runbook, and all 19 engineering documents are in the repository.*
+**Live:** [Live Console](https://d1uo4g1v7ecl77.cloudfront.net/) · [API Docs](https://jwss73rdpj.us-east-1.awsapprunner.com/docs) · [GitHub](https://github.com/Prakhar2025/Sentinel)
+
+*Built as an independent deep dive into cross-merchant fraud detection. Repository: [github.com/Prakhar2025/Sentinel](https://github.com/Prakhar2025/Sentinel). The design documentation, threat model, runbook, and all 20 engineering documents are in the repository.*
