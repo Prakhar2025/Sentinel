@@ -44,13 +44,13 @@ Fraud rings in Indian digital payments do not invent new identities, they **recy
 
 | Metric | Value |
 |--------|-------|
-| Precision (positive = BLOCK_REC) | **0.833** (95% CI 0.586, 0.946) |
-| Recall (event level) | **0.882** (95% CI 0.622, 0.966) |
+| Precision (positive = BLOCK_REC) | **0.833** (95% CI 0.608, 0.942) |
+| Recall (event level) | **0.882** (95% CI 0.657, 0.967) |
 | F1 | **0.857** |
 | Rings caught | **2 of 2**, including the sophisticated low-and-slow ring |
 | Fraud silently allowed | **0** (the two unblocked frauds sit in the REVIEW abstention queue) |
 | Net saving after FP and review cost | **+₹38,665 per 1,000 events** (gross ₹83,756, FP cost ₹4,888, review ₹40,203) |
-| Scoring latency | p50 **2.3 ms** / p95 **4.1 ms** (design target was 20 ms) |
+| Scoring latency | p50 **1.5 ms** / p95 **2.7 ms** (design target was 20 ms) |
 | Total LLM spend across the entire build | **under $0.10** |
 
 ### Honest disclosures, in the open
@@ -160,7 +160,7 @@ Two-key model throughout: a standard key for analyst views and a separate admin 
 
 ## What broke (and how it got fixed)
 
-The full log lives in [`docs/what-broke.md`](docs/what-broke.md), twenty genuine entries appended in real time, never invented after the fact. A taste: the first calibration inflated the weakest feature to weight 32 by exploiting the synthetic amount distribution (fixed with a published feature-prior cap), the first split assignment starved the test set of fraud entirely (the greedy filler had lost its count update), and a merchant-traversal bug diluted every identity cluster until merchants became non-traversable leaves.
+The full log lives in [`docs/what-broke.md`](docs/what-broke.md), thirty-four genuine entries appended in real time, never invented after the fact. A taste: the first calibration inflated the weakest feature to weight 32 by exploiting the synthetic amount distribution (fixed with a published feature-prior cap), the first split assignment starved the test set of fraud entirely (the greedy filler had lost its count update), and a merchant-traversal bug diluted every identity cluster until merchants became non-traversable leaves.
 
 ## Documentation and repository
 
@@ -171,7 +171,7 @@ src/sentinel/    detection engine: normalization, identity graph, features,
                  scorer, verdicts, calibration, evaluation, challenger,
                  auth, observability, LLM layer, FastAPI service, audit store
 console/         Next.js analyst console (the watchroom design system)
-tests/           194 tests, 91% coverage, strict mypy, CI-gated
+tests/           206 tests, 91% coverage, strict mypy, CI-gated
 docs/            design suite, RFC, threat model, runbook, ADRs, what-broke log
 .github/         CI: lint, types, coverage, secret scan, docker build, postgres
 Dockerfile       multi-stage api + console images and compose stack
