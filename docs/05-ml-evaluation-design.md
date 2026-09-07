@@ -63,7 +63,7 @@ flowchart LR
 **Protocol rules (honesty guarantees):**
 1. Ring-stratified split, all events of a ring in one split (no entity leakage).
 2. Thresholds locked before touching the test set; single test pass; changes disclosed.
-3. Metrics reported with **confidence intervals** (Wilson 95% for precision/recall at n=200 test events).
+3. Metrics reported with **confidence intervals** (Wilson 95% for precision/recall; the held-out split came out at n=197 test events, 17 of them fraud).
 4. **Per-ring recall** reported, not just per-event, catching 9 of 10 rings matters more than event-level recall; we name the ring we missed and why.
 5. Sophisticated-ring subset reported separately, expected lower recall, shown anyway.
 
