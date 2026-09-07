@@ -160,7 +160,7 @@ Two-key model throughout: a standard key for analyst views and a separate admin 
 
 ## What broke (and how it got fixed)
 
-The full log lives in [`docs/what-broke.md`](docs/what-broke.md), thirty-four genuine entries appended in real time, never invented after the fact. A taste: the first calibration inflated the weakest feature to weight 32 by exploiting the synthetic amount distribution (fixed with a published feature-prior cap), the first split assignment starved the test set of fraud entirely (the greedy filler had lost its count update), and a merchant-traversal bug diluted every identity cluster until merchants became non-traversable leaves.
+The full log lives in [`docs/what-broke.md`](docs/what-broke.md), thirty-five genuine entries appended in real time, never invented after the fact. A taste: the first calibration inflated the weakest feature to weight 32 by exploiting the synthetic amount distribution (fixed with a published feature-prior cap), the first split assignment starved the test set of fraud entirely (the greedy filler had lost its count update), and a merchant-traversal bug diluted every identity cluster until merchants became non-traversable leaves.
 
 ## Documentation and repository
 

@@ -45,12 +45,12 @@ flowchart TB
 2. **Normalize & Extract**: deterministic parsers normalize entities: phone → E.164, VPA → lowercase `handle@pvp`, device ID → trimmed hash form. LLM is **not** used here in the hot path (regex is faster, free, deterministic); an LLM-assist path exists only for messy free-text fields in batch backfill.
 3. **Graph Update**: upsert nodes (`Customer`, `UPI`, `Phone`, `Device`, `Email`, `Merchant`) and edges (`PAYS_WITH`, `CONTACT_OF`, `SEEN_ON`, `PURCHASES_AT`). Edge attributes carry first_seen/last_seen/count.
 4. **Score (deterministic)**: for the touched identity cluster, compute graph features (see doc 05): cross-merchant fan-out of each entity, device-to-identity ratio, taint propagation from confirmed-fraud nodes, velocity in sliding window, burn-rotate pattern. Weighted rule ensemble → 0–100 score. **No LLM in the scoring path, ever** (determinism + audit requirement).
-5. **Verdict**: thresholds calibrated on the train split: `score < 35 → ALLOW`, `35–69 → REVIEW`, `≥ 70 → BLOCK-REC` (recommendation only). Verdict carries reason codes (e.g. `RNG_DEVICE_FANOUT`, `RNG_TAINT_LINK`, `RNG_VELOCITY`) + the evidence subgraph.
+5. **Verdict**: thresholds locked on the calibration split: `score < 42 → ALLOW`, `42–48 → REVIEW`, `≥ 49 → BLOCK_REC` (recommendation only). Verdict carries reason codes (e.g. `RNG_DEVICE_FANOUT`, `RNG_TAINT_LINK`, `RNG_VELOCITY`) + the evidence subgraph.
 6. **Explain (LLM, Bedrock)**: the structured evidence is rendered into a natural-language audit narrative by a Bedrock model with constrained JSON output. This is cached and non-blocking; verdict returns before the narrative completes.
 7. **Audit**: verdict + evidence + model/schema versions persisted to the audit store.
 
 Measured after the Phase 6 evaluation run: the synchronous verdict path
-scores at p50 2.3 ms / p95 4.1 ms per event (design target < 20 ms), and
+scores at p50 1.5 ms / p95 2.7 ms per event (design target < 20 ms), and
 the LLM narrative remains async exactly as specified here.
 
 ## Why This Shape (key decisions)

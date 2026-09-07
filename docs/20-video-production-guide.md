@@ -52,7 +52,7 @@ Timestamps are targets. Each scene is recorded as a separate clip, so a mistake 
 
 ### S7. Engineering proof (3:40 to 4:05)
 - **On screen:** Split view: terminal on the left, GitHub Actions page on the right (`github.com/Prakhar2025/Sentinel/actions`, latest run, all 4 jobs green).
-- **Terminal actions:** run `make check` (202 tests, ruff, mypy strict), then `make evaluate` followed by `sha256sum evaluation/metrics.json` twice to show the byte-identical hash. Speed the terminal clips up 4x with a small "4x" caption; keep the final hash line at 1x.
+- **Terminal actions:** run `make check` (206 tests, ruff, mypy strict), then `make evaluate` followed by `sha256sum evaluation/metrics.json` twice to show the byte-identical hash. Speed the terminal clips up 4x with a small "4x" caption; keep the final hash line at 1x.
 - **Narration:** "Reproducibility is enforced, not promised. Seed 42, one command, byte-identical metrics twice. Two hundred two tests, strict type checks, and CI runs quality, container, Postgres, and secret-scan jobs on every push. The challenger shadow model runs beside the champion, agrees with it 96 percent of the time, and has written promotion criteria it must meet."
 
 ### S8. What broke (4:05 to 4:35)

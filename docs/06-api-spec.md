@@ -88,9 +88,9 @@ Liveness / readiness (readiness = graph store loaded + Bedrock reachable-flag, w
 
 | Verdict | Meaning | Automated action |
 |---------|---------|------------------|
-| `ALLOW` | score < 35 | none |
-| `REVIEW` | 35–69 or system-degraded | queue for analyst |
-| `BLOCK_REC` | ≥ 70 | **recommendation only**: merchant/analyst must act |
+| `ALLOW` | score < 42 | none |
+| `REVIEW` | 42–48 or system-degraded | queue for analyst |
+| `BLOCK_REC` | ≥ 49 | **recommendation only**: merchant/analyst must act |
 
 | Reason code | Fired by |
 |-------------|----------|
