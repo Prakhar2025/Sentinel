@@ -11,6 +11,7 @@ import { useState } from "react";
 import { ClusterGraph, type ClusterData } from "@/components/ClusterGraph";
 import { ReasonChip, ScoreMeter, VerdictBadge } from "@/components/Verdict";
 import { fetchCluster, ingestEvent, useApi, type Verdict } from "@/lib/api";
+import { DEMO_MODE } from "@/lib/demo";
 import { factorLabel, rupees } from "@/lib/format";
 
 const FEATURE_KEYS = [
@@ -179,11 +180,21 @@ export default function PlaygroundPage() {
               </select>
             </label>
           </div>
+          {DEMO_MODE && (
+            <p className="micro rounded-md border border-hairline bg-raised px-3 py-2 leading-relaxed text-muted">
+              this page scores against the live engine, so it is disabled on the
+              static demo. every other page here is a recorded snapshot and needs
+              no backend. to score your own event, clone the repo and run
+              <span className="text-text"> make serve </span> and
+              <span className="text-text"> make console</span>.
+            </p>
+          )}
           <div className="flex gap-2 pt-1">
             <button
               onClick={() => submit(false)}
-              disabled={busy}
-              className="data flex-1 rounded-md border border-amber/50 bg-amber/10 px-3 py-2 text-[12px] text-amber transition-colors hover:bg-amber/20 disabled:opacity-50"
+              disabled={busy || DEMO_MODE}
+              title={DEMO_MODE ? "needs the live engine; run it locally" : undefined}
+              className="data flex-1 rounded-md border border-amber/50 bg-amber/10 px-3 py-2 text-[12px] text-amber transition-colors hover:bg-amber/20 disabled:cursor-not-allowed disabled:opacity-40"
             >
               {busy ? "scoring..." : "score this event"}
             </button>
@@ -197,7 +208,7 @@ export default function PlaygroundPage() {
           {history.length >= 1 && (
             <button
               onClick={() => submit(true)}
-              disabled={busy}
+              disabled={busy || DEMO_MODE}
               className="data rounded-md border border-block/50 bg-block/10 px-3 py-2 text-[12px] text-block transition-colors hover:bg-block/20 disabled:opacity-50"
             >
               attack again, reusing the first event's device
