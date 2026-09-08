@@ -5,8 +5,10 @@
 # up another project's virtualenv. Absolute paths remove the ambiguity.
 ifeq ($(OS),Windows_NT)
 PY := $(CURDIR)/.venv/Scripts/python
+DEMOENV := set NEXT_PUBLIC_DEMO=1&&
 else
 PY := $(CURDIR)/.venv/bin/python
+DEMOENV := NEXT_PUBLIC_DEMO=1
 endif
 
 # One-time setup: virtualenv, pinned deps, git hooks.
@@ -63,7 +65,7 @@ backfill:
 # Zero-backend static demo snapshot into console/out/ (hostable anywhere, free).
 snapshot:
 	$(PY) scripts/make_demo_fixtures.py
-	cd console && NEXT_PUBLIC_DEMO=1 npx next build
+	cd console && $(DEMOENV) npx next build
 
 # Mint a per-merchant JWT (default TTL 24h): make merchant-token MERCHANT_ID=mcht_00001
 merchant-token:
