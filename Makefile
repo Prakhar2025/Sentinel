@@ -1,11 +1,20 @@
 .PHONY: setup check lint format type test test-all console-setup console serve backfill snapshot merchant-token challenger loadtest calibrate evaluate models hooks clean
 
+# Interpreter path. Absolute via CURDIR: GNU make on Windows without a POSIX
+# shell resolves a bare relative command through PATH, which can silently pick
+# up another project's virtualenv. Absolute paths remove the ambiguity.
+ifeq ($(OS),Windows_NT)
+PY := $(CURDIR)/.venv/Scripts/python
+else
+PY := $(CURDIR)/.venv/bin/python
+endif
+
 # One-time setup: virtualenv, pinned deps, git hooks.
 setup:
 	py -3.12 -m venv .venv
-	.venv/Scripts/python -m pip install --upgrade pip
-	.venv/Scripts/python -m pip install -r requirements.txt
-	.venv/Scripts/python -m pip install -e . --no-deps
+	$(PY) -m pip install --upgrade pip
+	$(PY) -m pip install -r requirements.txt
+	$(PY) -m pip install -e . --no-deps
 	@cp scripts/hooks/pre-commit .git/hooks/pre-commit 2>/dev/null || true
 	@echo "Setup complete. Activate: .venv/Scripts/activate"
 
@@ -18,22 +27,22 @@ hooks:
 check: lint format-check type test
 
 lint:
-	.venv/Scripts/python -m ruff check src tests scripts
+	$(PY) -m ruff check src tests scripts
 
 format:
-	.venv/Scripts/python -m ruff format src tests scripts
+	$(PY) -m ruff format src tests scripts
 
 format-check:
-	.venv/Scripts/python -m ruff format --check src tests scripts
+	$(PY) -m ruff format --check src tests scripts
 
 type:
-	.venv/Scripts/python -m mypy src
+	$(PY) -m mypy src
 
 test:
-	.venv/Scripts/python -m pytest -m "not slow"
+	$(PY) -m pytest -m "not slow"
 
 test-all:
-	.venv/Scripts/python -m pytest
+	$(PY) -m pytest
 
 # One-time console setup: install the Next.js analyst console dependencies.
 console-setup:
@@ -45,41 +54,41 @@ console:
 
 # Run the API service locally on port 8000.
 serve:
-	.venv/Scripts/python -m uvicorn sentinel.service:create_app --factory --port 8000
+	$(PY) -m uvicorn sentinel.service:create_app --factory --port 8000
 
 # Backfill LLM explanations for pending verdicts (bounded; costs Bedrock money).
 backfill:
-	.venv/Scripts/python -m sentinel.backfill --limit 20
+	$(PY) -m sentinel.backfill --limit 20
 
 # Zero-backend static demo snapshot into console/out/ (hostable anywhere, free).
 snapshot:
-	.venv/Scripts/python scripts/make_demo_fixtures.py
+	$(PY) scripts/make_demo_fixtures.py
 	cd console && NEXT_PUBLIC_DEMO=1 npx next build
 
 # Mint a per-merchant JWT (default TTL 24h): make merchant-token MERCHANT_ID=mcht_00001
 merchant-token:
-	.venv/Scripts/python -m sentinel.merchant_token $(MERCHANT_ID) $(TTL)
+	$(PY) -m sentinel.merchant_token $(MERCHANT_ID) $(TTL)
 
 # Train the shadow challenger on train-split features (writes evaluation/challenger.pkl).
 challenger:
-	.venv/Scripts/python -m sentinel.challenger_train
+	$(PY) -m sentinel.challenger_train
 
 # Load test: measured throughput and latency of the verdict pipeline.
 loadtest:
-	.venv/Scripts/python -m sentinel.loadtest
+	$(PY) -m sentinel.loadtest
 
 # Calibrate weights/thresholds on train+calibration splits (writes evaluation/model_config.json).
 calibrate:
-	.venv/Scripts/python -m sentinel.calibrate
+	$(PY) -m sentinel.calibrate
 
 # Held-out evaluation; calibrates first on a fresh clone (no locked config yet).
 evaluate:
 	@test -f evaluation/model_config.json || $(MAKE) calibrate
-	.venv/Scripts/python -m sentinel.evaluate
+	$(PY) -m sentinel.evaluate
 
 # Phase 0: one-shot Bedrock model verification (bounded spend; see docs/08).
 models:
-	.venv/Scripts/python scripts/verify_models.py
+	$(PY) scripts/verify_models.py
 
 clean:
 	@rm -rf .pytest_cache .mypy_cache .ruff_cache .coverage htmlcov
