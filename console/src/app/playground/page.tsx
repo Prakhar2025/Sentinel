@@ -270,7 +270,7 @@ export default function PlaygroundPage() {
                 <div className="w-56">
                   <ScoreMeter
                     score={latest.verdict.score}
-                    reviewAt={35}
+                    reviewAt={42}
                     blockAt={49}
                   />
                 </div>

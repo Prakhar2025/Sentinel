@@ -1,6 +1,6 @@
 [
  {
-  "verdict_id": "f500a90f-b834-4f03-8874-06a24c03bbe7",
+  "verdict_id": "a107dcd7-bff0-4db5-b696-5f6b9ac277d6",
   "event_id": "2f72bd3f-41db-5733-a98b-afcd43246409",
   "score": 100,
   "verdict": "BLOCK_REC",
@@ -31,7 +31,7 @@
    "taint": 1.0,
    "taint_path": [
     "cust_ce923c",
-    "+916733854027",
+    "dev_b7cfe871",
     "cust_752832"
    ],
    "cluster": {
@@ -71,10 +71,10 @@
   "explanation": null,
   "explanation_status": "PENDING",
   "challenger": null,
-  "created_at": "2026-08-30T17:43:28.360766+00:00"
+  "created_at": "2026-09-08T12:08:33.197576+00:00"
  },
  {
-  "verdict_id": "a9fbcd9e-7d2c-47c9-b2ce-bc3efe27d3ca",
+  "verdict_id": "70579e02-4a3f-4fd2-9e54-4b7dc6343ad5",
   "event_id": "e1fe9187-b4a7-5c91-ae22-154be7095ef1",
   "score": 100,
   "verdict": "BLOCK_REC",
@@ -145,10 +145,10 @@
   "explanation": null,
   "explanation_status": "PENDING",
   "challenger": null,
-  "created_at": "2026-08-30T17:43:28.367285+00:00"
+  "created_at": "2026-09-08T12:08:33.202128+00:00"
  },
  {
-  "verdict_id": "62feaa6f-433d-428c-bccc-ce6052a1afd4",
+  "verdict_id": "a346dae7-c281-490e-aae0-aaa1262b9d52",
   "event_id": "999afc26-106d-5090-8809-7541b982faed",
   "score": 100,
   "verdict": "BLOCK_REC",
@@ -179,7 +179,7 @@
    "taint": 1.0,
    "taint_path": [
     "cust_0ad023",
-    "+916733854027",
+    "dev_b7cfe871",
     "cust_752832"
    ],
    "cluster": {
@@ -219,10 +219,10 @@
   "explanation": null,
   "explanation_status": "PENDING",
   "challenger": null,
-  "created_at": "2026-08-30T17:43:28.409576+00:00"
+  "created_at": "2026-09-08T12:08:33.244207+00:00"
  },
  {
-  "verdict_id": "984c4abe-0e03-45e4-87d3-97a29c5389a0",
+  "verdict_id": "761dfab7-6ab6-4ade-9c68-e672474339d7",
   "event_id": "284cfc5f-c508-5d96-86f5-c62ac40d5756",
   "score": 100,
   "verdict": "BLOCK_REC",
@@ -298,10 +298,10 @@
   "explanation": null,
   "explanation_status": "PENDING",
   "challenger": null,
-  "created_at": "2026-08-30T17:43:32.035253+00:00"
+  "created_at": "2026-09-08T12:08:36.215039+00:00"
  },
  {
-  "verdict_id": "495a1b9b-3930-4160-a227-23d67587e03c",
+  "verdict_id": "f7839b1e-d501-4ae0-9bc9-e2adcaaf1042",
   "event_id": "12d7acd0-cf33-5ca7-a684-14641b9c7cc2",
   "score": 99,
   "verdict": "BLOCK_REC",
@@ -337,8 +337,8 @@
    "taint": 1.0,
    "taint_path": [
     "cust_3616cf",
-    "+917907457079",
-    "cust_1610b8"
+    "dev_23f76327",
+    "cust_e79449"
    ],
    "cluster": {
     "customers": 11,
@@ -377,10 +377,10 @@
   "explanation": null,
   "explanation_status": "PENDING",
   "challenger": null,
-  "created_at": "2026-08-30T17:43:32.028199+00:00"
+  "created_at": "2026-09-08T12:08:36.208532+00:00"
  },
  {
-  "verdict_id": "48de262e-5eaf-4665-a511-cf6c8b5e37af",
+  "verdict_id": "6e1fdbb9-75b4-44bb-963b-7cbdc02dd803",
   "event_id": "5a173f37-b9a2-5557-9110-7a8a95ad25bf",
   "score": 94,
   "verdict": "BLOCK_REC",
@@ -416,8 +416,8 @@
    "taint": 1.0,
    "taint_path": [
     "cust_c36876",
-    "varun.250@gmail.com",
-    "cust_e79449"
+    "dev_3a439f3f",
+    "cust_ddb568"
    ],
    "cluster": {
     "customers": 11,
@@ -456,10 +456,10 @@
   "explanation": null,
   "explanation_status": "PENDING",
   "challenger": null,
-  "created_at": "2026-08-30T17:43:31.612407+00:00"
+  "created_at": "2026-09-08T12:08:35.935371+00:00"
  },
  {
-  "verdict_id": "ad514623-cedc-407f-93d6-2cec4d3cbc7e",
+  "verdict_id": "f55d25db-7dec-4952-9cd0-bd5158a834f1",
   "event_id": "84b92754-505c-5941-8732-611bddbca80e",
   "score": 93,
   "verdict": "BLOCK_REC",
@@ -489,7 +489,7 @@
    "taint": 1.0,
    "taint_path": [
     "cust_dcfc81",
-    "+916733854027",
+    "dev_b7cfe871",
     "cust_752832"
    ],
    "cluster": {
@@ -529,10 +529,10 @@
   "explanation": null,
   "explanation_status": "PENDING",
   "challenger": null,
-  "created_at": "2026-08-30T17:43:28.219053+00:00"
+  "created_at": "2026-09-08T12:08:33.103757+00:00"
  },
  {
-  "verdict_id": "7c7a69e2-28a4-4c2e-9efb-d24cb5c46d7d",
+  "verdict_id": "69bde2c9-c4d6-4265-8d99-4770c9bcd4cb",
   "event_id": "10ebea66-ea56-5010-93a7-28f3073a676d",
   "score": 93,
   "verdict": "BLOCK_REC",
@@ -608,10 +608,10 @@
   "explanation": null,
   "explanation_status": "PENDING",
   "challenger": null,
-  "created_at": "2026-08-30T17:43:31.504882+00:00"
+  "created_at": "2026-09-08T12:08:35.846072+00:00"
  },
  {
-  "verdict_id": "c8ece011-e5a2-443c-804a-7004bd4bedb7",
+  "verdict_id": "a681b23f-87d5-4fe3-ae45-4cbe5d9bc024",
   "event_id": "3ac159eb-e07f-5353-b39c-dd5a4f5d451d",
   "score": 87,
   "verdict": "BLOCK_REC",
@@ -680,10 +680,10 @@
   "explanation": null,
   "explanation_status": "PENDING",
   "challenger": null,
-  "created_at": "2026-08-30T17:43:25.547646+00:00"
+  "created_at": "2026-09-08T12:08:31.347917+00:00"
  },
  {
-  "verdict_id": "908a7c1d-a8e6-4643-9a01-8869bad03d45",
+  "verdict_id": "820e92b7-0085-44c8-95f1-16dc51d30ae6",
   "event_id": "9711a044-f5c6-5a78-8468-ab745894a65d",
   "score": 87,
   "verdict": "BLOCK_REC",
@@ -752,10 +752,10 @@
   "explanation": null,
   "explanation_status": "PENDING",
   "challenger": null,
-  "created_at": "2026-08-30T17:43:25.558076+00:00"
+  "created_at": "2026-09-08T12:08:31.358927+00:00"
  },
  {
-  "verdict_id": "70421f5a-959c-4419-83a8-c5fcb5d0b145",
+  "verdict_id": "178d8c45-88eb-4da4-abfa-70d11c5e9b89",
   "event_id": "390b3a5e-a3f4-533b-85f0-9c8b84f179a8",
   "score": 87,
   "verdict": "BLOCK_REC",
@@ -784,8 +784,8 @@
    "taint": 1.0,
    "taint_path": [
     "cust_79a96d",
-    "dev_9bd4ad04",
-    "cust_91ef29"
+    "+917692986692",
+    "cust_0236ba"
    ],
    "cluster": {
     "customers": 9,
@@ -824,10 +824,10 @@
   "explanation": null,
   "explanation_status": "PENDING",
   "challenger": null,
-  "created_at": "2026-08-30T17:43:25.586164+00:00"
+  "created_at": "2026-09-08T12:08:31.372734+00:00"
  },
  {
-  "verdict_id": "94f59adc-b102-43d6-9486-461a32318e52",
+  "verdict_id": "1159086a-cf0b-4a86-97d5-113604a6802a",
   "event_id": "efdb048b-660e-5e97-9448-08cc1b10216d",
   "score": 87,
   "verdict": "BLOCK_REC",
@@ -896,10 +896,10 @@
   "explanation": null,
   "explanation_status": "PENDING",
   "challenger": null,
-  "created_at": "2026-08-30T17:43:25.619840+00:00"
+  "created_at": "2026-09-08T12:08:31.399290+00:00"
  },
  {
-  "verdict_id": "5f4d1784-2773-4be1-be4b-8174dd915584",
+  "verdict_id": "d9a42de9-3dad-43a6-9dc7-22a33dfec03d",
   "event_id": "41e73565-1516-586f-9683-603e3642f27a",
   "score": 87,
   "verdict": "BLOCK_REC",
@@ -968,10 +968,10 @@
   "explanation": null,
   "explanation_status": "PENDING",
   "challenger": null,
-  "created_at": "2026-08-30T17:43:25.623736+00:00"
+  "created_at": "2026-09-08T12:08:31.404304+00:00"
  },
  {
-  "verdict_id": "51a92a4c-398b-4618-99f0-3316fef9a3a4",
+  "verdict_id": "83fdcb4f-782e-42b6-a81a-10be19f7ee74",
   "event_id": "ab573da2-4cca-51c7-8638-8e9c10dc19d5",
   "score": 87,
   "verdict": "BLOCK_REC",
@@ -1040,10 +1040,10 @@
   "explanation": null,
   "explanation_status": "PENDING",
   "challenger": null,
-  "created_at": "2026-08-30T17:43:25.636949+00:00"
+  "created_at": "2026-09-08T12:08:31.413799+00:00"
  },
  {
-  "verdict_id": "dbb54a1f-97ae-4cd0-b905-31cad7a010e0",
+  "verdict_id": "66ed14ee-6c8c-4566-b21a-0a2ddb0a524d",
   "event_id": "05c53736-7a07-5b9a-bdd6-70b48fd3d06c",
   "score": 87,
   "verdict": "BLOCK_REC",
@@ -1072,7 +1072,7 @@
    "taint": 1.0,
    "taint_path": [
     "cust_c24f8c",
-    "dev_9bd4ad04",
+    "kalpana.647@gmail.com",
     "cust_91ef29"
    ],
    "cluster": {
@@ -1112,10 +1112,10 @@
   "explanation": null,
   "explanation_status": "PENDING",
   "challenger": null,
-  "created_at": "2026-08-30T17:43:25.636949+00:00"
+  "created_at": "2026-09-08T12:08:31.417799+00:00"
  },
  {
-  "verdict_id": "31baba51-f225-4ac3-9887-b816ffb59535",
+  "verdict_id": "e2985523-095a-4703-a15b-75b7bde81ec7",
   "event_id": "3eccd50c-7db3-50f6-9d2f-c6367da2a744",
   "score": 87,
   "verdict": "BLOCK_REC",
@@ -1184,10 +1184,10 @@
   "explanation": null,
   "explanation_status": "PENDING",
   "challenger": null,
-  "created_at": "2026-08-30T17:43:25.702791+00:00"
+  "created_at": "2026-09-08T12:08:31.471646+00:00"
  },
  {
-  "verdict_id": "d568eb72-e56e-4bbd-97be-cc4928109433",
+  "verdict_id": "ee641f82-6134-4ce2-aa14-1c6e6834108a",
   "event_id": "b77d019a-acab-5582-a1b5-5c3d082a12a5",
   "score": 87,
   "verdict": "BLOCK_REC",
@@ -1256,10 +1256,10 @@
   "explanation": null,
   "explanation_status": "PENDING",
   "challenger": null,
-  "created_at": "2026-08-30T17:43:25.727930+00:00"
+  "created_at": "2026-09-08T12:08:31.489351+00:00"
  },
  {
-  "verdict_id": "55b1b80a-8e44-4575-8601-55b890f4c1ca",
+  "verdict_id": "2cc3be39-0dd1-4917-9ab3-8269ecbafa8f",
   "event_id": "3e066db5-811d-55b3-a6ea-c1b9acd08c0f",
   "score": 87,
   "verdict": "BLOCK_REC",
@@ -1288,7 +1288,7 @@
    "taint": 1.0,
    "taint_path": [
     "cust_8eb37c",
-    "kalpanashruti38@gmail.com",
+    "dev_9bd4ad04",
     "cust_0236ba"
    ],
    "cluster": {
@@ -1328,10 +1328,10 @@
   "explanation": null,
   "explanation_status": "PENDING",
   "challenger": null,
-  "created_at": "2026-08-30T17:43:25.971205+00:00"
+  "created_at": "2026-09-08T12:08:31.632382+00:00"
  },
  {
-  "verdict_id": "7116ed7c-2b9f-4de8-bee6-d6569b4ddf2b",
+  "verdict_id": "d8d5dfbe-3f84-4db6-a936-41674623e59e",
   "event_id": "f325280a-4bd1-56fc-a5cc-170de81b0e96",
   "score": 87,
   "verdict": "BLOCK_REC",
@@ -1360,8 +1360,8 @@
    "taint": 1.0,
    "taint_path": [
     "cust_9cd653",
-    "dev_9bd4ad04",
-    "cust_91ef29"
+    "+916453257089",
+    "cust_c24f8c"
    ],
    "cluster": {
     "customers": 13,
@@ -1400,10 +1400,10 @@
   "explanation": null,
   "explanation_status": "PENDING",
   "challenger": null,
-  "created_at": "2026-08-30T17:43:25.979224+00:00"
+  "created_at": "2026-09-08T12:08:31.639488+00:00"
  },
  {
-  "verdict_id": "ebd4c824-2e6f-4b93-8e74-153b1ea18588",
+  "verdict_id": "6a75c876-2fa3-45c4-902e-bd52574e27a3",
   "event_id": "2a50dfa4-bd18-5925-9bf0-cee8d0b75810",
   "score": 87,
   "verdict": "BLOCK_REC",
@@ -1472,10 +1472,10 @@
   "explanation": null,
   "explanation_status": "PENDING",
   "challenger": null,
-  "created_at": "2026-08-30T17:43:26.060453+00:00"
+  "created_at": "2026-09-08T12:08:31.663391+00:00"
  },
  {
-  "verdict_id": "2a9cf26d-dbe8-4164-97a7-aa1891170be4",
+  "verdict_id": "a4aed224-feac-4783-983f-a07271f078d8",
   "event_id": "9dcb2907-1ac0-5674-9a7a-b8d78220e8b5",
   "score": 87,
   "verdict": "BLOCK_REC",
@@ -1504,7 +1504,7 @@
    "taint": 1.0,
    "taint_path": [
     "cust_13a047",
-    "+919599112088",
+    "dev_454ad3f1",
     "cust_2a7e28"
    ],
    "cluster": {
@@ -1544,10 +1544,10 @@
   "explanation": null,
   "explanation_status": "PENDING",
   "challenger": null,
-  "created_at": "2026-08-30T17:43:26.068243+00:00"
+  "created_at": "2026-09-08T12:08:31.667490+00:00"
  },
  {
-  "verdict_id": "45a893b2-03d6-48c8-bd12-6891071f9736",
+  "verdict_id": "8d7ed608-89c5-426f-b97d-1839890dce35",
   "event_id": "e844a293-a236-5e11-af73-8a1878dfbcef",
   "score": 87,
   "verdict": "BLOCK_REC",
@@ -1616,10 +1616,10 @@
   "explanation": null,
   "explanation_status": "PENDING",
   "challenger": null,
-  "created_at": "2026-08-30T17:43:26.099878+00:00"
+  "created_at": "2026-09-08T12:08:31.686897+00:00"
  },
  {
-  "verdict_id": "dd7cb2b1-9965-4caf-af8c-81f6627a473b",
+  "verdict_id": "8b70502e-49fe-4768-b048-4078e2517aba",
   "event_id": "de3caabe-a81d-56a4-848d-81b21a3387ab",
   "score": 87,
   "verdict": "BLOCK_REC",
@@ -1648,8 +1648,8 @@
    "taint": 1.0,
    "taint_path": [
     "cust_82b30a",
-    "+919599112088",
-    "cust_2a7e28"
+    "poojaaarti40@gmail.com",
+    "cust_13a047"
    ],
    "cluster": {
     "customers": 13,
@@ -1688,10 +1688,10 @@
   "explanation": null,
   "explanation_status": "PENDING",
   "challenger": null,
-  "created_at": "2026-08-30T17:43:26.147453+00:00"
+  "created_at": "2026-09-08T12:08:31.693615+00:00"
  },
  {
-  "verdict_id": "719758cc-534d-4f0d-98ec-d60ea3f9da53",
+  "verdict_id": "8a09de34-75e0-4039-bfce-ab8fc739ccd1",
   "event_id": "17871754-331d-54de-9bd9-f44170f93e5a",
   "score": 85,
   "verdict": "BLOCK_REC",
@@ -1760,10 +1760,10 @@
   "explanation": null,
   "explanation_status": "PENDING",
   "challenger": null,
-  "created_at": "2026-08-30T17:43:25.613175+00:00"
+  "created_at": "2026-09-08T12:08:31.395302+00:00"
  },
  {
-  "verdict_id": "25f9f76c-f274-4b57-8efc-17acad793236",
+  "verdict_id": "f873d938-01cb-4c22-817d-887a8ebb150a",
   "event_id": "71e82349-3003-5caf-96b9-63fd3a49ee75",
   "score": 85,
   "verdict": "BLOCK_REC",
@@ -1799,8 +1799,8 @@
    "taint": 1.0,
    "taint_path": [
     "cust_b47ae3",
-    "+917907457079",
-    "cust_1610b8"
+    "varunmeera12@gmail.com",
+    "cust_ddb568"
    ],
    "cluster": {
     "customers": 8,
@@ -1839,10 +1839,10 @@
   "explanation": null,
   "explanation_status": "PENDING",
   "challenger": null,
-  "created_at": "2026-08-30T17:43:31.423244+00:00"
+  "created_at": "2026-09-08T12:08:35.758932+00:00"
  },
  {
-  "verdict_id": "fd2ea751-c063-437c-bd0c-e30a401ad72a",
+  "verdict_id": "2c85c461-4b43-4334-afe3-fda2be2c8314",
   "event_id": "0a532bb5-1ecd-5c7a-b2f9-07ec6df02d4d",
   "score": 84,
   "verdict": "BLOCK_REC",
@@ -1878,8 +1878,8 @@
    "taint": 1.0,
    "taint_path": [
     "cust_320510",
-    "dev_c519d85a",
-    "cust_759039"
+    "+917830313110",
+    "cust_ea30c1"
    ],
    "cluster": {
     "customers": 7,
@@ -1918,10 +1918,10 @@
   "explanation": null,
   "explanation_status": "PENDING",
   "challenger": null,
-  "created_at": "2026-08-30T17:43:29.802040+00:00"
+  "created_at": "2026-09-08T12:08:34.455722+00:00"
  },
  {
-  "verdict_id": "03a0bc49-28c2-45ef-bb59-a269b18ede31",
+  "verdict_id": "134f505e-4e0b-443e-84ef-d0ccc4563bbe",
   "event_id": "46ee34f4-dc22-56c4-b0d1-c0d4536e3c6c",
   "score": 84,
   "verdict": "BLOCK_REC",
@@ -1996,10 +1996,10 @@
   "explanation": null,
   "explanation_status": "PENDING",
   "challenger": null,
-  "created_at": "2026-08-30T17:43:29.892842+00:00"
+  "created_at": "2026-09-08T12:08:34.507816+00:00"
  },
  {
-  "verdict_id": "6895ff78-849b-4986-a9db-6a5b44930e62",
+  "verdict_id": "7b3d1138-1aa8-45ad-bc2b-c723f6b5e4ca",
   "event_id": "1e480b14-e320-5869-a661-a49c62974424",
   "score": 84,
   "verdict": "BLOCK_REC",
@@ -2074,10 +2074,10 @@
   "explanation": null,
   "explanation_status": "PENDING",
   "challenger": null,
-  "created_at": "2026-08-30T17:43:31.447133+00:00"
+  "created_at": "2026-09-08T12:08:35.787219+00:00"
  },
  {
-  "verdict_id": "32fff895-c35d-40d3-9ea5-f6c0f946f94d",
+  "verdict_id": "967b3800-a6f0-479d-b76a-39bbd7ae6a70",
   "event_id": "a0cc1995-aed8-5b2b-b245-0ffce537fe7e",
   "score": 83,
   "verdict": "BLOCK_REC",
@@ -2146,10 +2146,10 @@
   "explanation": null,
   "explanation_status": "PENDING",
   "challenger": null,
-  "created_at": "2026-08-30T17:43:25.604692+00:00"
+  "created_at": "2026-09-08T12:08:31.389699+00:00"
  },
  {
-  "verdict_id": "d898f502-4b53-427f-8270-46842678bb20",
+  "verdict_id": "18979959-0ab9-48b0-86b4-66777d120beb",
   "event_id": "2ffa34ef-6004-5bfe-949a-c24beca4d404",
   "score": 83,
   "verdict": "BLOCK_REC",
@@ -2184,8 +2184,8 @@
    "taint": 1.0,
    "taint_path": [
     "cust_4a4cca",
-    "+917644681740",
-    "cust_ddb568"
+    "varunmeera12@gmail.com",
+    "cust_1610b8"
    ],
    "cluster": {
     "customers": 6,
@@ -2224,10 +2224,10 @@
   "explanation": null,
   "explanation_status": "PENDING",
   "challenger": null,
-  "created_at": "2026-08-30T17:43:31.407015+00:00"
+  "created_at": "2026-09-08T12:08:35.743925+00:00"
  },
  {
-  "verdict_id": "26af5e4e-7858-4826-b43b-73b248f936fd",
+  "verdict_id": "5cee6358-c62f-411c-b351-2d817123fdb4",
   "event_id": "fe072e87-39cc-52e3-9d20-5fe5a6952573",
   "score": 82,
   "verdict": "BLOCK_REC",
@@ -2302,10 +2302,10 @@
   "explanation": null,
   "explanation_status": "PENDING",
   "challenger": null,
-  "created_at": "2026-08-30T17:43:29.794211+00:00"
+  "created_at": "2026-09-08T12:08:34.443714+00:00"
  },
  {
-  "verdict_id": "c6382728-2813-4596-9244-dfd30390e8e8",
+  "verdict_id": "f02239aa-6d5c-42e2-84c8-58f677794c3a",
   "event_id": "2e27cf12-b5da-5e4e-86f9-b0d0374f9757",
   "score": 82,
   "verdict": "BLOCK_REC",
@@ -2340,7 +2340,7 @@
    "taint": 1.0,
    "taint_path": [
     "cust_3356bd",
-    "+917907457079",
+    "dev_3a439f3f",
     "cust_1610b8"
    ],
    "cluster": {
@@ -2380,10 +2380,10 @@
   "explanation": null,
   "explanation_status": "PENDING",
   "challenger": null,
-  "created_at": "2026-08-30T17:43:31.340079+00:00"
+  "created_at": "2026-09-08T12:08:35.681861+00:00"
  },
  {
-  "verdict_id": "85f65da0-3fad-4b4d-b542-b355da5af9d6",
+  "verdict_id": "f8412e5b-0869-455e-a02d-368b95083d76",
   "event_id": "fd4f732b-01f8-50f8-ad8e-07157f633ff4",
   "score": 82,
   "verdict": "BLOCK_REC",
@@ -2458,10 +2458,10 @@
   "explanation": null,
   "explanation_status": "PENDING",
   "challenger": null,
-  "created_at": "2026-08-30T17:43:31.351379+00:00"
+  "created_at": "2026-09-08T12:08:35.686848+00:00"
  },
  {
-  "verdict_id": "bd68d641-9282-4b15-b534-208c068f956f",
+  "verdict_id": "75c3f02a-f13a-4f88-a0c1-d640bf9f0585",
   "event_id": "d2e2495b-e3f1-5717-989f-71b49c040e53",
   "score": 78,
   "verdict": "BLOCK_REC",
@@ -2536,10 +2536,10 @@
   "explanation": null,
   "explanation_status": "PENDING",
   "challenger": null,
-  "created_at": "2026-08-30T17:43:31.044706+00:00"
+  "created_at": "2026-09-08T12:08:35.432682+00:00"
  },
  {
-  "verdict_id": "eac989ca-deb2-4829-afaf-357a1b588c96",
+  "verdict_id": "8b66214f-da4a-4089-a7d1-b133a41caf3c",
   "event_id": "ece0e452-1ed0-5c35-b713-4b811042ab7e",
   "score": 77,
   "verdict": "BLOCK_REC",
@@ -2603,10 +2603,10 @@
   "explanation": null,
   "explanation_status": "PENDING",
   "challenger": null,
-  "created_at": "2026-08-30T17:43:25.539177+00:00"
+  "created_at": "2026-09-08T12:08:31.342913+00:00"
  },
  {
-  "verdict_id": "f325adda-15c7-4bec-b57a-734f6f6baa38",
+  "verdict_id": "90bd0242-0332-4b16-8108-1bf79948efb1",
   "event_id": "4844ce9f-01ae-57b9-a799-6886e6407990",
   "score": 76,
   "verdict": "BLOCK_REC",
@@ -2645,8 +2645,8 @@
    "taint": 1.0,
    "taint_path": [
     "cust_8175bf",
-    "+918941154171",
-    "cust_d772a3"
+    "riya.555@gmail.com",
+    "cust_d895e7"
    ],
    "cluster": {
     "customers": 7,
@@ -2685,10 +2685,10 @@
   "explanation": null,
   "explanation_status": "PENDING",
   "challenger": null,
-  "created_at": "2026-08-30T17:43:31.274518+00:00"
+  "created_at": "2026-09-08T12:08:35.624853+00:00"
  },
  {
-  "verdict_id": "7ba6df77-1a90-42a9-9e84-655ebfc89c73",
+  "verdict_id": "57ad699f-66b4-418f-82d5-ac3bef09196b",
   "event_id": "1b4d4aad-1a2a-532b-ba0e-3c41d38913d2",
   "score": 75,
   "verdict": "BLOCK_REC",
@@ -2721,7 +2721,7 @@
    "taint": 1.0,
    "taint_path": [
     "cust_7278ee",
-    "dev_f8d45285",
+    "+919099628554",
     "cust_47d46e"
    ],
    "cluster": {
@@ -2761,10 +2761,10 @@
   "explanation": null,
   "explanation_status": "PENDING",
   "challenger": null,
-  "created_at": "2026-08-30T17:43:26.365483+00:00"
+  "created_at": "2026-09-08T12:08:31.754746+00:00"
  },
  {
-  "verdict_id": "a29491dd-b45e-4cb6-97e6-ed0faf6c9d54",
+  "verdict_id": "0bd246c4-90cc-4402-b35d-a3e3f782fdba",
   "event_id": "194355ce-5646-552a-ac17-1c657afae840",
   "score": 75,
   "verdict": "BLOCK_REC",
@@ -2837,10 +2837,10 @@
   "explanation": null,
   "explanation_status": "PENDING",
   "challenger": null,
-  "created_at": "2026-08-30T17:43:28.862828+00:00"
+  "created_at": "2026-09-08T12:08:33.642082+00:00"
  },
  {
-  "verdict_id": "fd1d889d-39f2-4df0-b9b7-9525798e8f7a",
+  "verdict_id": "e08cc1b3-510f-42b6-8d41-fc796a0dc5ec",
   "event_id": "6fc5fd49-7406-5b79-87d6-a311e477c421",
   "score": 75,
   "verdict": "BLOCK_REC",
@@ -2913,10 +2913,10 @@
   "explanation": null,
   "explanation_status": "PENDING",
   "challenger": null,
-  "created_at": "2026-08-30T17:43:28.994517+00:00"
+  "created_at": "2026-09-08T12:08:33.735074+00:00"
  },
  {
-  "verdict_id": "db254b6d-d503-4c9f-8129-de2c9e5d7651",
+  "verdict_id": "dda99a98-c6de-4367-b48e-3f050fa211ed",
   "event_id": "9813e1c6-805c-5712-b68b-1e5c7b7e93a8",
   "score": 75,
   "verdict": "BLOCK_REC",
@@ -2955,8 +2955,8 @@
    "taint": 1.0,
    "taint_path": [
     "cust_c7edd2",
-    "+918941154171",
-    "cust_d772a3"
+    "riya.555@gmail.com",
+    "cust_d895e7"
    ],
    "cluster": {
     "customers": 6,
@@ -2995,10 +2995,10 @@
   "explanation": null,
   "explanation_status": "PENDING",
   "challenger": null,
-  "created_at": "2026-08-30T17:43:31.109130+00:00"
+  "created_at": "2026-09-08T12:08:35.486008+00:00"
  },
  {
-  "verdict_id": "b79cf13b-9516-4ed1-8f66-f2d2982220c5",
+  "verdict_id": "587a2a63-74ea-43d4-b615-cc81afa19819",
   "event_id": "974e961c-97ba-55e7-8ff0-1132e3eca07c",
   "score": 73,
   "verdict": "BLOCK_REC",
@@ -3062,10 +3062,10 @@
   "explanation": null,
   "explanation_status": "PENDING",
   "challenger": null,
-  "created_at": "2026-08-30T17:43:28.022979+00:00"
+  "created_at": "2026-09-08T12:08:32.972751+00:00"
  },
  {
-  "verdict_id": "0f459106-aed6-4609-801e-f21893584776",
+  "verdict_id": "237c8bd0-c8dc-41f4-9f1e-bbd6ca26d2b8",
   "event_id": "e82332b4-3156-5d3d-a4e7-2d6f979e04bf",
   "score": 73,
   "verdict": "BLOCK_REC",
@@ -3139,10 +3139,10 @@
   "explanation": null,
   "explanation_status": "PENDING",
   "challenger": null,
-  "created_at": "2026-08-30T17:43:29.768823+00:00"
+  "created_at": "2026-09-08T12:08:34.421620+00:00"
  },
  {
-  "verdict_id": "81c42b7e-b1cc-4eb0-8d9f-190379aacbcf",
+  "verdict_id": "61f57c5e-ab3d-41d1-a749-8c81774ec008",
   "event_id": "6a871e07-9918-53fd-8d4d-83c993a7bd66",
   "score": 73,
   "verdict": "BLOCK_REC",
@@ -3216,10 +3216,10 @@
   "explanation": null,
   "explanation_status": "PENDING",
   "challenger": null,
-  "created_at": "2026-08-30T17:43:29.785428+00:00"
+  "created_at": "2026-09-08T12:08:34.432713+00:00"
  },
  {
-  "verdict_id": "fa607c38-01da-4855-993b-551093d721d5",
+  "verdict_id": "46a932e9-b453-4048-af09-2a2d73f9cd3b",
   "event_id": "b0391943-9916-5ee3-a723-cb2b9018cb45",
   "score": 72,
   "verdict": "BLOCK_REC",
@@ -3287,10 +3287,10 @@
   "explanation": null,
   "explanation_status": "PENDING",
   "challenger": null,
-  "created_at": "2026-08-30T17:43:25.596836+00:00"
+  "created_at": "2026-09-08T12:08:31.385705+00:00"
  },
  {
-  "verdict_id": "f1c1c4cb-2a7d-43fa-81ac-5277930f432c",
+  "verdict_id": "a3003a73-376f-4d6d-bfae-9192354bc91d",
   "event_id": "7ce7933a-ad64-59da-98d4-8eef3b9334a1",
   "score": 72,
   "verdict": "BLOCK_REC",
@@ -3318,7 +3318,7 @@
    "taint_path": [
     "cust_58f803",
     "dev_221ce5ac",
-    "cust_b1e431"
+    "cust_c4f7d0"
    ],
    "cluster": {
     "customers": 6,
@@ -3357,10 +3357,10 @@
   "explanation": null,
   "explanation_status": "PENDING",
   "challenger": null,
-  "created_at": "2026-08-30T17:43:28.348716+00:00"
+  "created_at": "2026-09-08T12:08:33.188573+00:00"
  },
  {
-  "verdict_id": "ed1fd07e-7beb-47ee-a888-b7a78ac6d6d3",
+  "verdict_id": "e847fb95-fc8b-4954-98a8-840cc3b10440",
   "event_id": "9166a5a3-a6ef-5186-972e-c2a790d2981e",
   "score": 72,
   "verdict": "BLOCK_REC",
@@ -3388,7 +3388,7 @@
    "taint": 1.0,
    "taint_path": [
     "cust_74cb45",
-    "dev_c519d85a",
+    "deepaananya37@gmail.com",
     "cust_759039"
    ],
    "cluster": {
@@ -3428,10 +3428,10 @@
   "explanation": null,
   "explanation_status": "PENDING",
   "challenger": null,
-  "created_at": "2026-08-30T17:43:29.768823+00:00"
+  "created_at": "2026-09-08T12:08:34.416562+00:00"
  },
  {
-  "verdict_id": "f23aa11a-c7b7-4d41-bbdb-5b7d32aafaf2",
+  "verdict_id": "662ea087-5dfb-44d1-bfba-569550bb8ccf",
   "event_id": "8f76a735-7f3e-5397-acc7-e622e7f1927c",
   "score": 71,
   "verdict": "BLOCK_REC",
@@ -3510,10 +3510,10 @@
   "explanation": null,
   "explanation_status": "PENDING",
   "challenger": null,
-  "created_at": "2026-08-30T17:43:30.580373+00:00"
+  "created_at": "2026-09-08T12:08:35.085896+00:00"
  },
  {
-  "verdict_id": "782da221-a33f-43c8-9be9-b699e3b22a8c",
+  "verdict_id": "135e3dff-16ff-4320-95b4-7810a0675a4e",
   "event_id": "d3a08af0-b59b-541b-9222-b87236106564",
   "score": 70,
   "verdict": "BLOCK_REC",
@@ -3546,7 +3546,7 @@
    "taint": 1.0,
    "taint_path": [
     "cust_149071",
-    "meera.tanvi@gmail.com",
+    "+919099628554",
     "cust_47d46e"
    ],
    "cluster": {
@@ -3586,10 +3586,10 @@
   "explanation": null,
   "explanation_status": "PENDING",
   "challenger": null,
-  "created_at": "2026-08-30T17:43:25.901747+00:00"
+  "created_at": "2026-09-08T12:08:31.592595+00:00"
  },
  {
-  "verdict_id": "b63ec86d-f65d-4efb-8c1c-434bbc81c5f4",
+  "verdict_id": "39d785ae-17bb-4b3a-8a78-280b80a3e699",
   "event_id": "0782118c-c266-599f-9967-4e1176bbf324",
   "score": 69,
   "verdict": "REVIEW",
@@ -3658,10 +3658,10 @@
   "explanation": null,
   "explanation_status": "PENDING",
   "challenger": null,
-  "created_at": "2026-08-30T17:43:28.829800+00:00"
+  "created_at": "2026-09-08T12:08:33.624074+00:00"
  },
  {
-  "verdict_id": "01b479d6-82a9-493a-874e-d4255a672bc1",
+  "verdict_id": "ea67d618-991b-4db1-b01a-19ba01d89a88",
   "event_id": "8ad17933-2ad1-51fb-8d86-da9c8661c2bd",
   "score": 69,
   "verdict": "REVIEW",
@@ -3735,6 +3735,6 @@
   "explanation": null,
   "explanation_status": "PENDING",
   "challenger": null,
-  "created_at": "2026-08-30T17:43:29.283967+00:00"
+  "created_at": "2026-09-08T12:08:33.982428+00:00"
  }
 ]

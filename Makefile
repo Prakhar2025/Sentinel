@@ -15,12 +15,12 @@ setup:
 	$(PY) -m pip install --upgrade pip
 	$(PY) -m pip install -r requirements.txt
 	$(PY) -m pip install -e . --no-deps
-	@cp scripts/hooks/pre-commit .git/hooks/pre-commit 2>/dev/null || true
+	@-$(PY) -c "import shutil;shutil.copy('scripts/hooks/pre-commit','.git/hooks/pre-commit')"
 	@echo "Setup complete. Activate: .venv/Scripts/activate"
 
 # Install git hooks only (idempotent).
 hooks:
-	@cp scripts/hooks/pre-commit .git/hooks/pre-commit 2>/dev/null || true
+	@-$(PY) -c "import shutil;shutil.copy('scripts/hooks/pre-commit','.git/hooks/pre-commit')"
 	@echo "hooks installed"
 
 # Everything CI runs, locally.
@@ -83,7 +83,9 @@ calibrate:
 
 # Held-out evaluation; calibrates first on a fresh clone (no locked config yet).
 evaluate:
-	@test -f evaluation/model_config.json || $(MAKE) calibrate
+ifeq ($(wildcard evaluation/model_config.json),)
+	$(PY) -m sentinel.calibrate
+endif
 	$(PY) -m sentinel.evaluate
 
 # Phase 0: one-shot Bedrock model verification (bounded spend; see docs/08).
@@ -91,5 +93,4 @@ models:
 	$(PY) scripts/verify_models.py
 
 clean:
-	@rm -rf .pytest_cache .mypy_cache .ruff_cache .coverage htmlcov
-	@find . -type d -name __pycache__ -not -path "./.venv/*" -exec rm -rf {} + 2>/dev/null || true
+	@$(PY) scripts/clean.py

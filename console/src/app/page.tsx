@@ -96,7 +96,7 @@ export default function QueuePage() {
       </section>
 
       {current ? (
-        <EvidencePanel verdict={current} reviewAt={35} blockAt={49} />
+        <EvidencePanel verdict={current} reviewAt={42} blockAt={49} />
       ) : (
         <section className="flex h-96 items-center justify-center rounded-lg border border-hairline bg-panel">
           <span className="micro">select a verdict</span>

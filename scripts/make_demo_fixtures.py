@@ -116,7 +116,7 @@ def main() -> int:
 
         clusters: dict[str, Any] = {}
         graph = _rebuild_graph(store)
-        for row in queue[:8]:
+        for row in queue:
             customer = (row.get("evidence") or {}).get("customer_id")
             if not customer:
                 continue

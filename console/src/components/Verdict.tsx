@@ -16,7 +16,7 @@ export function VerdictBadge({ verdict }: { verdict: "ALLOW" | "REVIEW" | "BLOCK
 }
 
 export function ScoreNumber({ score }: { score: number }) {
-  const color = score >= 70 ? "text-block" : score >= 35 ? "text-amber" : "text-allow";
+  const color = score >= 49 ? "text-block" : score >= 42 ? "text-amber" : "text-allow";
   return <span className={`data text-[15px] font-semibold ${color}`}>{score}</span>;
 }
 
