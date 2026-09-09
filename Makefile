@@ -1,6 +1,3 @@
-LIVE_API := https://jwss73rdpj.us-east-1.awsapprunner.com
-LIVE_KEY := pk_live_eee2a134ff8835d0
-
 .PHONY: setup check lint format type test test-all console-setup console snapshot-live serve backfill snapshot merchant-token challenger loadtest calibrate evaluate models hooks clean
 
 # Interpreter path. Absolute via CURDIR: GNU make on Windows without a POSIX
@@ -72,9 +69,10 @@ snapshot:
 
 # Console build wired to the deployed App Runner API (playground works; needs
 # the service running). Contrast with `snapshot`, which bakes fixtures and
-# needs no backend at all.
+# needs no backend at all. Endpoint and key come from deploy/live-console.env,
+# which is gitignored: no deployment value belongs in a tracked file.
 snapshot-live:
-	$(PY) scripts/build_live_console.py $(LIVE_API) $(LIVE_KEY)
+	$(PY) scripts/build_live_console.py
 
 # Mint a per-merchant JWT (default TTL 24h): make merchant-token MERCHANT_ID=mcht_00001
 merchant-token:

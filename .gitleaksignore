@@ -2,5 +2,13 @@
 # (dev-sentinel-key in a CI curl header, then a CI dummy postgres URL),
 # not credentials. Historical commits cannot be edited without rewriting;
 # the current content uses env vars so no new findings appear.
+#
+# The third entry is the hosted console's public API key, briefly committed
+# into the Makefile. It is public by construction: it ships inside the
+# CloudFront JS bundle so every visitor already has it, and PUBLIC_DEMO=1
+# disables the admin surface server-side, so it grants only the read/score
+# access the demo intends. It has since moved to deploy/live-console.env,
+# which is gitignored; no tracked file carries a deployment value.
 046547217cbe771646c62adcae94129a8a8d613c:.github/workflows/ci.yml:curl-auth-header:50
 50c2afd5bbc4ad81bcb505218e42e20b53a1963c:.github/workflows/ci.yml:curl-auth-header:50
+a2894ea02db6fa7293f132575302cb3502ae53e1:Makefile:generic-api-key:2

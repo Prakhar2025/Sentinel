@@ -15,7 +15,6 @@ from __future__ import annotations
 
 import os
 import subprocess
-import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -23,11 +22,29 @@ CONSOLE = ROOT / "console"
 OVERRIDE = CONSOLE / ".env.production.local"
 
 
+def _read_env_file(path: Path) -> dict[str, str]:
+    """Parse a KEY=value file, ignoring blanks and # comments."""
+    if not path.is_file():
+        return {}
+    values: dict[str, str] = {}
+    for line in path.read_text(encoding="utf-8").splitlines():
+        line = line.strip()
+        if not line or line.startswith("#") or "=" not in line:
+            continue
+        key, _, value = line.partition("=")
+        values[key.strip()] = value.strip()
+    return values
+
+
 def main() -> int:
-    if len(sys.argv) != 3:
-        print("usage: build_live_console.py <api-url> <api-key>")
+    settings = _read_env_file(ROOT / "deploy" / "live-console.env")
+    api_url, api_key = settings.get("LIVE_API"), settings.get("LIVE_KEY")
+    if not api_url or not api_key:
+        print(
+            "deploy/live-console.env must define LIVE_API and LIVE_KEY. "
+            "That file is gitignored on purpose; see deploy/HOSTING.md for the values."
+        )
         return 2
-    api_url, api_key = sys.argv[1], sys.argv[2]
 
     OVERRIDE.write_text(
         f"NEXT_PUBLIC_API_URL={api_url}\nNEXT_PUBLIC_API_KEY={api_key}\nNEXT_PUBLIC_DEMO=\n",
